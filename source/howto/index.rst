@@ -15,6 +15,7 @@
     properties/index
     actions/index
     events/index
+    state_machine
     object_proxy
     eventloop
     
