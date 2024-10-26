@@ -3,10 +3,14 @@ Properties In-Depth
 
 Properties expose python attributes to clients & support custom get-set(-delete) functions. 
 ``hololinked`` uses ``param`` under the hood to implement properties, which in turn uses the
-descriptor protocol. Python's own ``property`` is not supported 
-for remote access due to limitations in using foreign attributes within the ``property`` object. Said limitation 
-causes redundancy with implementation of ``hololinked.server.Property``, nevertheless, the term ``Property`` 
-(with capital 'P') is used to comply with the terminology of Web of Things. 
+descriptor protocol. 
+
+.. note::
+
+    Python's own ``property`` is not supported for remote access due to limitations in using foreign attributes 
+    within the ``property`` object. Said limitation causes redundancy with implementation of 
+    ``hololinked.server.Property``, nevertheless, the term ``Property`` 
+    (with capital 'P') is used to comply with the terminology of Web of Things. 
 
 .. toctree::
     :hidden:
@@ -15,30 +19,37 @@ causes redundancy with implementation of ``hololinked.server.Property``, neverth
     arguments
 ..     extending
 
-Untyped/Custom typed Property 
+Untyped/Custom Typed Property 
 -----------------------------
 
-To make a property take any value, use the base class ``Property``:
+:doc:`API Reference <../../autodoc/server/properties/index>`
+
+To make a property take any python value, use the base class ``Property``:
 
 .. literalinclude:: ../code/properties/untyped.py
     :language: python
     :linenos:
-    :lines: 1-10, 37-39
+    :lines: 1-10, 39-41
   
-The descriptor object (instance of ``Property``) that performs the get-set operations & auto-allocation 
+The descriptor object (instance of ``Property``) that performs the get-set operations or auto-allocation 
 of an internal instance variable for the property can be accessed by the instance under 
 ``self.properties.descriptors["<property name>"]``:
 
 .. literalinclude:: ../code/properties/untyped.py
     :language: python
     :linenos:
-
+    :lines: 1-7, 11-
 
 Expectedly, the value of the property must be serializable to be read by the clients. Read the serializer 
 section for further details & customization. 
 
-Typed Properties
-----------------
+To make a property only locally accessible, set ``remote=False``, i.e. such a property will not accessible 
+on the network. 
+
+Built-in Typed Properties
+-------------------------
+
+:doc:`API Reference <../../autodoc/server/properties/types/index>`
 
 Certain typed properties are already available in ``hololinked.server.properties``, 
 defined by ``param``:
@@ -62,7 +73,7 @@ defined by ``param``:
         - tristate if ``allow_None=True``
     *   - iterables 
         - ``Iterable``
-        - length/bounds, item_type, dtype (allowed type of the iterable itself like list, tuple etc.)
+        - length/bounds, item_type, dtype (allowed type of the iterable itself like list or tuple or deque etc.)
     *   - tuple 
         - ``Tuple`` 
         - same as iterable 
@@ -91,11 +102,19 @@ defined by ``param``:
         - ``TypedDict``, ``TypedKeyMappingsDict``
         - typed updates, assignments    
 
-More examples:
+An example:
 
 .. literalinclude:: ../code/properties/typed.py 
     :language: python
     :linenos:
+    :lines: 2-5, 37-60
 
 For typed properties, before the setter is invoked, the value is internally validated. 
-The return value of getter method is never validated and is left to the developer's caution. 
+The return value of getter method is never validated and is left to the developer's or the client object's caution. 
+
+Schema Constrained Property 
+---------------------------
+
+For complicated data structures, one can use ``pydantic`` or JSON schema based type definition and validation. 
+``pydantic`` supports all python types whereas JSON schema allows only JSON compatible types. Set the model argument 
+to define the type:

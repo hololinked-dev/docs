@@ -1,12 +1,12 @@
 from logging import Logger
 from hololinked.server import Thing, Property
 from hololinked.server.serializers import JSONSerializer
-
+import numpy
 
 class TestObject(Thing):
     
-    my_untyped_serializable_attribute = Property(default=5, 
-                allow_None=True, doc="this property can hold any value")
+    my_untyped_serializable_attribute = Property(default=frozenset([2, 3, 4]), 
+                allow_None=True, doc="this property can hold any python value")
     
     my_custom_typed_serializable_attribute = Property(default=[2, "foo"], 
                 allow_None=False, doc="""this property can hold some 
@@ -29,6 +29,8 @@ class TestObject(Thing):
                             "acceptable member type of " +
                             "my_custom_typed_serializable_attribute " +
                             f"but type {type(val)}")
+            self._foo = value
+        elif isinstance(value, numpy.ndarray):
             self._foo = value
         else:
             raise TypeError(f"Given type is not list or tuple for " +

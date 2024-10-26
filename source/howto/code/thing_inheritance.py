@@ -11,5 +11,8 @@ class OceanOpticsSpectrometer(Thing):
             self.connect()
 
     def connect(self):
-        """implemenet device driver logic to connect to hardware"""
+        """
+        implemenet device driver logic/hardware communication protocol based code here 
+        connect to hardware
+        """
         pass

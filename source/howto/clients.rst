@@ -13,7 +13,7 @@ Using ``hololinked.client``
 
 If one is not interested in HTTP because web development is not necessary, or one is not knowledgable to write a HTTP interface, 
 one may use the ZMQ transport. Objects can be locally exposed only to other processes 
-within the same computer or use TCP for simplicity. Moreover, for certain applications, 
+within the same computer using inter-process communication or use TCP for simplicity. Moreover, for certain applications, 
 for example, oscilloscope traces consisting of millions of data points, or, camera images or video streaming with raw pixel density 
 & no compression, the ZMQ transport may significantly speed up the data transfer rate. To achieve this, one may use a different serializer 
 like MessagePack or pickle instead of JSON.
@@ -60,7 +60,7 @@ can import the server script ``Thing`` and set it as the type of the client as a
     :lines: 15-20
 
 The serializers on the ZMQ client and server must match for connection to proceed without faults. 
-JSON is the default, and currently the only supported serializer for HTTP applications. This is automatically taken care. 
+JSON is the default, and currently the only supported serializer for HTTP applications.  
 
 Using ``node-wot`` HTTP(s) client
 ---------------------------------
@@ -69,10 +69,12 @@ Using ``node-wot`` HTTP(s) client
 `Web of Things Working Group <https://www.w3.org/WoT/>`_. One can implement both servers and 
 clients for hardware with this tool, therefore, if one requires a different coding style and language compared to 
 python, one can try ``node-wot``. 
-For this package, ``node-wot`` can serve as a HTTP(s) client with predefined features. Apart from HTTP(s), the 
-overarching general purpose of this client is to be able to interact with hardware with a web standard compatible JSON(-LD) 
-specification called as the `Thing Description <https://www.w3.org/TR/wot-thing-description11/>`_. The said JSON specifcation 
-describes the hardware's available properties, actions and events (along with security definitions to access them) and 
+
+For this package, ``node-wot`` can serve as a HTTP(s) client with predefined features. It supports many protocols apart from HTTP(s), 
+however the overarching general purpose of this tool is to be able to interact with hardware with a web standard compatible JSON(-LD) 
+specification called as the `Thing Description <https://www.w3.org/TR/wot-thing-description11/>`_. Among other things, the said JSON specifcation 
+describes the hardware's available properties, actions and events, along with security definitions to access them.
+
 ``node-wot`` can consume such a specification to allow interoperability irrespective of protocol implementation and application domain. 
 Further, the Thing Description provides human- and machine-readable documentation of the hardware within the specification itself, 
 enhancing developer experience. |br| 
