@@ -1,0 +1,27 @@
+{    
+    "actions" : {
+        "connect": {
+            "title": "connect",
+            "description" : "connect to the spectrometer specified by serial number",
+            "forms": [{
+                "href": "https://example.com/spectrometer/connect",
+                "op": "invokeaction",
+                "htv:methodName": "POST",
+                "contentType": "application/json"
+            }],
+            "input": {
+                "type": "object",
+                "properties": {
+                    "trigger_mode": {
+                        "type": "number"
+                    },
+                    "integration_time": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "properties" : {  }
+}

@@ -44,5 +44,4 @@ plugins:
       
   - git-authors
 
-  - search:
-      position: navbar
+  - search

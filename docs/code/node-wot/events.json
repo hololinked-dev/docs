@@ -1,0 +1,31 @@
+{    
+    "events" : {
+        "measurement_event": {
+            "title": "intensity-measurement-event",
+            "description": "event generated on measurement of intensity, max 30 per second even if measurement is faster.",
+            "forms": [{
+                "href": "https://example.com/spectrometer/intensity/measurement-event",
+                "op": "subscribeevent",
+                "htv:methodName": "GET",
+                "subprotocol": "sse",
+                "contentType": "text/plain"
+            }],
+            "data": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
+                    },
+                    "timestamp": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    },
+    "properties" : {  },
+    "actions" : {  }
+}
