@@ -4,6 +4,7 @@ repo_url: https://github.com/VigneshVSV/hololinked
 repo_name: hololinked
 edit_uri: https://github.com/hololinked-dev/docs-v2/edit/main/docs/
 
+
 theme:
   name: material
 
@@ -22,26 +23,61 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
+      primary: brown
       accent: orange
 
   icon:
     repo: fontawesome/brands/github
     
   features:
+    # editing the page
     - content.action.edit
     - content.action.view
+    # search
     - search.suggest
     - search.highlight
     - search.share
+    # code
+    - content.code.copy
+    - content.code.select
+    # headers
+    - announce.dismiss
+    # footer 
+    - navigation.footer
+    # navigation
+    - navigation.tabs
+    - navigation.path
+    - navigation.prune 
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
 
   font:
     text: Roboto
+
 
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
       fallback_to_build_date: true
       
-  - git-authors
+  - git-authors:
 
-  - search
+  - search:
+
+
+markdown_extensions:
+  # - attr_list
+  # - md_in_html
+  - pymdownx.superfences
+  # - pymdownx.tabbed
+  - pymdownx.snippets
+
+extra:
+  social:
+    - icon: fontawesome/brands/discord
+      link: https://discord.com/invite/kEz87zqQXh
+
+
+extra_css:
+  - stylesheets/extra.css

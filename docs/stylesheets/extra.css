@@ -1,0 +1,18 @@
+/* custom.css */
+.md-content {
+    text-align: justify;
+
+}
+
+.md-main[data-md-color-scheme="light"] {
+    background-color: antiquewhite;
+}
+
+.md-main[data-md-color-scheme="dark"] {
+    background-color: #1e1e1e;
+}
+
+
+
+
+
