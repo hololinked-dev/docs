@@ -2,17 +2,12 @@ site_name: hololinked
 site_url: https://hololinked.readthedocs.io
 repo_url: https://github.com/VigneshVSV/hololinked
 repo_name: hololinked
-edit_uri: https://github.com/hololinked-dev/docs-v2
+edit_uri: https://github.com/hololinked-dev/docs-v2/edit/main/docs/
+
 theme:
   name: material
 
   palette:
-    # Palette toggle for automatic mode
-    - media: "(prefers-color-scheme)"
-      toggle:
-        icon: material/brightness-auto
-        name: Switch to light mode
-
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default 
@@ -35,3 +30,19 @@ theme:
   features:
     - content.action.edit
     - content.action.view
+    - search.suggest
+    - search.highlight
+    - search.share
+
+  font:
+    text: Roboto
+
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+      fallback_to_build_date: true
+      
+  - git-authors
+
+  - search:
+      position: navbar

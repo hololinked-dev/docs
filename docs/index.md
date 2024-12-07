@@ -10,3 +10,12 @@
 [![Conda Downloads](https://img.shields.io/conda/d/conda-forge/hololinked)](https://anaconda.org/conda-forge/hololinked)
 
 
+
+`hololinked` is compatible with the [Web of Things](https://www.w3.org/WoT/) recommended pattern for developing hardware/instrumentation control software. 
+Each device or thing can be controlled systematically when their design in software is segregated into properties, actions and events. In object oriented terms:
+
+- the hardware is (generally) represented by a class 
+- properties are validated get-set attributes of the class which may be used to model settings, hold captured/computed data or generic network accessible quantities
+- actions are methods which issue commands like connect/disconnect, execute a control routine, start/stop measurement, or run arbitray python logic
+- events can asynchronously communicate/push arbitrary data to a client, like alarm messages, streaming measured quantities etc.
+- Additionally, a state machine may constrain property and action execution
