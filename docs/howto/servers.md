@@ -24,10 +24,10 @@ that `instance_name` should be a URI compatible string.
 For attributes (like serial number above), if one requires them to be exposed on the network, one should 
 use "properties" defined in `hololinked.server.properties` to "type define" the attributes of the object (in a python sense): 
 
-<!-- .. literalinclude:: code/thing_with_http_server.py
-    :language: python
-    :linenos:
-    :lines: 2-3, 7-19 -->
+``` py title="Properties" linenums="1"
+--8<-- "docs/howto/code/thing_with_http_server.py:2:3"
+--8<-- "docs/howto/code/thing_with_http_server.py:7:19"
+```
 
 For HTTP access, specify the `URL_path` and HTTP request methods for read-write-delete operations, if necessary: 
 

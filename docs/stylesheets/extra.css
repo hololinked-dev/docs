@@ -1,7 +1,6 @@
 /* custom.css */
 .md-content {
     text-align: justify;
-
 }
 
 .md-main[data-md-color-scheme="light"] {
@@ -10,6 +9,13 @@
 
 .md-main[data-md-color-scheme="dark"] {
     background-color: #1e1e1e;
+}
+
+@media (min-width: 1200px) {
+    .md-content {
+        min-width: 1000px;
+        margin: 0 auto;
+    }
 }
 
 

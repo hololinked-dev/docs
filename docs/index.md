@@ -14,27 +14,30 @@ description: hololinked introduces SCADA & IoT systems to beginners
 [![Conda Downloads](https://img.shields.io/conda/d/conda-forge/hololinked)](https://anaconda.org/conda-forge/hololinked)
 
 `hololinked` is compatible with the [Web of Things](https://www.w3.org/WoT/) recommended pattern for developing hardware/instrumentation control software. 
-Each device or thing can be controlled systematically when their design in software is segregated into properties, actions and events. In object oriented terms:
+Each device or thing can be controlled systematically when their design in software is segregated into properties, actions and events. In object oriented terms, where the hardware is (generally) represented by a class:
 
-- the hardware is (generally) represented by a class 
-- properties are validated get-set attributes of the class which may be used to model settings, hold captured/computed data or generic network accessible quantities. For example 
+- properties are validated get-set attributes of the class which may be used to model settings, hold captured/computed data or generic network accessible quantities. For example, 
     <ul style="list-style-type: square;"> 
-        <li>an oscilloscope can have properties like time resolution, time range, data attributes for each channel etc.</li>
+        <li>an oscilloscope can have properties like time resolution, time range, data for each channel</li>
         <li>a camera can have properties like frame rate, exposure time, captured image</li>
         <li>the current voltage, voltage range, maximum allowed current can be properties of a DC power supply</li>
     </ul>
-- actions are methods that command the hardware to perform some operation or run arbitray python logic
+- actions are methods that command the hardware to perform some operation:
     <ul style="list-style-type: square;"> 
         <li>connect/disconnect hardware from computer or raspberry pi</li>
         <li>DC power supply should execute a closed loop control routine</li>
-        <li>oscillscope should start/stop measurement</li>
+        <li>oscilloscope should start/stop measurement</li>
     </ul>
 - events can asynchronously communicate/push arbitrary data to a client, like alarm messages, streaming measured quantities etc.
     <ul style="list-style-type: square;"> 
         <li>camera may stream the images as events</li>
         <li>DC power supply may raise an alarm when the current value exceeds the allowed value</li>
     </ul>
-- Additionally, a state machine may constrain property and action execution
+
+This division of interactions with the hardware is irrespective of protocol that exchange the messages on the network, the serialization of the data format or 
+how the data is represented in the binary format in those messages, or any security considerations regarding how the hardware may be accessed. 
+
+Additionally, a state machine may constrain property and action execution:
     <ul style="list-style-type: square;"> 
         <li>camera may not change the exposure time while capturing video</li>
         <li>oscilloscope should not start a fresh measurement when a measurement is already ongoing</li>

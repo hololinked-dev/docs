@@ -5,6 +5,38 @@ repo_name: hololinked
 edit_uri: https://github.com/hololinked-dev/docs-v2/edit/main/docs/
 
 
+nav:
+  - Home: 
+    - Introduction: index.md
+    - Installation: introduction/installation.md
+    - Resources: introduction/resources.md
+  - How To: 
+    - Expose Python Objects: howto/servers.md
+    - Connect to Things with Clients: howto/clients.md
+    - Properties in Depth: howto/properties.md
+    - Using Actions: howto/actions.md
+    - Using Events: howto/events.md
+    - Using State Machine: howto/state-machine.md
+    - Configuring Thing Class: howto/thing-class.md
+    - Using Different Protocols:
+      - Object Proxy: howto/object-proxy.md
+    - Serialization: howto/serialization.md
+  - API Reference:
+    - Thing:
+      - Thing: api-reference/thing/index.md
+      - RemoteAccessHandler: api-reference/thing/logger.md
+      - StateMachine: api-reference/thing/state-machine.md
+    - Property: api-reference/property/index.md
+  - Examples:
+    - Energy Meter: examples/energy-meter.md
+    - Linear Stage: examples/linear-stage.md
+    - Oscilloscope: examples/oscilloscope.md
+    - Camera: examples/camera.md
+    - ADC in Raspberry Pi: examples/adc.md
+  # - Blog:
+  #   - blog/index.md
+
+
 theme:
   name: material
 
@@ -51,20 +83,36 @@ theme:
     - navigation.tracking
     - navigation.instant
     - navigation.instant.progress
+    - navigation.top
 
   font:
-    text: Roboto
+    text: Segoe UI
 
-
+    
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
       fallback_to_build_date: true
-      
-  - git-authors:
-
-  - search:
-
+  - git-authors
+  - search
+  # - blog
+  # - social
+  - mkdocstrings:
+      handlers:
+        python: 
+          options:
+            # code base and inheritance
+            allow_inspection: true
+            show_bases: true
+            show_inheritance_diagram: true
+            # headings
+            show_root_heading: true
+            parameter_headings: true
+            heading_level: 1
+            show_category_heading: true
+            # docstrings style 
+            docstring_style: numpy
+        
 
 markdown_extensions:
   # - attr_list
@@ -73,11 +121,39 @@ markdown_extensions:
   # - pymdownx.tabbed
   - pymdownx.snippets
 
+
 extra:
   social:
+    - icon: fontawesome/solid/book
+      link: https://github.com/hololinked-dev/examples
+      name: examples repository
+    - icon: fontawesome/solid/table-list
+      link: https://hololinked-dev/ 
+      name: directory of device implementations
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/hololinked/
+      name: pypi
+    - icon: fontawesome/brands/python
+      link: https://anaconda.org/conda-forge/hololinked
+      name: anaconda
+    - icon: fontawesome/brands/git
+      link: https://github.com/hololinked-dev/docs
+      name: source code for docs
     - icon: fontawesome/brands/discord
       link: https://discord.com/invite/kEz87zqQXh
+      name: discord group
+    - icon: fontawesome/solid/envelope
+      link: mailto:admin@hololinked.dev?subject=Inquiry/Feedback%20about%20hololinked"
+      name: email
+    - icon: fontawesome/solid/circle-dollar-to-slot 
+      link: https://github.com/sponsors/VigneshVSV
+      name: sponsor
 
 
 extra_css:
   - stylesheets/extra.css
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
+
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js

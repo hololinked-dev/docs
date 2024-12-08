@@ -1,0 +1,4 @@
+
+
+::: hololinked.server.Thing
+   
