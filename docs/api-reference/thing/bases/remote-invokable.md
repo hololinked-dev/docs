@@ -1,0 +1,3 @@
+
+
+::: hololinked.server.thing.RemoteInvokable

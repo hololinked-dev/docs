@@ -1,18 +1,21 @@
 Installation 
 ============
 
+From pip:
+
     pip install hololinked
 
-OR
+From conda:
 
     conda install -c conda-forge hololinked
 
-One may also clone it from github & install directly (in develop mode). 
-
+One may also clone it from github & install directly (in develop mode):
 
     git clone https://github.com/VigneshVSV/hololinked.git
+    cd hololinked
+    pip install -e .
 
-Either install the dependencies in requirements file or one could setup a conda environment from the included ``hololinked.yml`` file 
+One could setup a conda environment from the included ``hololinked.yml`` file:
 
     conda env create -f hololinked.yml 
     conda activate hololinked

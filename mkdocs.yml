@@ -26,7 +26,18 @@ nav:
       - Thing: api-reference/thing/index.md
       - RemoteAccessHandler: api-reference/thing/logger.md
       - StateMachine: api-reference/thing/state-machine.md
+      - Bases & Meta:
+        - Parameterized: api-reference/thing/bases/parameterized.md
+        - RemoteInvokable: api-reference/thing/bases/remote-invokable.md
+        - EventSource: api-reference/thing/bases/event-source.md
+        - ThingMeta: api-reference/thing/thing-meta.md
     - Property: api-reference/property/index.md
+    - Actions: 
+      - action: api-reference/action/index.md
+      - Bases: api-reference/action/bases/index.md
+    - Events:
+      - Event: api-reference/events/index.md
+      - EventDispatcher: api-reference/events/event-dispatcher.md
   - Examples:
     - Energy Meter: examples/energy-meter.md
     - Linear Stage: examples/linear-stage.md
@@ -87,6 +98,7 @@ theme:
 
   font:
     text: Segoe UI
+  
 
     
 plugins:
@@ -95,6 +107,7 @@ plugins:
       fallback_to_build_date: true
   - git-authors
   - search
+  - macros
   # - blog
   # - social
   - mkdocstrings:
@@ -112,15 +125,18 @@ plugins:
             show_category_heading: true
             # docstrings style 
             docstring_style: numpy
+            group_by_category: true
         
+                  
 
 markdown_extensions:
-  # - attr_list
+  - attr_list
   # - md_in_html
   - pymdownx.superfences
   # - pymdownx.tabbed
   - pymdownx.snippets
-
+  # TOC
+  
 
 extra:
   social:
@@ -128,7 +144,7 @@ extra:
       link: https://github.com/hololinked-dev/examples
       name: examples repository
     - icon: fontawesome/solid/table-list
-      link: https://hololinked-dev/ 
+      link: https://hololinked.dev/ 
       name: directory of device implementations
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/hololinked/
@@ -145,21 +161,24 @@ extra:
     - icon: fontawesome/solid/envelope
       link: mailto:admin@hololinked.dev?subject=Inquiry/Feedback%20about%20hololinked"
       name: email
+    - icon: fontawesome/solid/globe
+      link: https://hololinked.dev/
+      name: project website containing non-documentation resources
     - icon: fontawesome/solid/circle-dollar-to-slot 
       link: https://github.com/sponsors/VigneshVSV
       name: sponsor
 
-  # consent:
-  #   title: Cookie Consent
-  #   description: >- 
-  #     We use cookies to recognize your repeated visits and preferences, as well
-  #     as to measure the effectiveness of our documentation and whether users
-  #     find what they're searching for. With your consent, you're helping us to
-  #     make our documentation better.
-  #   actions:
-  #     - reject
-  #     - accept
-  #     - manage 
+  consent:
+    title: Cookie Consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    actions:
+      - reject
+      - accept
+      - manage 
 
 
 extra_css:
