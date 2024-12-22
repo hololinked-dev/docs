@@ -7,3 +7,5 @@
 ::: hololinked.server.protocols.zmq.brokers.BaseSyncZMQ
 
 ::: hololinked.server.protocols.zmq.brokers.BaseZMQServer
+
+::: hololinked.server.protocols.zmq.brokers.BaseZMQClient
