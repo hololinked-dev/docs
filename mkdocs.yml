@@ -38,6 +38,12 @@ nav:
     - Events:
       - Event: api-reference/events/index.md
       - EventDispatcher: api-reference/events/event-dispatcher.md
+    - Protocols:
+      - ZMQ: 
+        - Message: api-reference/protocols/zmq/message.md
+        - Brokers:
+          - BaseZMQ: api-reference/protocols/zmq/brokers/base-zmq.md
+          - AsyncZMQServer: api-reference/protocols/zmq/brokers/async-zmq-server.md
   - Examples:
     - Energy Meter: examples/energy-meter.md
     - Linear Stage: examples/linear-stage.md
