@@ -13,7 +13,7 @@ nav:
   - How To: 
     - Expose Python Objects: howto/servers.md
     - Connect to Things with Clients: howto/clients.md
-    - Properties in Depth: howto/properties.md
+    - Properties in Depth: howto/properties/index.md
     - Using Actions: howto/actions.md
     - Using Events: howto/events.md
     - Using State Machine: howto/state-machine.md
@@ -141,9 +141,12 @@ plugins:
 markdown_extensions:
   - attr_list
   # - md_in_html
+  - admonition
+  - pymdownx.details
   - pymdownx.superfences
   # - pymdownx.tabbed
   - pymdownx.snippets
+
   # TOC
   
 

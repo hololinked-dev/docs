@@ -1,8 +1,9 @@
 Connecting to Things with Clients
 =================================
 
-When using a HTTP server, it is possible to use any HTTP client including web browser provided clients like ``XMLHttpRequest`` 
-and ``EventSource`` object. This is the intention of providing HTTP support. However, additional possibilities exist:
+One can always use native protocol-specific clients to access the resources exposed by the server. For example, 
+when using a HTTP server, it is possible to use web browser provided clients like ``XMLHttpRequest`` and ``EventSource`` object. 
+However, it is also recommended to abstract the operations to be performed on each property, action & event:
 
 Using ``hololinked.client``
 ---------------------------

@@ -4,8 +4,8 @@ class OceanOpticsSpectrometer(Thing):
     """
     add class doc here
     """
-    def __init__(self, instance_name, serial_number, autoconnect, **kwargs):
-        super().__init__(instance_name=instance_name, **kwargs)
+    def __init__(self, id, serial_number, autoconnect, **kwargs):
+        super().__init__(id=id, **kwargs)
         self.serial_number = serial_number
         if autoconnect:
             self.connect()
