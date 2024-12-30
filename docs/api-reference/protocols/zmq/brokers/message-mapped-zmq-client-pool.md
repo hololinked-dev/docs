@@ -1,4 +1,4 @@
 
 
 
-::: hololinked.server.protocols.zmq.brokers.MessageMappedZMQClientPool
+::: hololinked.protocols.zmq.brokers.MessageMappedZMQClientPool

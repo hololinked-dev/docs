@@ -1,6 +1,6 @@
 
 
-::: hololinked.server.protocols.zmq.message.RequestMessage
+::: hololinked.protocols.zmq.message.RequestMessage
     options:
         members:
             - __init__
@@ -11,7 +11,7 @@
             - craft_with_message_type
         
 
-::: hololinked.server.protocols.zmq.message.ResponseMessage
+::: hololinked.protocols.zmq.message.ResponseMessage
     options:
         members:
             - __init__

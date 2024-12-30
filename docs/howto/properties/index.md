@@ -8,8 +8,8 @@ descriptor protocol.
 !!! note
 
     Python's own `property` is not supported for remote access due to limitations in using foreign attributes 
-    within the `property` object. Said limitation causes redundancy with implementation of 
-    `hololinked.server.Property`, nevertheless, the term `Property`
+    within the `property` object. Said limitation causes redundancy with the existing implementation of 
+    `Property` class, nevertheless, the term `Property`
     (with capital 'P') is used to comply with the terminology of Web of Things. 
 
 Untyped/Custom Typed Property 
@@ -20,83 +20,49 @@ Untyped/Custom Typed Property
 To make a property take any python value, use the base class `Property`:
 
 ```py title="Untyped Property" linenums="1"
---8<-- "docs/howto/code/properties/untyped.py:1:10 
---8<-- "docs/howto/code/properties/untyped.py:39:41"
+--8<-- "docs/howto/code/properties/untyped.py:1:8"
+--8<-- "docs/howto/code/properties/untyped.py:37:40"
 ```
 
-The object (descriptor instance of ``Property``) that performs the get-set operations or auto-allocation 
+The object (descriptor instance of `Property`) that performs the get-set operations or auto-allocation 
 of an internal instance variable for the property can be accessed by the instance under 
-``self.properties.descriptors["<property name>"]``:
+`self.properties.descriptors["<property name>"]`:
 
+```py title="Custom Typed Property" linenums="1"
+--8<-- "docs/howto/code/properties/untyped.py:1:5"
+--8<-- "docs/howto/code/properties/untyped.py:9"
 ```
---8<-- "docs/howto/code/properties/untyped.py:1:7
---8<-- 11-
-```
-    :language: python
-    :linenos:
-    :lines: 
-
-Expectedly, the value of the property must be serializable to be read by the clients. Read the serializer 
+The value of the property must be serializable to be read by the clients. Read the serializer 
 section for further details & customization. 
 
-To make a property only locally accessible, set ``remote=False``, i.e. such a property will not accessible 
+To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible 
 on the network. 
 
-Built-in Typed Properties
--------------------------
+Predefined Typed Properties
+------------9---------------
 
-:doc:`API Reference <../../autodoc/server/properties/types/index>`
+[API Reference]()
 
 Certain typed properties are already available in ``hololinked.server.properties``, 
 defined by ``param``:
 
-.. list-table::
+| Property Class                      | Type                          | Options                                                                 |
+|-------------------------------------|-------------------------------|-------------------------------------------------------------------------|
+| `String`                            | `str`                         | comply to regex                                                         |
+| `Number`                            | `float`, `integer`            | min & max bounds, inclusive bounds, crop to bounds, multiples           |
+| `Integer`                           | `integer`                     | same as `Number`                                                        |
+| `Boolean`                           | `bool`                        | tristate if `allow_None=True`                                           |
+| `Iterable`                          | iterables                     | length/bounds, item_type, dtype (allowed type of the iterable itself)   |
+| `Tuple`                             | `tuple`                       | same as iterable                                                        |
+| `List`                              | `list`                        | same as iterable                                                        |
+| `Selector`                          | one of many objects           | allowed list of objects                                                 |
+| `TupleSelector`                     | one or more of many objects   | allowed list of objects                                                 |
+| `ClassSelector`                     | class, subclass or instance   | comply to instance only or class/subclass only                          |
+| `Path`, `Filename`, `Foldername`    | path, filename & folder names |                                                                         |
+| `Date`                              | `datetime`                    | format                                                                  |
+| `TypedList`                         | typed list                    | typed appends, extends                                                  |
+| `TypedDict`, `TypedKeyMappingsDict` | typed dictionary              | typed updates, assignments                                              |
 
-    *   - type 
-        - Property class  
-        - options 
-    *   - str
-        - ``String``
-        - comply to regex
-    *   - float, integer 
-        - ``Number`` 
-        - min & max bounds, inclusive bounds, crop to bounds, multiples 
-    *   - integer 
-        - ``Integer`` 
-        - same as ``Number``
-    *   - bool 
-        - ``Boolean``
-        - tristate if ``allow_None=True``
-    *   - iterables 
-        - ``Iterable``
-        - length/bounds, item_type, dtype (allowed type of the iterable itself like list or tuple or deque etc.)
-    *   - tuple 
-        - ``Tuple`` 
-        - same as iterable 
-    *   - list 
-        - ``List`` 
-        - same as iterable  
-    *   - one of many objects 
-        - ``Selector``
-        - allowed list of objects 
-    *   - one or more of many objects 
-        - ``TupleSelector``
-        - allowed list of objects 
-    *   - class, subclass or instance of an object 
-        - ``ClassSelector``
-        - comply to instance only or class/subclass only 
-    *   - path, filename & folder names 
-        - ``Path``, ``Filename``, ``Foldername``
-        - 
-    *   - datetime 
-        - ``Date``
-        - format
-    *   - typed list 
-        - ``TypedList``
-        - typed appends, extends 
-    *   - typed dictionary
-        - ``TypedDict``, ``TypedKeyMappingsDict``
-        - typed updates, assignments    
 
 An example:
 

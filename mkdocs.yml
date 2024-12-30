@@ -47,6 +47,7 @@ nav:
           - SyncZMQClient: api-reference/protocols/zmq/brokers/sync-zmq-client.md
           - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
           - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
+        - RPC Server: api-reference/protocols/zmq/rpc-server.md
   - Examples:
     - Energy Meter: examples/energy-meter.md
     - Linear Stage: examples/linear-stage.md

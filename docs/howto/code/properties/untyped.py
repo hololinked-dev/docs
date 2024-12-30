@@ -1,7 +1,5 @@
-from logging import Logger
-from hololinked.server import Thing, Property
-from hololinked.server.serializers import JSONSerializer
 import numpy
+from hololinked.server import Thing, Property
 
 class TestObject(Thing):
     

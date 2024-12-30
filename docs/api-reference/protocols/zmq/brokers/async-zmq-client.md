@@ -1,4 +1,4 @@
 
 
 
-::: hololinked.server.protocols.zmq.brokers.AsyncZMQClient
+::: hololinked.protocols.zmq.brokers.AsyncZMQClient
