@@ -13,9 +13,14 @@ nav:
   - How To: 
     - Expose Python Objects: howto/servers.md
     - Connect to Things with Clients: howto/clients.md
-    - Properties in Depth: howto/properties/index.md
-    - Using Actions: howto/actions.md
-    - Using Events: howto/events.md
+    - Properties in Depth: 
+      - Properties: howto/properties/index.md
+      - Default Arguments: howto/properties/arguments.md
+      - Extending: howto/properties/extending.md
+    - Using Actions: 
+      - Actions: howto/actions/index.md
+    - Using Events:
+      - Events: howto/events/index.md
     - Using State Machine: howto/state-machine.md
     - Configuring Thing Class: howto/thing-class.md
     - Using Different Protocols:
@@ -145,7 +150,8 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
-  # - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.snippets
 
   # TOC

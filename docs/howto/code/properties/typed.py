@@ -1,7 +1,6 @@
 from hololinked.server import Thing
 from hololinked.server.properties import String, Number, Selector, Boolean, List
 
-
 class OceanOpticsSpectrometer(Thing):
     """
     Spectrometer example object 
@@ -35,13 +34,11 @@ class OceanOpticsSpectrometer(Thing):
             return self.parameters["integration_time"].default 
         
     nonlinearity_correction = Boolean(default=False, 
-                                URL_path='/nonlinearity-correction', 
                                 doc="""set True for auto CCD nonlinearity 
                                     correction. Not supported by all models,
                                     like STS.""") # type: bool
         
-    trigger_mode = Selector(objects=[0, 1, 2, 3, 4], 
-                        default=0, URL_path='/trigger-mode', 
+    trigger_mode = Selector(objects=[0, 1, 2, 3, 4], default=0, 
                         doc="""0 = normal/free running, 
                             1 = Software trigger, 2 = Ext. Trigger Level,
                             3 = Ext. Trigger Synchro/ Shutter mode,
@@ -59,8 +56,7 @@ class OceanOpticsSpectrometer(Thing):
         except:
             return self.parameters["trigger_mode"].default 
         
-    intensity = List(default=None, allow_None=True, doc="captured intensity", 
-                    URL_path='/intensity', readonly=True,
+    intensity = List(default=None, allow_None=True, doc="captured intensity", readonly=True,
                     fget=lambda self: self._intensity.tolist())      
         
     

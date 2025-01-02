@@ -34,7 +34,7 @@ class TestObject(Thing):
             raise TypeError(f"Given type is not list or tuple for " +
                     f"my_custom_typed_serializable_attribute but type {type(value)}")
         
-    def __init__(self, *, instance_name: str, **kwargs) -> None:
-        super().__init__(instance_name=instance_name, **kwargs)
+    def __init__(self, *, id: str, **kwargs) -> None:
+        super().__init__(id=id, **kwargs)
         self.my_untyped_serializable_attribute = kwargs.get('some_prop', None)
         self.my_custom_typed_serializable_attribute = [1, 2, 3, ""]
