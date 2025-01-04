@@ -1,12 +1,10 @@
-Connecting to Things with Clients
-=================================
+# Connecting to Things with Clients
 
 One can always use native protocol-specific clients to access the resources exposed by the server. For example, 
 when using a HTTP server, it is possible to use web browser provided clients like ``XMLHttpRequest`` and ``EventSource`` object. 
 However, it is also recommended to abstract the operations to be performed on each property, action & event:
 
-Using ``hololinked.client``
----------------------------
+# Using `hololinked.client`
 
 If one is not interested in HTTP because web development is not necessary, or one is not knowledgable to write a HTTP interface, 
 one may use the ZMQ transport. Objects can be locally exposed only to other processes 

@@ -12,8 +12,9 @@ class Rect(BaseModel):
 
 
 class UEyeCamera(Thing):
+
     def get_aoi(self) -> Rect:
-        """Get current AOI from camera as Rect class (with .x, .y, .width, .height)."""
+        """Get current AOI from camera as Rect object (with x, y, width, height)"""
         rect_aoi = ueye.IS_RECT()
         ret = ueye.is_AOI(self.handle, ueye.IS_AOI_IMAGE_GET_AOI,
                         rect_aoi, ueye.sizeof(rect_aoi))
@@ -25,9 +26,9 @@ class UEyeCamera(Thing):
                 height=rect_aoi.s32Height.value
             )
 
-    def set_aoi(self, value: Rect):
+    def set_aoi(self, value: Rect) -> None:
         """Set camera AOI. Specify as x,y,width,height or a tuple
-        (x,y,width,height) or as Rect object."""
+        (x, y, width, height) or as Rect object."""
         rect_aoi = ueye.IS_RECT()
         rect_aoi.s32X = ueye.int(value.x)
         rect_aoi.s32Y = ueye.int(value.y)
@@ -38,12 +39,13 @@ class UEyeCamera(Thing):
                              rect_aoi, ueye.sizeof(rect_aoi))
         assert return_code_OK(self.handle, ret)
 
-
-    AOI = Property(fget=get_aoi, fset=set_aoi, doc="Area of interest", 
-                model=Rect) # type: Rect
-
+    AOI = Property(fget=get_aoi, fset=set_aoi, model=Rect,
+                doc="Area of interest within the image",) # type: Rect
 
 
+import ctypes
+from picosdk.ps6000 import ps6000 as ps
+from picosdk.functions import assert_pico_ok
 
 trigger_schema = {
     'type': 'object',
@@ -66,34 +68,35 @@ trigger_schema = {
             'type': 'integer', 
             'minimum': 0 
         }
-    }
+    },
+    "description" : "Trigger settings for a single channel of the picoscope",
 }
 
 class Picoscope(Thing):
 
-    trigger = Property(default=0, doc="Trigger settings",
+    trigger = Property(doc="Trigger settings",
                     model=trigger_schema) # type: dict
     
     @trigger.setter
-    def set_trigger(self, value) -> None:
-        enabled = ct.c_int16(int(value["enabled"]))
-        direction = ps.PS6000_THRESHOLD_DIRECTION['PS6000_{}'.format(
-                                                 value["direction"].upper())]
-        ch = channel.upper()
-        if channel.upper() in ['A', 'B', 'C', 'D']:
+    def set_trigger(self, value : dict) -> None:
+        channel = value["channel"].upper()
+        direction = value["direction"].upper()
+        enabled = ctypes.c_int16(int(value["enabled"]))
+        delay = ctypes.c_int32(value["delay"])
+        direction = ps.PS6000_THRESHOLD_DIRECTION[f'PS6000_{direction}']
+        if channel in ['A', 'B', 'C', 'D']:
             channel = ps.PS6000_CHANNEL['PS6000_CHANNEL_{}'.format(
-                                        channel.upper())]
+                                        channel)]
         else:
             channel = ps.PS6000_CHANNEL['PS6000_TRIGGER_AUX']
         if not value["adc"]:
             if channel in ['A', 'B', 'C', 'D']:
                 threshold = int(threshold * self.max_adc * 1e3
-                            / self.ranges[self.channel_settings[ch]['v_range']])
-                # print(threshold)
+                            / self.ranges[self.channel_settings[channel]['v_range']])
             else:
                 threshold = int(self.max_adc/5)
-        threshold = ct.c_int16(threshold)
-        auto_trigger = ct.c_int16(int(auto_trigger))
+        threshold = ctypes.c_int16(threshold)
+        auto_trigger = ctypes.c_int16(int(auto_trigger))
         self._status['trigger'] = ps.ps6000SetSimpleTrigger(self._ct_handle,
                                     enabled, channel, threshold, direction, 
                                     delay, auto_trigger)

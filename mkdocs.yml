@@ -98,6 +98,7 @@ theme:
     # code
     - content.code.copy
     - content.code.select
+    - content.code.annotate
     # headers
     - announce.dismiss
     # footer 
@@ -114,8 +115,7 @@ theme:
   font:
     text: Segoe UI
   
-
-    
+   
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
@@ -143,16 +143,20 @@ plugins:
             group_by_category: true
         
                   
-
 markdown_extensions:
   - attr_list
-  # - md_in_html
+  - md_in_html
   - admonition
   - pymdownx.details
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.snippets
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
 
   # TOC
   

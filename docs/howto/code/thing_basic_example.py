@@ -1,11 +1,7 @@
-from http.server import HTTPServer
-import multiprocessing
-import os
-import ssl
-import threading, logging
+import multiprocessing, os, ssl, threading, logging
 from hololinked.server import Thing, Property, action, Event
 from hololinked.server.properties import Number, Selector, String, List
-from hololinked.server.constants import HTTP_METHODS
+from hololinked.protocols import HTTPServer
 from seabreeze.spectrometers import Spectrometer
 
 
@@ -26,10 +22,6 @@ class OceanOpticsSpectrometer(Thing):
             # let's say, by default
         self._acquisition_thread = None
     
-    measurement_event = Event(name='intensity-measurement-event', 
-            doc="""event generated on measurement of intensity, 
-                max 30 per second even if measurement is faster.""")
-
     @action()
     def connect(self, trigger_mode, integration_time):
         self.device = Spectrometer.from_serial_number(self.serial_number)
@@ -47,7 +39,7 @@ class OceanOpticsSpectrometer(Thing):
                         1μs (min) or 1s (max)""", crop_to_bounds=True)
     
     @integration_time.setter 
-    def apply_integration_time(self, value : float):
+    def set_integration_time(self, value : float):
         self.device.integration_time_micros(int(value*1000))
         self._integration_time = int(value) 
       
@@ -56,14 +48,14 @@ class OceanOpticsSpectrometer(Thing):
         try:
             return self._integration_time
         except:
-            return self.parameters["integration_time"].default 
+            return 1000.0
         
     trigger_mode = Selector(objects=[0, 1, 2, 3, 4], default=0, 
                     doc="""0 = normal/free running, 1 = Software trigger, 2 = Ext. Trigger Level,
                         3 = Ext. Trigger Synchro/ Shutter mode, 4 = Ext. Trigger Edge""")
     
     @trigger_mode.setter 
-    def apply_trigger_mode(self, value : int):
+    def set_trigger_mode(self, value : int):
         self.device.trigger_mode(value)
         self._trigger_mode = value 
         
@@ -76,6 +68,10 @@ class OceanOpticsSpectrometer(Thing):
               
     intensity = List(default=None, allow_None=True, doc="captured intensity", 
                     readonly=True, fget=lambda self: self._intensity.tolist())       
+    
+    measurement_event = Event(name='intensity-measurement-event', 
+            doc="""event generated on measurement of intensity, 
+                max 30 per second even if measurement is faster.""")
 
     def capture(self):
         self._run = True 
@@ -89,7 +85,7 @@ class OceanOpticsSpectrometer(Thing):
 
     @action()
     def start_acquisition(self):
-        if self._acquisition_thread is None:
+        if self._acquisition_thread is None: # _acquisition_thread defined in __init__
             self._acquisition_thread = threading.Thread(target=self.capture) 
             self._acquisition_thread.start()
         
@@ -102,12 +98,6 @@ class OceanOpticsSpectrometer(Thing):
             self._acquisition_thread.join()
             self._acquisition_thread = None 
 
-if __name__ == '__main__':
-    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
-                        serial_number='S14155', autoconnect=True, 
-                        log_level=logging.DEBUG)
-    spectrometer.run_with_http_server(port=3569)
-
 
 def start_https_server():
     ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
@@ -119,30 +109,63 @@ def start_https_server():
 
     HTTPServer(['spectrometer'], port=8083, ssl_context=ssl_context, 
                       log_level=logging.DEBUG).listen()
+    
 
+if __name__ == '__main__':
+    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
+                        serial_number='S14155', autoconnect=True, 
+                        log_level=logging.DEBUG)
+    spectrometer.run_with_http_server(port=3569)
 
-if __name__ == "__main__":
     multiprocessing.Process(target=start_https_server).start()
     # Remove above line if HTTP not necessary. One can also thread the HTTP server.
     # threading.Thread(target=start_https_server).start()
-    spectrometer = OceanOpticsSpectrometer(instance_name='spectrometer', 
-                        zmq_serializer='msgpack', serial_number=None, autoconnect=False)
+    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
+                       serial_number=None, autoconnect=False)
     spectrometer.run(zmq_protocols="IPC") # interprocess-communication
 
     # example code, but will never reach here unless exit() is called by the client
-    spectrometer = OceanOpticsSpectrometer(instance_name='spectrometer', 
+    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
                         zmq_serializer='pickle', serial_number=None, autoconnect=False)
     spectrometer.run(zmq_protocols=["TCP", "IPC"], 
                     tcp_socket_address="tcp://*:6539")
     
     # example code, but will never reach here unless exit() is called by the client
-    spectrometer = OceanOpticsSpectrometer(instance_name='spectrometer', 
+    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
                         serial_number=None, autoconnect=False)
     spectrometer.run(zmq_protocols="TCP", 
                     tcp_socket_address="tcp://*:6539")
     
     # example code, but will never reach here unless exit() is called by the client
-    spectrometer = OceanOpticsSpectrometer(instance_name='spectrometer', 
+    spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
                         zmq_serializer='pickle', serial_number=None, autoconnect=False)
     spectrometer.run(zmq_protocols=["TCP", "IPC"], 
                     tcp_socket_address="tcp://*:6539")
+
+
+# Another example 
+
+class Axis(Thing):
+    """
+    Represents a single stepper module of a Phytron Phymotion Control Rack
+    """
+    def execute(self, command):
+        # implement device driver logic to send command to hardware
+        ...
+
+    def get_referencing_run_frequency(self):
+        resp = self.execute('P08R')
+        return int(resp)
+
+    def set_referencing_run_frequency(self, value):
+        self.execute('P08S{}'.format(value))
+
+    referencing_run_frequency = Number(bounds=(0, 40000),             
+                        inclusive_bounds=(False, True), step=100,
+                        URL_path='/frequencies/referencing-run',
+                        fget=get_referencing_run_frequency, 
+                        fset=set_referencing_run_frequency,
+                        doc="""Run frequency during initializing (referencing), 
+                            in Hz (integer value).
+                            I1AM0x: 40 000 maximum, I4XM01: 4 000 000 maximum""" 
+                    )

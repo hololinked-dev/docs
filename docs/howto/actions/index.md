@@ -1,14 +1,17 @@
 Actions
 =======
 
-:doc:`API Reference <../../autodoc/server/action>`
+[API Reference](../../api-reference/action/index.md)
 
 Only methods decorated with ``action()`` are exposed to clients. 
 
-.. literalinclude:: ../code/no_network_thing.py 
-    :language: python
-    :linenos:
-    :lines: 40-43, 230-237, 303-307, 312, 370-373
+```py title="Actions" linenums="1"
+--8<-- "docs/howto/code/no_network_thing.py:40:43"
+--8<-- "docs/howto/code/no_network_thing.py:230:237"
+--8<-- "docs/howto/code/no_network_thing.py:303:307"
+--8<-- "docs/howto/code/no_network_thing.py:312:312"
+--8<-- "docs/howto/code/no_network_thing.py:370:373"
+```
 
 Arguments are loosely typed and may need to be constrained with a schema based 
 on the robustness the developer is expecting in their application. However, a schema is optional and it only matters that 
@@ -17,10 +20,10 @@ Since python is loosely typed, the server may need to verify the argument types
 supplied by the client call. If the input data is JSON compliant (which is recommended),
 one can supply an input schema to the action decorator:
 
-.. literalinclude:: ../code/no_network_thing.py 
-    :language: python
-    :linenos:
-    :lines: 40, 56-68
+```py title="Actions" linenums="1"
+--8<-- "docs/howto/code/no_network_thing.py:40:40"
+--8<-- "docs/howto/code/no_network_thing.py:56:68"
+```
 
 If an input schema is unspecified, the server will not validate the input data even if arguments are present. 
 The return value must be validated by clients themselves and one may supply a schema for the return value; there is 
@@ -29,15 +32,17 @@ no separate validation on the server.
 If one encounters an uncomfortable use case of validating non-JSON arguments, until support for type annotations based 
 validations are added, one may perform one's own validation:
 
-.. literalinclude:: ../code/actions/parameterized_function.py
-    :language: python
-    :linenos:
-    :lines: 9-20, 34-39
+```py title="Actions" linenums="1"
+--8<-- "docs/howto/code/actions/parameterized_function.py:9:20"
+--8<-- "docs/howto/code/actions/parameterized_function.py:34:39"
+```
 
-The only other builtin automatic validation possibility for non-JSON arguments is to use ``ParameterizedFunction``: 
+The other builtin automatic validation possibility for non-JSON arguments is to use ``ParameterizedFunction``: 
 
-.. literalinclude:: ../code/actions/parameterized_function.py
-    :lines: 3, 9-33
+```py title="Actions" linenums="1"
+--8<-- "docs/howto/code/actions/parameterized_function.py:3:3"
+--8<-- "docs/howto/code/actions/parameterized_function.py:9:33"
+```
 
 ``ParameterizedFunction`` (s) are classes whose arguments are type defined using the same objects as properties 
 and implement the ``__call__`` method. However, this type definition using property object do not make these 
@@ -49,6 +54,6 @@ followed by the ``Thing`` instance as the second argument and then the arguments
 client side, there is no difference between invoking a normal action and an action implemented as 
 ``ParameterizedFunction``:
 
-.. literalinclude:: ../code/actions/parameterized_function.py
-    :lines: 43-
-
+```py title="Actions" linenums="1"
+--8<-- "docs/howto/code/actions/parameterized_function.py:43"
+```

@@ -12,7 +12,7 @@ class OceanOpticsSpectrometer(Thing):
 
     def connect(self):
         """
-        implemenet device driver logic/hardware communication protocol based code here 
-        connect to hardware
+        implement device driver logic/hardware communication protocol here 
+        to connect to the hardware
         """
         pass

@@ -11,6 +11,10 @@
     background-color: #1e1e1e;
 }
 
+.hidden-heading {
+    display: none;
+}
+
 @media (min-width: 1200px) {
     .md-content {
         min-width: 1000px;

@@ -38,3 +38,22 @@ class TestObject(Thing):
         super().__init__(id=id, **kwargs)
         self.my_untyped_serializable_attribute = kwargs.get('some_prop', None)
         self.my_custom_typed_serializable_attribute = [1, 2, 3, ""]
+
+    """
+    def __init__(self, *, id: str, **kwargs) -> None:
+        super().__init__(id=id, 
+            my_untyped_serializable_attribute=kwargs.pop(
+                                        'my_untyped_serializable_attribute', 
+                                        None
+                                    ),     
+            **kwargs)
+    """
+
+    my_property = Property(default=[2, "foo"], allow_None=False, 
+                    doc="this property can hold some values based on get-set overload")
+    
+    @my_property.getter
+    def my_property(self): 
+        # please dont use the property's name for the getter method
+        return self._foo     
+      
