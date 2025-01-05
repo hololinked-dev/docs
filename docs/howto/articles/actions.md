@@ -72,14 +72,14 @@ The return value must be validated by the clients themselves. While a schema for
     ```py title="" linenums="1"
     ```
 
-If one encounters an uncomfortable use case of validating non-JSON arguments, one may use python's typing module to define types for the arguments. These types will be validated by `pydantic`:
+It is always possible to custom validate the arguments after invoking the action:
 
 ```py title="Actions" linenums="1"
 --8<-- "docs/howto/code/actions/parameterized_function.py:9:20"
 --8<-- "docs/howto/code/actions/parameterized_function.py:34:39"
 ```
 
-The other builtin automatic validation possibility for non-JSON arguments is to use ``ParameterizedFunction``: 
+The last and least preferred possibility is to use `ParameterizedFunction`: 
 
 ```py title="Actions" linenums="1"
 --8<-- "docs/howto/code/actions/parameterized_function.py:3:3"

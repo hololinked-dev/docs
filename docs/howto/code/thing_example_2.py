@@ -550,7 +550,6 @@ class GentecOpticalEnergyMeter(Thing):
     
     allow_relaxed_schema_actions = True
       
-    @action()
-    def set_sensor(self, value: )
+   
 
 

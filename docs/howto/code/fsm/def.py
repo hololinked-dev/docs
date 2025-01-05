@@ -58,7 +58,8 @@ class Picoscope(Thing):
     def disconnect(self):
         # add disconnect logic here
         self.state_machine.current_state = 'DISCONNECTED'
-        # same as self.state_machine.set_state('DISCONNECTED', push_event=True, skip_callbacks=False)
+        # same as self.state_machine.set_state('DISCONNECTED', 
+        #               push_event=True, skip_callbacks=False)
 
     @action(state=[states.ON])
     def start_acquisition(self):

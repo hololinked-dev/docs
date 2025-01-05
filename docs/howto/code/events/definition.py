@@ -14,10 +14,6 @@ class GentecMaestroEnergyMeter(Thing):
                             doc='Event raised when a new data point is available',
                             label='Data Point Event')
     
-    statistics_event = Event(friendly_name='statistics-event',
-                            doc='Event raised when a new statistics is available',
-                            label='Statistics Event')
-
     def loop(self):
         self._run = True
         while self._run:
@@ -29,6 +25,11 @@ class GentecMaestroEnergyMeter(Thing):
                 ))
             if self._statistics_enabled:
                 self.statistics_event.push(self.statistics)
+    
+    statistics_event = Event(friendly_name='statistics-event',
+                            doc='Event raised when a new statistics is available',
+                            label='Statistics Event')
+
 
     statistics = Property(doc="Get latest computed statistics", 
                         readonly=True)
@@ -56,9 +57,7 @@ class GentecMaestroEnergyMeter(Thing):
         "required": ["timestamp", "energy"]
     }
 
-    # Convert the schema to JSON
-    data_point_event = Event(friendly_name='data-point-event', 
-                            doc='Event raised when a new data point is available',
+    data_point_event = Event(doc='Event raised when a new data point is available',
                             label='Data Point Event', schema=data_point_event_schema)
   
     
