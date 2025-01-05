@@ -59,11 +59,22 @@ is stored inside the instance's `__dict__` under the name `<given property name 
 
 When a value assignment was never called on the property, `default` is returned when reading the value. This is the purpose of the `default` argument. If a setter/deleter is given, getter is mandatory. In this case, `default` is also ignored & the getter is always executed. 
 
-```py title="default value" linenums="1" hl_lines="22-24 26"
---8<-- "docs/howto/code/properties/common_args_2.py:6:39"
-```
+=== "with decorator"
 
-supplying `fget`, `fset` & `fdel` is same as using `getter`, `setter` & `deleter` decorator.
+    ```py linenums="1" 
+    --8<-- "docs/howto/code/properties/common_args_2.py:22:42"
+    --8<-- "docs/howto/code/properties/common_args_2.py:46:48"
+    --8<-- "docs/howto/code/properties/common_args_2.py:98:102"
+    ```
+=== "with fget-fset-fdel arguments"
+
+    ```py linenums="1" 
+    --8<-- "docs/howto/code/properties/common_args_2.py:22:24"
+    --8<-- "docs/howto/code/properties/common_args_2.py:29:34"
+    --8<-- "docs/howto/code/properties/common_args_2.py:36:48"
+    --8<-- "docs/howto/code/properties/common_args_2.py:98:102"
+    ```
+
 If default is desirable, one has to return it manually in the getter method by accessing the property [descriptor object directly](../#__codelineno-2-15). 
 
 
@@ -75,7 +86,11 @@ Custom getter-setter-deleter are not compatible with this option currently. `cla
 which in turn has precedence over `default`.
 
 ```py title="class member" linenums="1" hl_lines="21-22"
---8<-- "docs/howto/code/properties/common_args_2.py:41:70"
+--8<-- "docs/howto/code/properties/common_args_2.py:7:20"
+--8<-- "docs/howto/code/properties/common_args_2.py:22:24"
+--8<-- "docs/howto/code/properties/common_args_2.py:51:57"
+--8<-- "docs/howto/code/properties/common_args_2.py:98:100"
+--8<-- "docs/howto/code/properties/common_args_2.py:103:106"
 ```
 
 `class_member` can still be used with a default value if there is no custom fget-fset-fdel. 
@@ -106,7 +121,9 @@ class Thing:
 When `state` is specifed, the property is writeable only when the `Thing`'s `StateMachine` is in that specified state (or 
 in the list of allowed states): 
 
-```py title="" 
+```py title="state machine state" linenums="1" hl_lines="17" 
+--8<-- "docs/howto/code/properties/common_args_2.py:22:24"
+--8<-- "docs/howto/code/properties/common_args_2.py:60:76"
 ```
 
 This is also currently applicable only when set operations are called by clients. Local set operations are always executed irrespective of the state machine state. A get operation is always executed as well even from the clients irrespective of the state. 
@@ -117,16 +134,21 @@ This is also currently applicable only when set operations are called by clients
 Observable properties push change events when the property is set or read. This is useful when one wants to monitor the
 property for changes without polling from the client. The payload of the change event is the new value of the property. 
 
+```py title="state machine state" linenums="1" hl_lines="19" 
+--8<-- "docs/howto/code/properties/common_args_2.py:22:24"
+--8<-- "docs/howto/code/properties/common_args_2.py:79:95"
+```
+
 `metadata`
 ----------
 
-This dictionary allows storing arbitrary metadata in a dictionary. For example, one can store units of the physical 
+`metadata` is a dictionary that allows storing arbitrary metadata about the property. For example, one can store units of the physical 
 quantity. 
 
 `db_init`, `db_commit` & `db_persist`
 -------------------------------------
 
-Properties can be stored & loaded in a database if necessary when the `Thing` is stopped and restarted. 
+Properties can be stored in a file or a database and loaded from them when the `Thing` is stopped and restarted. This is useful especially to preserve the settings of the hardware when the server undergoes a restart, either through system restart or any other reason.  
 
 * `db_init` only loads a property from database, when the value is changed, its not written back to the database. 
   For this option, the value has to be pre-created in the database in some other fashion.

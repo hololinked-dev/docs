@@ -4,11 +4,14 @@ import datetime
 import sys 
 import threading
 import time 
+import typing
 
 from serial_utility import SerialCommunication
 from hololinked.server import Thing, action, Event, Property
-from hololinked.server.properties import Number, String, Integer, Boolean
-from .sensors import allowed_sensors
+from hololinked.server.properties import Number, String, Integer, Boolean, TypedDict
+from pydantic import BaseModel, Field
+
+
 
 POWER_WATT  = "POWER_WATT"
 ENERGY = "ENERGY"
@@ -37,6 +40,132 @@ LOAD_DETECTOR_SETTINGS_ACKNOWLEDGEMENT = "Done!"
 ACKNOWLEDGED = "ACK"
 
 
+
+class Sensor(Thing):
+    """
+    Base class for a Gentec Maestro sensor. subclass it to add features.
+    """
+    name = ""
+    specifications = {}
+
+    def configure_gentec_meter(self, meter_instance : typing.Any) -> None: 
+        """
+        Here you can include functionality to manipulate variables of the Gentec instance 
+        according to a certain sensor, like minimum and maximum allowed wavelength.
+        """
+        meter_instance.min_wavelength = int(self.specifications.get("Minimum Wavelength", '0nm').strip("nm"))
+        meter_instance.max_wavelength = int(self.specifications.get("Maximum Wavelength", '{}nm'.format(pow(2,31))).strip("nm"))
+     
+
+class QE25LP_S_MB(Sensor):
+    
+    name = String(default="QE25LP-S-MB", readonly=True, 
+                doc="The name of the sensor.", class_member=True)
+    
+    specifications = TypedDict(default={
+                                    "Name"               : "QE25LP-S-MB",
+                                    "Absorber"           : "MB",
+                                    "Minimum Wavelength" : "248nm",
+                                    "Maximum Wavelength" : "2100nm",
+                                    "Total Spectral Range (inkl. Uncalibrated)" : "190 - 20000 nm",
+                                    "Typical Sensitivity"     : "10 V/J",
+                                    "Calibration Uncertainty" : "+- 3%",
+                                    "Repeatability"           : "<0.5%",   
+                                    "Max Pulse Energy 1064nm" : "3.75J",
+                                    "Max Pulse Energy 266nm"  : "3.1J",
+                                    "Noise Equivalent Energy" : "4uJ",
+                                    "Max Repetition Rate"     : "300Hz",
+                                    "Typical Rise Time"       : "550µsec",
+                                    "Max Pulse Width"         : "400µsec",
+                                    "Max Energy Density 1064nm" : "600mJ/cm^2 , 7ns, 10Hz",
+                                    "Max Energy Density 266nm"  : "500mJ/cm^2 , 7ns, 10Hz",
+                                    "Max Average Power w/o Heatsink"  : "5W",
+                                    "Max Average Power with Heatsink" : "10W",
+                                    "Max Power Density"         : "10W/cm^2 @ 5W",
+                                    "Dimensions w/o Heatsink"   : "50x50x14mm",
+                                    "Dimensions with Heatsink"  : "50x50x52.5mm",
+                                    "Weight w/o Heatsink"       : "120g",
+                                    "Weight with Heatsink"      : "187g",
+                                    "Aperture"                  : "25x25mm",
+                                    "Aperture Area"             : "6.25cm^2"
+                                    },  readonly=True, class_member=True,
+                                    doc="The specifications of the sensor.")
+
+    
+    
+class QE12LP_S_MB_QED_D0(Sensor):
+    
+    name = String(default="QE12LP-S-MB-QED-D0", readonly=True, 
+                doc="The name of the sensor.", class_member=True)
+    
+    specifications = TypedDict(default={
+                                "Name"               : "QE12LP-S-MB-QED-D0",
+                                "Absorber"           : "MB",
+                                "Minimum Wavelength" : "266nm",
+                                "Maximum Wavelength" : "2100nm",
+                                "Total Spectral Range (inkl. Uncalibrated)" : "190 - 20000 nm",
+                                "Typical Sensitivity"     : "60 V/J",
+                                "Calibration Uncertainty" : "+- 3%",
+                                "Repeatability"           : "<0.5%",   
+                                "Max Pulse Energy 1064nm" : "3.9J",
+                                "Max Pulse Energy 266nm"  : "0.81J",
+                                "Noise Equivalent Energy" : "0.7uJ",
+                                "Max Repetition Rate"     : "300Hz",
+                                "Typical Rise Time"       : "550µsec",
+                                "Max Pulse Width"         : "400µsec",
+                                "Max Energy Density 1064nm" : "600mJ/cm^2 , 7ns, 10Hz",
+                                "Max Energy Density 266nm"  : "500mJ/cm^2 , 7ns, 10Hz",
+                                "Max Average Power w/o Heatsink"  : "5W",
+                                "Max Average Power with Heatsink" : "10W",
+                                "Max Power Density"         : "10W/cm^2 @ 5W",
+                                "Dimensions w/o Heatsink"   : "50x50x14mm",
+                                "Dimensions with Heatsink"  : "50x50x52.5mm",
+                                "Weight w/o Heatsink"       : "120g",
+                                "Weight with Heatsink"      : "187g",
+                                "Aperture"                  : "25x25mm",
+                                "Aperture Area"             : "6.25cm^2"
+                            }, readonly=True, class_member=True,
+                            doc="The specifications of the sensor.")
+    
+allowed_sensors = {
+    QE25LP_S_MB.name : QE25LP_S_MB,
+    QE12LP_S_MB_QED_D0.name : QE12LP_S_MB_QED_D0,
+    None : QE25LP_S_MB
+} 
+
+
+
+@dataclass
+class EnergyDataPoint:
+    """A single data point of energy measurement along with the timestamp of measurement"""
+    timestamp : str
+    energy : float
+
+    def json(self):
+        return {
+            'timestamp' : self.timestamp,
+            'energy' : self.energy
+        }
+    
+
+@dataclass 
+class EnergyHistory:
+    """A history of energy data points along with the timsestamp of measurement""" 
+    timestamp : deque 
+    energy : deque
+
+    def json(self):
+        return {
+            'timestamp' : list(self.timestamp) if len(self) > 0 else None,
+            'energy' : list(self.energy) if len(self) > 0 else None
+        }
+    
+    def __len__(self):
+        assert len(self.timestamp) == len(self.energy), "unequal length of timestamp and energy data detected"
+        return len(self.timestamp)
+
+
+
 class GentecOpticalEnergyMeter(Thing):
     """
     Control Gentec EO optical energy meters through serial interface using this class. 
@@ -53,21 +182,28 @@ class GentecOpticalEnergyMeter(Thing):
         self.serial_comm_handle.connect()
         self.set_sensor(kwargs.get('sensor', 'QE25LP-S-MB'))
         self._analog_output_enabled = False
+        self._run = False
+        self._measurement_worker = None
+        self._last_measurement = None
 
-    @action(URL_path='/set-sensor', input_schema={'type': 'string'})
+    # action with input schema
+    @action(
+        input_schema={
+            'type': 'string', 
+            'enum': ['QE25LP-S-MB', 'QE12LP-S-MB-QED-D0']
+        }
+    )
     def set_sensor(self, value : str):
         """
         Set the attached sensor to the meter under control.
         Sensor should be defined as a class and added to the AllowedSensors dict. 
         """
-        if value in list(allowed_sensors.keys()):
-            sensor = allowed_sensors[value](instance_name='sensor')
-            sensor.configure_meter(self)
-            self._attached_sensor = sensor
-        else:
-            raise ValueError("Unknown sensor : {}".format(value))
-
+        sensor = allowed_sensors[value](instance_name='sensor')
+        sensor.configure_meter(self)
+        self._attached_sensor = sensor
+     
    
+
     # This is how you define properties, they generally become instance attributes automatically.
     min_wavelength = Integer(default=200, bounds=(200,1000), metadata=dict(unit='nm'),
                             doc="""Software limit of the minimum allowed wavelength of the sensor, 
@@ -288,7 +424,7 @@ class GentecOpticalEnergyMeter(Thing):
             return
         raise RuntimeError("Error saving detector settings")
 
-    @action('/detector-settings/load')
+    @action()
     def load_detector_settings(self):
         if self.serial_comm_handle.execute_instruction("*LDS")[:-2] == LOAD_DETECTOR_SETTINGS_ACKNOWLEDGEMENT:
             return 
@@ -347,6 +483,8 @@ class GentecOpticalEnergyMeter(Thing):
     display_mode = String(default=ERROR_MODE_NOT_READ, readonly=True, fget=read_display_mode, 
                         doc="The measurement mode of the sensor. A mismoner, as it affects sensor measurement mode as well.")
     
+    #---------------DATA ACQUISITION
+
     data_point_event = Event(name='data-point-event', 
                             doc='Event raised when a new data point is available',
                             label='Data Point Event')
@@ -362,12 +500,6 @@ class GentecOpticalEnergyMeter(Thing):
     measurement_gap = Number(default=0.1, bounds=(0, None), allow_None=True, 
                         doc="Time gap between two measurements, unit - seconds.")
     
-    def __init__(self, instance_name, serial_url = "COM4", **kwargs):
-        super().__init__(instance_name, serial_url, **kwargs)
-        self._run = False
-        self._measurement_worker = None
-        self._last_measurement = None
-
     # not an action, just a plain method
     def loop(self):
         """runs the measurement/monitoring loop"""
@@ -414,35 +546,11 @@ class GentecOpticalEnergyMeter(Thing):
             self.logger.info("Acquisition loop stopped")
         else:
             self.logger.info("Acquisition loop already stopped")
+
+    
+    allow_relaxed_schema_actions = True
       
-
-@dataclass
-class EnergyDataPoint:
-    """A single data point of energy measurement along with the timestamp of measurement"""
-    timestamp : str
-    energy : float
-
-    def json(self):
-        return {
-            'timestamp' : self.timestamp,
-            'energy' : self.energy
-        }
-    
-
-@dataclass 
-class EnergyHistory:
-    """A history of energy data points along with the timsestamp of measurement""" 
-    timestamp : deque 
-    energy : deque
-
-    def json(self):
-        return {
-            'timestamp' : list(self.timestamp) if len(self) > 0 else None,
-            'energy' : list(self.energy) if len(self) > 0 else None
-        }
-    
-    def __len__(self):
-        assert len(self.timestamp) == len(self.energy), "unequal length of timestamp and energy data detected"
-        return len(self.timestamp)
+    @action()
+    def set_sensor(self, value: )
 
 
