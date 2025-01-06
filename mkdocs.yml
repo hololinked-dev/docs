@@ -6,10 +6,12 @@ edit_uri: https://github.com/hololinked-dev/docs-v2/edit/main/docs/
 
 
 nav:
+
   - Home: 
     - Introduction: index.md
     - Installation: introduction/installation.md
     - Resources: introduction/resources.md
+
   - How To: 
     - Expose Python Objects: howto/articles/servers.md
     - Connect to Things with Clients: howto/articles/clients.md
@@ -20,10 +22,12 @@ nav:
     - Using Actions: howto/articles/actions.md
     - Using Events: howto/articles/events.md
     - Using State Machine: howto/articles/state-machine.md
-    - Configuring Thing Class: howto/articles/thing-class.md
+    - Configuring Thing Class: 
+      - Thing: howto/articles/thing/index.md
     - Using Different Protocols:
       - Object Proxy: howto/articles/object-proxy.md
     - Serialization: howto/articles/serialization.md
+
   - API Reference:
     - Thing:
       - Thing: api-reference/thing/index.md
@@ -51,6 +55,9 @@ nav:
           - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
           - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
         - RPC Server: api-reference/protocols/zmq/rpc-server.md
+      - HTTP:
+        - HTTPServer: api-reference/protocols/http/http-server.md
+
   - Examples:
     - Energy Meter: examples/energy-meter.md
     - Linear Stage: examples/linear-stage.md

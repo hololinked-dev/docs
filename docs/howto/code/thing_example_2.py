@@ -365,11 +365,19 @@ class GentecOpticalEnergyMeter(Thing):
        
     @action()
     def set_current_value_as_zero_offset(self):
+        """Set current value as offset for further measurements"""
         self.serial_comm_handle.execute_instruction("*SOU")
     
     @action()
     def clear_zero_offset(self):
+        """Clear any offset for measurements, i.e. set offset to 0"""
         self.serial_comm_handle.execute_instruction("*COU")
+
+    @action()
+    @classmethod 
+    def ping(cls):
+        """class method example as action - ping server"""
+        return datetime.datetime.now().strftime("%H:%M:%S")
 
     @action()
     def clear_multiplier(self):

@@ -1,6 +1,6 @@
 # Properties In-Depth
 
-Properties expose python attributes to clients & support custom get-set(-delete) operations. Further, change events can be subscribed/observed to automatically be informed of a change in the value of a property. 
+Properties expose python attributes to clients & support custom get-set(-delete) operations. Further, change events can be subscribed/observed to be automatically informed of a change in the value of a property. 
 `hololinked` uses `param` under the hood to implement properties, which in turn uses the
 descriptor protocol. 
 
@@ -25,7 +25,7 @@ To make a property take any python value, use the base class `Property`:
 
 One can also pass the property value to the parent's `__init__` to auto-set or auto-invoke the setter at `__init__`:
 
-```py title="init" linenums="1" hl_lines="10-13"
+```py title="init" linenums="1" hl_lines="10-14"
 --8<-- "docs/howto/code/properties/untyped.py:2:8"
 --8<-- "docs/howto/code/properties/untyped.py:43:49"
 ```
@@ -94,8 +94,7 @@ The return value of getter method is never validated and is left to the develope
 Schema Constrained Property 
 ---------------------------
 
-For complicated data structures, one can use `pydantic` or JSON schema based type definition and validation. 
-`pydantic` supports all python types whereas JSON schema allows only JSON compatible types. Set the model argument 
+For complicated data structures, one can use `pydantic` or JSON schema based type definition and validation. Set the model argument 
 to define the type:
 
 === "pydantic"

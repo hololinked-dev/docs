@@ -16,21 +16,9 @@ class OceanOpticsSpectrometer(Thing):
         super().__init__(instance_name=instance_name, **kwargs)
         self.last_intensity = numpy.array([0 for i in range(1024)])
 
-    last_intensity = ClassSelector(default=None, allow_None=True, class_=numpy.ndarray, 
+    last_intensity = ClassSelector(default=None, allow_None=True, 
+                    class_=numpy.ndarray, 
                 	doc="last measurement intensity (in arbitrary units)")
-
-    @action() # non-JSON arguments are not supported with HTTP
-    class subtract_custom_background(ParameterizedFunction):
-        """Test function with return value"""
-
-        custom_background = ClassSelector(default=None, allow_None=True, 
-                                class_=numpy.ndarray, 
-                                doc="background intensity to subtract (in arbitrary units)") 
-        
-        def __call__(self, 
-                instance : "OceanOpticsSpectrometer", 
-                custom_background : numpy.ndarray) -> numpy.ndarray:
-            return instance.last_intensity - custom_background
 
     @action()
     def subtract_custom_background(self, custom_background):
@@ -39,7 +27,6 @@ class OceanOpticsSpectrometer(Thing):
         return self.last_intensity - custom_background
     
 
-   
 def client():
     client = ObjectProxy(instance_name='spectrometer', protocol='IPC', 
                         serializer='pickle')
@@ -59,3 +46,34 @@ def server():
 if __name__ == "__main__":
     multiprocessing.Process(target=server).start()
     client()
+    
+
+    
+class OceanOpticsSpectrometer(Thing):
+    """
+    Test object for testing the server
+    """
+
+    def __init__(self, instance_name, **kwargs):
+        super().__init__(instance_name=instance_name, **kwargs)
+        self.last_intensity = numpy.array([0 for i in range(1024)])
+
+    last_intensity = ClassSelector(default=None, allow_None=True, 
+                    class_=numpy.ndarray, 
+                	doc="last measurement intensity (in arbitrary units)")
+
+    @action() 
+    class subtract_custom_background(ParameterizedFunction):
+        """Test function with return value"""
+
+        custom_background = ClassSelector(default=None, allow_None=True, 
+                                class_=numpy.ndarray, 
+                                doc="""background intensity to subtract 
+                                    from the last measurement intensity
+                                    (in arbitrary units)""") 
+        
+        def __call__(self, 
+                    instance : "OceanOpticsSpectrometer", 
+                    custom_background : numpy.ndarray
+                ) -> numpy.ndarray:
+            return instance.last_intensity - custom_background

@@ -44,7 +44,7 @@ For methods to be exposed on the network, one can use the `action` decorator:
 ```
 
 Properties usually model settings, captured data etc. which have a read-write 
-operation (also read-only, read-write-delete operations) and a specific type. Actions are supposed to model activities in the physical world, like executing a control routine, start/stop measurement etc. Both properties and actions are symmetric, they can invoked from within the object and externally by a client and expected to behave similarly (except while using a state machine).
+operation (also read-only, read-write-delete operations) and a specific type. Actions are supposed to model activities in the physical world, like executing a control routine, start/stop measurement etc. Both properties and actions are symmetric, they can be invoked from within the object and externally by a client and expected to behave similarly (except while using a state machine).
 
 Actions can take arbitrary signature.
 
@@ -61,7 +61,7 @@ one can start one or multiple protocols to serve the thing:
 
 ```py title="Another Protocol - ZMQ" linenums="1"
 --8<-- "docs/howto/code/thing_basic_example.py:114:114"
---8<-- "docs/howto/code/thing_basic_example.py:123:126"
+--8<-- "docs/howto/code/thing_basic_example.py:123:127"
 ```
 
 Further, all requests are queued as the domain of operation under the hood is remote procedure calls (RPC) 
@@ -80,7 +80,7 @@ To overload the get-set of properties to directly apply property values onto dev
 --8<-- "docs/howto/code/thing_basic_example.py:37:52"
 ```  
 
-In non expert terms, when a custom get-set method is not provided, 
+Properties follow the python descriptor protocol. In non expert terms, when a custom get-set method is not provided, 
 properties look like class attributes however their data containers are instantiated at object instance level by default. 
 For example, the [`serial_number`](#__codelineno-2-9) property defined 
 previously as `String`, whenever set/written, will be complied to a string and assigned as an attribute to each instance 
@@ -108,7 +108,7 @@ measured data using events:
 Data may also be polled by the client repeatedly but events save network time or allow sending data which cannot be timed,
 like alarm messages. Arbitrary payloads are supported, as long as the data is serializable.   
 
-To start the capture method, to receive the events, one may thread it as follows:
+To start the capture method defined above, to receive the events, one may thread it as follows:
 
 ```py title="Events" linenums="1" hl_lines="8"
 --8<-- "docs/howto/code/thing_basic_example.py:7:12"

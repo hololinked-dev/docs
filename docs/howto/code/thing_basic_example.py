@@ -122,7 +122,9 @@ if __name__ == '__main__':
     # threading.Thread(target=start_https_server).start()
     spectrometer = OceanOpticsSpectrometer(id='spectrometer', 
                        serial_number=None, autoconnect=False)
-    spectrometer.run(zmq_protocols="IPC") # interprocess-communication
+    spectrometer.run(zmq_protocols="IPC") 
+    # ZMQ interprocess-communication - suitable for beginners and 
+    # apps automatically behind firewall
 
     # example code, but will never reach here unless exit() is called by the client
     spectrometer = OceanOpticsSpectrometer(id='spectrometer', 

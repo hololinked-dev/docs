@@ -2,7 +2,7 @@
 
 Properties can also be extended to define custom types, validation and coercion based on specific requirements. As a contrived example, one may define a JPEG image attribute which may accept a numpy array as input, have a compression level setting, transpose and flip the image if necessary. 
 
-Inherit from the `Property` object and define the `__init__`:
+To create the property, inherit from the `Property` object and define the `__init__`:
 
 ```py title='Subclassing Property' linenums="1" 
 --8<-- "docs/howto/code/properties/extending.py:2:2"
@@ -22,7 +22,7 @@ Further, the parent class [`Property` takes care](https://github.com/VigneshVSV/
 
 ```py title='Validation and Adaption' linenums="1" 
 --8<-- "docs/howto/code/properties/extending.py:4:6"
---8<-- "docs/howto/code/properties/extending.py:20:36"
+--8<-- "docs/howto/code/properties/extending.py:20:37"
 ```
 
 The `__set__()` method automatically invokes `validate_and_adapt()`, therefore the new value or validated value can be returned from this method. 
@@ -40,7 +40,7 @@ The difference between using a custom setter/`fset` method and overloading the `
 
 ```py title="Reusing Custom Property" linenums="1"
 --8<-- "docs/howto/code/properties/extending.py:64:65"
---8<-- "docs/howto/code/properties/extending.py:78:"
+--8<-- "docs/howto/code/properties/extending.py:78:86"
 ```
 
 !!! Note

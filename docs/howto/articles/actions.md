@@ -3,14 +3,15 @@ Actions
 
 [API Reference](../../api-reference/action/index.md)
 
-Only methods decorated with ``action()`` are exposed to clients. 
+Only methods decorated with `action()` are exposed to clients. 
 
 ```py title="Actions" linenums="1"
 --8<-- "docs/howto/code/thing_example_2.py:168:172"
---8<-- "docs/howto/code/thing_example_2.py:365:373"
---8<-- "docs/howto/code/thing_example_2.py:439:443"
---8<-- "docs/howto/code/thing_example_2.py:447:448"
---8<-- "docs/howto/code/thing_example_2.py:502:505"
+--8<-- "docs/howto/code/thing_example_2.py:365:374"
+--8<-- "docs/howto/code/thing_example_2.py:510:513"
+--8<-- "docs/howto/code/thing_example_2.py:446:451"
+--8<-- "docs/howto/code/thing_example_2.py:455:456"
+--8<-- "docs/howto/code/thing_example_2.py:375:380"
 ```
 
 Arguments are loosely typed and may need to be constrained with a schema based 
@@ -52,7 +53,7 @@ the method signature is matching when requested from a client. To enable this, s
 
 ```py title="Relaxed or Unavailable Schema for Actions" linenums="1"
 --8<-- "docs/howto/code/thing_example_2.py:168:172"
---8<-- "docs/howto/code/thing_example_2.py:550:551"
+--8<-- "docs/howto/code/thing_example_2.py:558:559"
 ```
 
 The return value must be validated by the clients themselves. While a schema for the return value can be supplied, there is no separate validation performed on the server:
@@ -74,28 +75,34 @@ The return value must be validated by the clients themselves. While a schema for
 
 It is always possible to custom validate the arguments after invoking the action:
 
-```py title="Actions" linenums="1"
---8<-- "docs/howto/code/actions/parameterized_function.py:9:20"
---8<-- "docs/howto/code/actions/parameterized_function.py:34:39"
+```py title="Custom Validation" linenums="1"
+--8<-- "docs/howto/code/actions/parameterized_function.py:3:3"
+--8<-- "docs/howto/code/actions/parameterized_function.py:9:27"
 ```
 
 The last and least preferred possibility is to use `ParameterizedFunction`: 
 
-```py title="Actions" linenums="1"
---8<-- "docs/howto/code/actions/parameterized_function.py:3:3"
---8<-- "docs/howto/code/actions/parameterized_function.py:9:33"
+```py title="Parameterized Function" linenums="1"
+--8<-- "docs/howto/code/actions/parameterized_function.py:52:"
 ```
 
-``ParameterizedFunction`` (s) are classes whose arguments are type defined using the same objects as properties 
-and implement the ``__call__`` method. However, this type definition using property object do not make these 
-arguments as properties of the ``Thing``. The implementation follows convention used by ``param`` where the 
+`ParameterizedFunction`(s) are classes that implement the `__call__` method and whose arguments are type defined using the same objects as properties. However, this type definition using `Property` object do not make these properties of the `Thing`. The implementation follows convention used by `param` where the 
 properties are termed as "parameters" (also hence the word "ParameterizedFunction"). 
 
-The ``__call__`` method signature accepts its own self as the first argument, 
-followed by the ``Thing`` instance as the second argument and then the arguments supplied by the client. On the 
+The `__call__` method signature accepts its own self as the first argument, 
+followed by the `Thing` instance as the second argument and then the arguments supplied by the client. On the 
 client side, there is no difference between invoking a normal action and an action implemented as 
-``ParameterizedFunction``:
+`ParameterizedFunction`:
 
-```py title="Actions" linenums="1"
---8<-- "docs/howto/code/actions/parameterized_function.py:43"
-```
+=== "server"
+
+    ```py title="Custom Validation" linenums="1"
+    --8<-- "docs/howto/code/actions/parameterized_function.py:38:44"
+    ```
+
+=== "client"
+
+    ```py title="Custom Validation" linenums="1"
+    --8<-- "docs/howto/code/actions/parameterized_function.py:30:36"
+    ```
+

@@ -39,7 +39,7 @@ class JPEG(Property):
     @instance_descriptor
     def __set__(self, obj, value) -> None:
         if self.readonly:
-            raise AttributeError("Cannot set read-only attribute image")
+            raise AttributeError("Cannot set read-only image attribute")
         if value is None and not self.allow_None:
             raise ValueError("None is not allowed")
         if isinstance(value, bytes):

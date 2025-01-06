@@ -40,13 +40,13 @@ class TestObject(Thing):
         self.my_custom_typed_serializable_attribute = [1, 2, 3, ""]
 
     """
-    def __init__(self, *, id: str, **kwargs) -> None:
-        super().__init__(id=id, 
-            my_untyped_serializable_attribute=kwargs.pop(
-                                        'my_untyped_serializable_attribute', 
-                                        None
-                                    ),     
-            **kwargs)
+    def __init__(self, *, id: str, my_untyped_serializable_attribute : Any, 
+                **kwargs) -> None:
+        super().__init__(
+            id=id, 
+            my_untyped_serializable_attribute=my_untyped_serializable_attribute,
+            **kwargs
+        )
     """
 
     my_property = Property(default=[2, "foo"], allow_None=False, 
@@ -54,6 +54,6 @@ class TestObject(Thing):
     
     @my_property.getter
     def my_property(self): 
-        # please dont use the property's name for the getter method
+        # wrong - please dont use the property's name for the getter method
         return self._foo     
       
