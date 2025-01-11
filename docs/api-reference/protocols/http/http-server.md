@@ -1,6 +1,6 @@
 
 
-::: hololinked.protocols.http.HTTPServer.HTTPServer
+::: hololinked.protocols.http.HTTPServer
     options:
         members:
             - __init__
@@ -11,4 +11,5 @@
             - add_event
             - listen
             - stop
+            - all_ok
             - update_router_with_things

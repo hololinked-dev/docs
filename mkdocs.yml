@@ -6,12 +6,12 @@ edit_uri: https://github.com/hololinked-dev/docs-v2/edit/main/docs/
 
 
 nav:
-
+  # landing page
   - Home: 
     - Introduction: index.md
     - Installation: introduction/installation.md
     - Resources: introduction/resources.md
-
+  # textbook like How To tutorials
   - How To: 
     - Expose Python Objects: howto/articles/servers.md
     - Connect to Things with Clients: howto/articles/clients.md
@@ -27,7 +27,7 @@ nav:
     - Using Different Protocols:
       - Object Proxy: howto/articles/object-proxy.md
     - Serialization: howto/articles/serialization.md
-
+  # API Reference
   - API Reference:
     - Thing:
       - Thing: api-reference/thing/index.md
@@ -46,6 +46,8 @@ nav:
       - Event: api-reference/events/index.md
       - EventDispatcher: api-reference/events/event-dispatcher.md
     - Protocols:
+      - HTTP:
+        - HTTPServer: api-reference/protocols/http/http-server.md
       - ZMQ: 
         - Message: api-reference/protocols/zmq/message.md
         - Brokers:
@@ -55,9 +57,10 @@ nav:
           - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
           - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
         - RPC Server: api-reference/protocols/zmq/rpc-server.md
-      - HTTP:
-        - HTTPServer: api-reference/protocols/http/http-server.md
-
+    - Serializers:
+      - Serializers: api-reference/serializers/index.md
+     
+  # Examples
   - Examples:
     - Energy Meter: examples/energy-meter.md
     - Linear Stage: examples/linear-stage.md
@@ -162,8 +165,8 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-
-  # TOC
+  - toc:
+      toc_depth: 3
   
 
 extra:

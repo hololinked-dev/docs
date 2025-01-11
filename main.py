@@ -1,6 +1,7 @@
 import shutil
 import os
 
+import hololinked.serializers
 import hololinked.server
 
 def define_env(env):
@@ -8,6 +9,8 @@ def define_env(env):
     @env.macro
     def thing_id():
         return hololinked.server.Thing.id.doc
+    
+    
 
 
 # uncomment these while running the first time, then recomment them:
