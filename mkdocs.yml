@@ -45,6 +45,11 @@ nav:
     - Events:
       - Event: api-reference/events/index.md
       - EventDispatcher: api-reference/events/event-dispatcher.md
+    - Clients:
+      - Abstractions: 
+        - ConsumedThingAction: api-reference/clients/bases/cta.md
+        - ConsumedThingProperty: api-reference/clients/bases/ctp.md
+        - ConsumedThingEvent: api-reference/clients/bases/cte.md
     - Protocols:
       - HTTP:
         - HTTPServer: api-reference/protocols/http/http-server.md
@@ -57,6 +62,7 @@ nav:
           - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
           - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
         - RPC Server: api-reference/protocols/zmq/rpc-server.md
+    
     - Serializers:
       - Serializers: api-reference/serializers/index.md
      
