@@ -1,7 +1,9 @@
 
 
-::: hololinked.server.actions.Action
+::: hololinked.core.actions.Action
 
-::: hololinked.server.actions.SyncAction
+::: hololinked.core.actions.BoundAction
 
-::: hololinked.server.actions.AsyncAction
+::: hololinked.core.actions.BoundSyncAction
+
+::: hololinked.core.actions.BoundAsyncAction

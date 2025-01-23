@@ -1,3 +1,3 @@
 
 
-::: hololinked.server.events.EventSource
+::: hololinked.core.meta.EventSource

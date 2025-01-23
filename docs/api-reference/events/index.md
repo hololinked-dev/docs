@@ -1,2 +1,2 @@
 
-::: hololinked.server.events.Event
+::: hololinked.core.events.Event

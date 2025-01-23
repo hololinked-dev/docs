@@ -1,3 +1,3 @@
 
 
-::: hololinked.server.events.EventDispatcher
+::: hololinked.core.events.EventDispatcher

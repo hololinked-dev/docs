@@ -1,3 +1,3 @@
 
 
-::: hololinked.server.rpc_server.RPCServer
+::: hololinked.core.rpc_server.RPCServer

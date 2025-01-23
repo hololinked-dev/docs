@@ -1,6 +1,6 @@
 
 
-::: hololinked.server.state_machine.StateMachine   
+::: hololinked.core.state_machine.StateMachine   
     options:
         members:
             - __init__

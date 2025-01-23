@@ -1,2 +1,2 @@
 
-::: hololinked.server.Property
+::: hololinked.core.Property
