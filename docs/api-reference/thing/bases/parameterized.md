@@ -1,3 +1,0 @@
-
-
-::: hololinked.param.Parameterized

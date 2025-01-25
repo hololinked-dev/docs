@@ -33,12 +33,16 @@ nav:
       - Thing: api-reference/thing/index.md
       - RemoteAccessHandler: api-reference/thing/logger.md
       - StateMachine: api-reference/thing/state-machine.md
+      - Meta: api-reference/thing/thing-meta.md
       - Bases:
-        - Parameterized: api-reference/thing/bases/parameterized.md
+        - Propertized: api-reference/thing/bases/propertized.md
         - RemoteInvokable: api-reference/thing/bases/remote-invokable.md
         - EventSource: api-reference/thing/bases/event-source.md
-      - Meta: api-reference/thing/thing-meta.md
-      - DescriptorRegistry: api-reference/thing/registries/descriptor-registry.md
+      - Descriptor Registries: 
+        - DescriptorRegistry: api-reference/thing/registries/descriptor-registry.md
+        - PropertyRegistry: api-reference/thing/registries/property-registry.md
+        - ActionRegistry: api-reference/thing/registries/actions-registry.md
+        - EventRegistry: api-reference/thing/registries/events-registry.md
     - Property: api-reference/property/index.md
     - Actions: 
       - action: api-reference/action/index.md
@@ -138,6 +142,8 @@ plugins:
   - git-authors
   - search
   - macros
+  - autorefs:
+      resolve_closest: true
   # - blog
   # - social
   - mkdocstrings:
@@ -156,6 +162,11 @@ plugins:
             # docstrings style 
             docstring_style: numpy
             group_by_category: true
+            # annotations
+            modernize_annotations: true
+            show_signature_annotations: true
+            separate_signature: true
+           
         
                   
 markdown_extensions:

@@ -4,18 +4,18 @@
     options:
         members:
             - owner
-            - qualified_prefix
-            - descriptor_object
-            - names
+            - descriptor_object           
             - descriptors
+            - names
+            - values
             - __init__
-            - __getitem__
-            - __contains__
-            - __dir__
-            - __iter__
-            - __len__
+            - clear
+       
+Apart from the above `__getitem__`, `__contains__`, `__dir__`, `__iter__`, `__len__`, `__hash__`, `__str__` are supported
 
-::: hololinked.core.meta.ActionsRegistry
 
-::: hololinked.core.meta.EventsRegistry
+
+
+
+
 
