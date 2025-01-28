@@ -1,6 +1,6 @@
 
 
-::: hololinked.core.meta.PropertyRegistry
+::: hololinked.core.meta.PropertiesRegistry
     options:
         members:
             - defaults
