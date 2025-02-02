@@ -32,7 +32,6 @@ nav:
     - Thing:
       - Thing: api-reference/thing/index.md
       - RemoteAccessHandler: api-reference/thing/logger.md
-      - StateMachine: api-reference/thing/state-machine.md
       - Meta: api-reference/thing/thing-meta.md
       - Bases:
         - Propertized: api-reference/thing/bases/propertized.md
@@ -50,6 +49,25 @@ nav:
     - Events:
       - Event: api-reference/events/index.md
       - EventDispatcher: api-reference/events/event-dispatcher.md
+    - StateMachine: 
+      - StateMachine: api-reference/state_machine/state-machine.md
+      - BoundFSM: api-reference/state_machine/bound-fsm.md
+    - RPC Server: 
+      - RPCServer: api-reference/rpc_server/rpc-server.md
+      - Messaging Contracts: 
+        - RequestMessage: api-reference/rpc_server/messaging_contract/request-message.md
+        - ResponseMessage: api-reference/rpc_server/messaging_contract/response-message.md
+      - Brokers:
+        - BaseZMQ: api-reference/rpc_server/brokers/base-zmq.md
+        - AsyncZMQServer: api-reference/rpc_server/brokers/async-zmq-server.md
+        - SyncZMQClient: api-reference/rpc_server/brokers/sync-zmq-client.md
+        - AsyncZMQClient: api-reference/rpc_server/brokers/async-zmq-client.md
+        - MessageMappedClientPool: api-reference/rpc_server/brokers/message-mapped-zmq-client-pool.md
+      - Schedulers:
+        - Scheduler: api-reference/rpc_server/schedulers/scheduler.md
+        - QueuedScheduler: api-reference/rpc_server/schedulers/queued-scheduler.md
+        - ThreadedScheduler: api-reference/rpc_server/schedulers/threaded-scheduler.md
+        - AsyncScheduler: api-reference/rpc_server/schedulers/async-scheduler.md
     - Clients:
       - Abstractions: 
         - ConsumedThingAction: api-reference/clients/bases/cta.md
@@ -58,15 +76,8 @@ nav:
     - Protocols:
       - HTTP:
         - HTTPServer: api-reference/protocols/http/http-server.md
-      - ZMQ: 
-        - Message: api-reference/protocols/zmq/message.md
-        - Brokers:
-          - BaseZMQ: api-reference/protocols/zmq/brokers/base-zmq.md
-          - AsyncZMQServer: api-reference/protocols/zmq/brokers/async-zmq-server.md
-          - SyncZMQClient: api-reference/protocols/zmq/brokers/sync-zmq-client.md
-          - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
-          - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
-        - RPC Server: api-reference/protocols/zmq/rpc-server.md
+    #  - ZMQ: 
+        
     
     - Serializers:
       - Serializers: api-reference/serializers/index.md

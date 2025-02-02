@@ -1,6 +1,6 @@
 
 
-::: hololinked.protocols.zmq.brokers.SyncZMQClient
+::: hololinked.core.zmq.brokers.SyncZMQClient
     options:
         members:
             - __init__

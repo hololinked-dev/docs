@@ -7,6 +7,7 @@
             - remote_objects
             - db_objects
             - db_init_objects
+            - db_commit_objects
             - db_persisting_objects
             - __init__
             - get

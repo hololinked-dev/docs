@@ -1,7 +1,7 @@
 
 
 
-::: hololinked.protocols.zmq.brokers.AsyncZMQServer
+::: hololinked.core.zmq.brokers.AsyncZMQServer
     options:
         members:
             - __init__
