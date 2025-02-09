@@ -10,11 +10,11 @@
             - thing_cls
             - thing_id
             - generate
+            - build
+            - build_forms
             - from_TD
             - retrieve_form
             - register_descriptor
-            - build
-            - build_forms
 
 ## TD Supported Fields
 

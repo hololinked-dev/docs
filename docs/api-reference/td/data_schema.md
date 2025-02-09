@@ -11,7 +11,7 @@
 | descriptions | ➖ | Provides multi-language human-readable descriptions | to be manually set |
 | const        | ✔️ | `true` when value will remain constant | `Property.constant` value |
 | default      | ✔️ | Provides a default value | `Property.default` value |
-| format      | ➖ | format pattern such as "date-time", "email", "uri", etc. | to be manually set, will be supported in a future release |
+| format       | ➖ | format pattern such as "date-time", "email", "uri", etc. | to be manually set, will be supported in a future release |
 | readOnly     | ✔️ | `true` when value is read-only | `Property.readonly` value |
 | writeOnly    | ❌ | `true` when value is write-only | It is assumed that a property always has an associated value that can be read |
 | unit         | ✔️ | Provides a human-readable unit | `Property.metadata["unit"]` value |
