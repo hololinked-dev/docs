@@ -81,10 +81,11 @@ nav:
       - Serializers: api-reference/serializers/index.md
     - Thing Descriptions:
       - Interaction Affordances:
-        - InteractionAffordances: api-reference/td/interaction_affordance/interaction_affordance.md
+        - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
         - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
         - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
         - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
+      - DataSchema: api-reference/td/data_schema.md
       - Bases:
         - Schema: api-reference/td/bases/schema.md
   # Examples
