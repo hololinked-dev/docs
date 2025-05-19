@@ -1,6 +1,6 @@
 
 
-::: hololinked.protocols.http.HTTPServer
+::: hololinked.server.http.HTTPServer
     options:
         members:
             - __init__
