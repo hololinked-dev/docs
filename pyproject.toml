@@ -1,0 +1,20 @@
+[project]
+name = "hololinked-docs-v2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "hololinked",
+    "mkdocs-autorefs==1.4.2",
+    "mkdocs-git-authors-plugin==0.9.5",
+    "mkdocs-git-revision-date-localized-plugin==1.4.7",
+    "mkdocs-macros-plugin==1.3.7",
+    "mkdocs-material==9.6.14",
+    "mkdocstrings[python]==0.29.1",
+    "pydantic==2.11.5",
+]
+
+[tool.uv.sources]
+hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main-next-release" }
+# working hash is 1690cba2fcb8cd232f34478eaaa76d44c1363bd4, pin it if something is not working
