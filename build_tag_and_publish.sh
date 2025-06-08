@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Use this script to build, tag, and publish the Docker image from your local machine.
 set -e
 
 docker build -t docs-v2 .

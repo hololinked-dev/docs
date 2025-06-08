@@ -21,4 +21,6 @@ RUN uv venv && \
 
 RUN . .venv/bin/activate && mkdocs build
 
-CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve -a 0.0.0.0:8000"]
+EXPOSE 8000
+
+CMD ["/bin/sh", "-c", ". .venv/bin/activate && python -m http.server 8000 --directory site"]
