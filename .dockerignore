@@ -1,0 +1,7 @@
+**/.venv
+**/.env
+**/.vscode
+**/.cache
+**/site
+**/node_modules
+**/dist
