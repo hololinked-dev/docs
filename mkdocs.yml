@@ -14,7 +14,7 @@ nav:
   # textbook like How To tutorials
   - How To: 
     - Expose Python Objects: howto/articles/servers.md
-    - Connect to Things with Clients: howto/articles/clients.md
+    # - Connect to Things with Clients: howto/articles/clients.md
     - Properties in Depth: 
       - Properties: howto/articles/properties/index.md
       - Default Arguments: howto/articles/properties/arguments.md
@@ -97,6 +97,11 @@ nav:
     - ADC in Raspberry Pi: examples/adc.md
   # - Blog:
   #   - blog/index.md
+  - Design Considerations:
+    - Descriptors: design/descriptors.md
+    - Descriptor Registry: design/descriptor-registry.md
+    - Metaclasses: design/metaclasses.md
+    - State Machine: design/state-machine.md    
 
 
 theme:
