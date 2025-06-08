@@ -13,3 +13,5 @@ or
 ```bash	
 mkdocs serve
 ```
+
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs-v2/ci.yaml?label=Build%20Docker%20Image)

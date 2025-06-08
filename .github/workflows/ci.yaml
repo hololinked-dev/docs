@@ -1,4 +1,4 @@
-name: build-frontend
+name: build-docs
 on:
   workflow_dispatch:
   push:
