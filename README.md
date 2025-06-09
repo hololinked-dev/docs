@@ -1,5 +1,5 @@
 # docs-v2
-Documentation in material mkdocs for hololinked
+Documentation in material mkdocs for hololinked.
 
 To build the documentation, while setting up a local development environment with `uv` (`pip install uv`), run:
 
@@ -24,8 +24,7 @@ To develop the documentation with skaffold within a kubernetes cluster, create a
 SKAFFOLD_DEFAULT_REPO=docker.io/<your-docker-username>
 ```
 
-You need to sparse checkout the [vps-kubernetes-cluster repository]() which will be already available as a submodule in the `deployment\vps-kubernetes-cluster` directory. 
-Instructions are available in the shell script `deployment/sparse-checkout.sh`.
+You need to sparse checkout the [vps-kubernetes-cluster repository](https://github.com/hololinked-dev/vps-kubernetes-cluster), which will be already available as a submodule in this repo in the `deployment\vps-kubernetes-cluster` directory. Instructions are available in the shell script `deployment/sparse-checkout.sh`.
 
 Once the ingress and apps helm chart is available locally, run:
 

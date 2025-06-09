@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11-slim AS base
 
 # workdir
 WORKDIR /app
@@ -18,7 +18,19 @@ COPY .python-version pyproject.toml uv.lock /app/
 RUN uv venv 
 RUN uv sync --no-install-project
 
+# Copy documentation source files
 COPY . .
-EXPOSE 8000
 
-CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve"]
+# development image
+FROM base AS dev
+EXPOSE 8000
+CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve -a 0.0.0.0:8000"]
+
+# production image
+FROM base AS prod
+RUN . .venv/bin/activate && mkdocs build 
+
+FROM nginx:alpine AS nginx
+COPY --from=prod /app/site /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

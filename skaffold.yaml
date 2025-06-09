@@ -9,7 +9,7 @@ build:
     context: .
     docker:
       dockerfile: Dockerfile
-      # target: test
+      target: dev
     sync:
       manual:
       - src: "docs/**"
@@ -51,6 +51,22 @@ apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
   name: staging-python-docs
+build:
+  artifacts:
+  - image: docs_v2
+    context: .
+    docker:
+      dockerfile: Dockerfile
+      target: prod
+    sync:
+      manual:
+      - src: "docs/**"
+        dest: "/app/docs"
+  tagPolicy:
+    envTemplate:
+      template: dev # TODO - two developers cannot simulataneously run the same image
+  local:
+    push: true
 deploy:
   helm:
     releases:
