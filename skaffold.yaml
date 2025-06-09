@@ -10,15 +10,16 @@ build:
     docker:
       dockerfile: Dockerfile
       target: dev
-    sync:
-      manual:
-      - src: "docs/**"
-        dest: "/app/docs"
-      - src: "mkdocs.yml"
-        dest: "/app/mkdocs.yml"
+    # mkdocs reloading not working
+    # sync:
+    #   manual:
+    #   - src: "docs/**"
+    #     dest: "/app/docs"
+    #   - src: "mkdocs.yml"
+    #     dest: "/app"
   tagPolicy:
     envTemplate:
-      template: dev # TODO - two developers cannot simulataneously run the same image
+      template: dev
   local:
     push: true
 deploy:

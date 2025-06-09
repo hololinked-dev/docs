@@ -103,6 +103,7 @@ nav:
     - Metaclasses: design/metaclasses.md
     - State Machine: design/state-machine.md    
     - ZMQ RPC Layer: design/zmq.md
+    - Serialization: design/serialization.md
 
 
 theme:
