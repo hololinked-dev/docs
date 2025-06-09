@@ -11,12 +11,14 @@ build:
       dockerfile: Dockerfile
       target: dev
     # mkdocs reloading not working
-    # sync:
-    #   manual:
-    #   - src: "docs/**"
-    #     dest: "/app/docs"
-    #   - src: "mkdocs.yml"
-    #     dest: "/app"
+    sync:
+      manual:
+      - src: "docs/**/*"
+        dest: "/app"
+      - src: "mkdocs.yml"
+        dest: "/app"
+      - src: "main.py"
+        dest: "/app"
   tagPolicy:
     envTemplate:
       template: dev

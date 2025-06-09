@@ -23,6 +23,8 @@ COPY . .
 
 # development image
 FROM base AS dev
+# ARG MKDOCS_DIRTY_RELOAD=false
+# unfortunately dirty reloading is not fast, so we skip now
 EXPOSE 8000
 CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve -a 0.0.0.0:8000"]
 

@@ -18,7 +18,7 @@ mkdocs serve
 
 ### skaffold
 
-To develop the documentation with skaffold within a kubernetes cluster, create a `skaffold.env` file with the following content:
+To develop the documentation with skaffold within a kubernetes cluster, create a `skaffold.env` file with the docker registry. For example, if you are using Docker Hub, it should look like this:
 
 ```bash
 SKAFFOLD_DEFAULT_REPO=docker.io/<your-docker-username>

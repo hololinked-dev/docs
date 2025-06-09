@@ -13,6 +13,9 @@ Every serializer must define a
 - `loads`
 - `content_type` property
 
+The `content_type` is set as the `contentType` field in the Thing Description.
+
+Even the JSON serializer is a faster implemenetation called `msgspec`.
 
 
 
