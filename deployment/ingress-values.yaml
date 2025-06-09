@@ -1,0 +1,19 @@
+annotations:
+  cert-manager.io/cluster-issuer: letsencrypt-test
+ 
+tls:
+  - hosts:
+    - docs.dev.hololinked.net
+    secretName: docs-staging-hololinked-net-tls
+
+rules:
+- host: docs.staging.hololinked.net
+  http:
+    paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dev-python-docs
+            port:
+              number: 80

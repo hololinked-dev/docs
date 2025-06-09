@@ -2,6 +2,7 @@
 **/.env
 **/.vscode
 **/.cache
+**/__pycache__
 **/site
 **/node_modules
 **/dist

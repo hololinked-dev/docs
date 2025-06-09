@@ -10,17 +10,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install uv mkdocs-material
+RUN pip install uv==0.7.0
 
-COPY . .
+COPY .python-version pyproject.toml uv.lock /app/
 
 # Create a virtual environment and sync dependencies
-RUN uv venv && \
-    . .venv/bin/activate && \
-    uv sync --no-install-project
+RUN uv venv 
+RUN uv sync --no-install-project
 
-RUN . .venv/bin/activate && mkdocs build
-
+COPY . .
 EXPOSE 8000
 
-CMD ["/bin/sh", "-c", ". .venv/bin/activate && python -m http.server 8000 --directory site"]
+CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve"]

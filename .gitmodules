@@ -1,0 +1,3 @@
+[submodule "deployment/vps-maintenance"]
+	path = deployment/vps-maintenance
+	url = https://github.com/hololinked-dev/vps-maintenance.git

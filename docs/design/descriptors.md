@@ -64,7 +64,7 @@ Sequence of access:
 
 1. Validate payload against the action schema
 2. Bind the class or instance according to whether the action is a class method or instance method
-2. Schedule the action according to the action type (sync, async, threaded) and return the result
+3. Schedule the action according to the action type (sync, async, threaded), spread the payload as keyword arguments if necessary and return the result
 
 ## Event Descriptors
 
