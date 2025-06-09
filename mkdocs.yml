@@ -102,6 +102,7 @@ nav:
     - Descriptor Registry: design/descriptor-registry.md
     - Metaclasses: design/metaclasses.md
     - State Machine: design/state-machine.md    
+    - ZMQ RPC Layer: design/zmq.md
 
 
 theme:

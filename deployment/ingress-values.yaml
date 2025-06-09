@@ -7,7 +7,7 @@ tls:
     secretName: docs-staging-hololinked-net-tls
 
 rules:
-- host: docs.staging.hololinked.net
+- host: docs.dev.hololinked.net
   http:
     paths:
       - path: /

@@ -5,7 +5,7 @@ metadata:
   name: dev-python-docs
 build:
   artifacts:
-  - image: docs_v2
+  - image: docs_dev
     context: .
     docker:
       dockerfile: Dockerfile
@@ -14,6 +14,8 @@ build:
       manual:
       - src: "docs/**"
         dest: "/app/docs"
+      - src: "mkdocs.yml"
+        dest: "/app/mkdocs.yml"
   tagPolicy:
     envTemplate:
       template: dev # TODO - two developers cannot simulataneously run the same image
@@ -31,8 +33,8 @@ deploy:
         image.ports.containerPort: 8000
       setValueTemplates:
         image:
-          repository: "{{ .IMAGE_REPO_docs_v2 }}"
-          tag: "{{ .IMAGE_TAG_docs_v2 }}@{{ .IMAGE_DIGEST_docs_v2 }}"
+          repository: "{{ .IMAGE_REPO_docs_dev }}"
+          tag: "{{ .IMAGE_TAG_docs_dev }}@{{ .IMAGE_DIGEST_docs_dev }}"
 
     - name: dev-python-docs-ingress
       chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
@@ -53,7 +55,7 @@ metadata:
   name: staging-python-docs
 build:
   artifacts:
-  - image: docs_v2
+  - image: docs-v2
     context: .
     docker:
       dockerfile: Dockerfile
