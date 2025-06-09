@@ -18,13 +18,16 @@ mkdocs serve
 
 ### skaffold
 
-To develop the documentation with skaffold within a kubernetes cluster, create a skaffold.env file with the following content:
+To develop the documentation with skaffold within a kubernetes cluster, create a `skaffold.env` file with the following content:
 
 ```bash
 SKAFFOLD_DEFAULT_REPO=docker.io/<your-docker-username>
 ```
 
-Then run:
+You need to sparse checkout the [vps-kubernetes-cluster repository]() which will be already available as a submodule in the `deployment\vps-kubernetes-cluster` directory. 
+Instructions are available in the shell script `deployment/sparse-checkout.sh`.
+
+Once the ingress and apps helm chart is available locally, run:
 
 ```bash
 skaffold dev --module dev-python-docs
