@@ -13,20 +13,14 @@ The most expressive way to define payload validation to use type annotations in 
 class Picoscope(Thing):
 
     @action()
-    def get_analogue_offset(
-            self, 
-            voltage_range: str, 
-            coupling: str
-        ) -> typing.Tuple[float, float]:
-        """Get the analogue offset for a voltage range and coupling"""
-        v_max = ctypes.c_float()
-        v_min = ctypes.c_float()
-        v_range = ps.PS6000_RANGE['PS6000_{}'.format(voltage_range.upper())]
-        coupling = ps.PS6000_COUPLING['PS6000_{}'.format(coupling.upper())]
-        self._status['getAnalogueOffset'] = ps.ps6000GetAnalogueOffset(
-            self._ct_handle, v_range, coupling, ctypes.byref(v_max), ctypes.byref(v_min))
-        assert_pico_ok(self._status['getAnalogueOffset'])
-        return v_max.value, v_min.value
+    def run_block(self, pre_trigger_samples : int, post_trigger_samples : int, timebase : int,
+                oversample : int = 0, seg_index : int = 0, lp_ready = None, p_param = None) -> float:
+        time_indisposed = ct.c_int32()
+        self._status['run-block'] = ps.ps6000RunBlock(self._ct_handle,
+            pre_trigger_samples, post_trigger_samples, timebase, oversample,
+            ct.byref(time_indisposed), seg_index, lp_ready, p_param)
+        assert_pico_ok(self._status['run-block'])
+        return time_indisposed.value
 ```
 
 If one generates the Thing Model fragment for the action, the `input` (schema) field will be defined:
