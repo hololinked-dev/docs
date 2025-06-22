@@ -99,6 +99,7 @@ nav:
   #   - blog/index.md
   - Design Considerations:
     - Descriptors: design/descriptors.md
+    - Property Descriptors: design/property-descriptors.md
     - Descriptor Registry: design/descriptor-registry.md
     - Metaclasses: design/metaclasses.md
     - State Machine: design/state-machine.md    
@@ -198,7 +199,11 @@ markdown_extensions:
   - md_in_html
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.snippets

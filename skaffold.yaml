@@ -63,13 +63,9 @@ build:
     docker:
       dockerfile: Dockerfile
       target: prod
-    sync:
-      manual:
-      - src: "docs/**"
-        dest: "/app/docs"
   tagPolicy:
     envTemplate:
-      template: dev # TODO - two developers cannot simulataneously run the same image
+      template: staging
   local:
     push: true
 deploy:
@@ -81,11 +77,11 @@ deploy:
       createNamespace: true
       setValues:
         nameOverride: staging-python-docs
+        image.ports.containerPort: 80
+      setValueTemplates:
         image:
-          repository: ghcr.io/hololinked-dev/docs-v2
-          tag: main
-          ports:
-            containerPort: 8000
+          repository: "{{ .IMAGE_REPO_docs_v2 }}"
+          tag: "{{ .IMAGE_TAG_docs_v2 }}@{{ .IMAGE_DIGEST_docs_v2 }}"
     
     - name: staging-python-docs-ingress
       chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress

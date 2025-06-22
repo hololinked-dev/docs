@@ -1,6 +1,6 @@
 # Descriptor Registries for Interaction Affordances
 
-Descriptor registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection and interaction with the class's capabilities. 
+Descriptor registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection with the `Thing` class's capabilities. 
 
 API possibilities include:
 

@@ -29,10 +29,10 @@ EXPOSE 8000
 CMD ["/bin/sh", "-c", ". .venv/bin/activate && mkdocs serve -a 0.0.0.0:8000"]
 
 # production image
-FROM base AS prod
+FROM base AS build
 RUN . .venv/bin/activate && mkdocs build 
 
-FROM nginx:alpine AS nginx
-COPY --from=prod /app/site /usr/share/nginx/html
+FROM nginx:alpine AS prod
+COPY --from=build /app/site /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
