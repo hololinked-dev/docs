@@ -1,13 +1,13 @@
 # Property Descriptors
 
-This document summarized the API possibilities of property descriptors that one may wish to support in an IoT runtime.
+This document summarized the API possibilities of property descriptors that one may wish to support in an IoT runtime:
 
-#### Typed Properties 
+## Typed Properties 
 
 First and foremost, apart from a base `Property` descriptor, one could support typed properties corresponding to well known data types. The intention would be two fold:
 
 - expressive definitions of properties, suitable for beginners
-- support highly specific parameters if a data type requires it
+- support highly specific parameters if a data type requires it with a descriptive `__init__` method
 
 For example:
 
@@ -33,43 +33,27 @@ For example:
     class Spectrometer(Thing):
         """class doc"""
 
-        wavelengths = List(item_type=float, 
+        wavelengths = List(item_type=float, default=None, allow_None=True, 
                         doc="list of wavelengths in nm to measure") 
 
-        calibration_coefficients = Tuple(default=(1.0, 0.0), item_type=float, accept_list=True,
-                                        doc="calibration coefficients for the spectrometer")
-
-
-         = TypedList() # a slower implemenatation that supports typed appends, extends etc., compared to a List that does not
+        calibration_coefficients = Tuple(default=(1.0, 2.0), item_type=float, accept_list=True,
+                        doc="calibration coefficients for the spectrometer")
     ```
 
-=== "Dictionaries"
-
-    ```python
-    class Spectrometer(Thing):
-        """class doc"""
-
-        calibration_data = TypedDict(default={}, item_type=float, 
-                                    doc="calibration data for the spectrometer")
-
-        metadata = TypedKeyMappingsDict(default={}, item_type=str, 
-                                        doc="metadata about the spectrometer")
-    ```
-
-=== "ClassSelector"
+=== "Objects"
 
     ```python
     class Spectrometer(Thing):
         """class doc"""
 
         spectrum = ClassSelector(default=None, class_=numpy.ndarray, # or any other class
-                                doc="detector class to use for the spectrometer") 
+                                doc="detector class to use for the spectrometer") # type: numpy.ndarray
     ```
 
 
-See list of available types [here](../howto/code/properties/typed.py).
+See list of available types [here](../howto/articles/properties/index.md#predefined-typed-properties).
 
-#### Schema Constrained Properties
+## Schema Constrained Properties
 
 Further, for advanced users, one could support JSON schema and pydantic models to define complex data structures. An example could be as follows:
 
@@ -131,6 +115,13 @@ Further, for advanced users, one could support JSON schema and pydantic models t
                                         enabled, channel, threshold, direction, 
                                         delay, auto_trigger)
             assert_pico_ok(self._status['trigger'])
+
+        # option 2
+        @trigger.setter
+        def set_trigger(self, enabled: bool, channel: str, threshold: float, 
+                    adc: bool = True, direction: str = 'rising', delay: int = 0,
+                    auto_trigger: float = 0) -> None:
+            ...
     ```
 
 === "Pydantic Models"
@@ -179,7 +170,7 @@ Further, for advanced users, one could support JSON schema and pydantic models t
                     doc="Area of interest within the image") # type: Rect
     ```
 
-#### Optional Getters and Setters
+## Optional Getters and Setters
 
 A `Property` must be able to be defined without a getter or setter. Getters and setters only need to be defined if one needs to override the default behavior,
 or when applying the value directly onto the hardware. This reduces boilerplate code.
@@ -189,12 +180,13 @@ class UEyeCamera(Thing):
 
     # property with no getter or setter needed
     serial_number = String(default=None, allow_None=True, regex=r"^[1-9]\d{7}$",  
-        doc="serial number of the camera to connect/or connected") # type: str
+        doc="serial number of the camera to connect") # type: str
 
     def __init__(self, serial_number: str = None):
         super().__init__()
         self.serial_number = serial_number 
-        # A container for the serial number is autocreated in the instance's __dict__
+        # A container for the serial number is autocreated in the instance's __dict__.
+        # serial number is used to search for the device, not to set on it.
 
     # property with getter and setter that interacts with the hardware
     def get_aoi(self) -> Rect:
@@ -209,13 +201,15 @@ class UEyeCamera(Thing):
                 doc="Area of interest within the image") # type: Rect
 ```
 
-#### Sequence of Access
+## Sequence of Access
 
 A summary of the sequence of access for a property descriptor is as follows:
 
+`setter`:
+
 ```mermaid
 flowchart TD
-    A[Start: Access Property Descriptor] --> B{Is property constant/<br />read-only?}
+    A[Start: Access Property Descriptor<br/>to write the Property] --> B{Is property constant/<br />read-only?}
     B -- No --> D[Validate value against type or schema]
     D --> E{Is value valid?}
     E -- No --> F[Raise TypeError/ValidationError]
@@ -235,6 +229,28 @@ flowchart TD
     B -- Yes --> C[Do not validate or allow setting the value<br/>Raise ValueError/RuntimeError]
     C --> Z[End]
     Z[End]
+```
+
+`getter`:
+
+```mermaid
+flowchart TD
+    A[Start: Access Property Descriptor<br/>to read the Property] --> B{Accessed via instance<br/>or class?}
+    B -- Instance --> C[Retrieve value from<br/>instance's __dict__]
+    C --> D{Value present?}
+    D -- Yes --> E[Return value]
+    D -- No --> F[Return default value]
+    B -- Class --> G{class member/<br/>static property?}
+    G -- Yes --> H[Retrieve value from class's __dict__]
+    H --> I[Return value]
+    G -- No --> J[Return descriptor itself]
+    I --> K{Is value different<br/>from previous read?}
+    E --> K
+    F --> K
+    K -- Yes --> L[Notify local observers and<br/>push change events]
+    K -- No --> Z[End]
+    L --> Z
+    J --> Z
 ```
 
 #### Observables

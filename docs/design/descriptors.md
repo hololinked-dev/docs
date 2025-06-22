@@ -80,7 +80,7 @@ class DCPowerSupply(Thing):
         else:
             print("Power supply turned OFF") # placeholder
         self.power_state_event.publish(state=state)
-        
+
     power_state_event = Event(
         description="Event published when the power state changes.",
         schema={"type": "object", "properties": {"state": {"type": "boolean"}}}
@@ -201,37 +201,6 @@ The metadata may be accessed as follows:
     }
     ```
   
-
-
-
-
-
-API possibilities:
-
-- defining parameter schema using type annotations (reducing coding effort), JSON schema, or pydantic models
-- defining return type using type annotations, JSON schema, or pydantic models
-- docstring becomes the action description
-- Execution control:
-    - synchronous - queued one after another, default behaviour of properties and actions
-        - `Thing` object is not manipulated simultaneously by multiple operations in multiple threads
-        - prevents incompatible physical actions in the world from running at the same time on the same device
-        - maximizes thread safety increasing suitability of runtime for hardware engineers
-    - threaded actions
-        - not queued, runs action when called
-        - allows multiple actions to run simultaneously
-        - suitable for long running actions
-    - async
-        - create an asyncio task in the current event loop
-        - OR, multiple async actions from multiple `Things` can be run in parallel
-- classmethod can become actions
-- generate Thing Model fragment
-
-Sequence of access:
-
-1. Validate payload against the action schema
-2. Bind the class or instance according to whether the action is a class method or instance method
-3. Schedule the action according to the action type (sync, async, threaded), spread the payload as keyword arguments if necessary and return the result
-
 ## Event Descriptors
 
 API possibilities:

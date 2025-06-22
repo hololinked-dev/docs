@@ -100,6 +100,7 @@ nav:
   - Design Considerations:
     - Descriptors: design/descriptors.md
     - Property Descriptors: design/property-descriptors.md
+    - Action Descriptors: design/action-descriptors.md
     - Descriptor Registry: design/descriptor-registry.md
     - Metaclasses: design/metaclasses.md
     - State Machine: design/state-machine.md    
