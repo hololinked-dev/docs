@@ -71,8 +71,7 @@ class Spectrometer(Thing):
             if name in self.properties:
                 setting_props[name] = dict(
                     current_value=self.properties[name].__get__(),
-                    default=self.properties[name].default,
-                    nullable=self.properties[name].allow_None,
+                    set_value=self.properties[name].metadata["set_value"]
                 )
         return setting_props
 ```

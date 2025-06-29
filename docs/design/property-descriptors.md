@@ -1,13 +1,13 @@
 # Property Descriptors
 
-This document summarized the API possibilities of property descriptors that one may wish to support in an IoT runtime:
+This document summarizes the API possibilities of property descriptors that one may wish to support in an IoT runtime:
 
 ## Typed Properties 
 
 First and foremost, apart from a base `Property` descriptor, one could support typed properties corresponding to well known data types. The intention would be two fold:
 
 - expressive definitions of properties, suitable for beginners
-- support highly specific parameters if a data type requires it with a descriptive `__init__` method
+- support highly specific parameters if a data type requires it with a descriptive `__init__` method that would be picked up by IDEs
 
 For example:
 
@@ -47,11 +47,18 @@ For example:
         """class doc"""
 
         spectrum = ClassSelector(default=None, class_=numpy.ndarray, # or any other class
-                                doc="detector class to use for the spectrometer") # type: numpy.ndarray
+                    doc="detector class to use for the spectrometer") # type: numpy.ndarray
+
+        spectrum_history = ClassSelector(default=None, class_=pandas.DataFrame, 
+                    doc="history of spectra as a pandas DataFrame with columns \
+                        'timestamp' and 'data'") # type: pandas.DataFrame
+
+        spectrum_custom = NDArray(default=None, shape=(1024, 2), dtype=float, 
+                    doc="custom property that defines numpy parameters in __init__") # type: numpy.ndarray
     ```
 
 
-See list of available types [here](../howto/articles/properties/index.md#predefined-typed-properties).
+See list of predefined types [here](../howto/articles/properties/index.md#predefined-typed-properties).
 
 ## Schema Constrained Properties
 
@@ -91,6 +98,7 @@ Further, for advanced users, one could support JSON schema and pydantic models t
         trigger = Property(doc="Trigger settings",
                         model=trigger_schema) # type: dict
         
+        # option 1, see below for option 2
         @trigger.setter
         def set_trigger(self, value: dict) -> None:
             channel = value["channel"].upper()
@@ -116,7 +124,7 @@ Further, for advanced users, one could support JSON schema and pydantic models t
                                         delay, auto_trigger)
             assert_pico_ok(self._status['trigger'])
 
-        # option 2
+        # option 2, spread the parameters of the setters so that its more explicit
         @trigger.setter
         def set_trigger(self, enabled: bool, channel: str, threshold: float, 
                     adc: bool = True, direction: str = 'rising', delay: int = 0,
@@ -128,12 +136,12 @@ Further, for advanced users, one could support JSON schema and pydantic models t
 
     ```python
     class Rect(BaseModel):
-        x : Annotated[int, Field(default=0, ge=0)]
-        y : Annotated[int, Field(default=0, ge=0)]
-        width : Annotated[int, Field(default=0, gt=0)]
+        x: Annotated[int, Field(default=0, ge=0)]
+        y: Annotated[int, Field(default=0, ge=0)]
+        width: Annotated[int, Field(default=0, gt=0)]
         height: Annotated[int, Field(default=0, gt=0)]
 
-        def to_uye_rect(self) -> ueye.IS_RECT:
+        def to_ueye_rect(self) -> ueye.IS_RECT:
             """Convert to ueye.IS_RECT object"""
             rect = ueye.IS_RECT()
             rect.s32X = ueye.int(self.x)
@@ -161,7 +169,7 @@ Further, for advanced users, one could support JSON schema and pydantic models t
         def set_aoi(self, value: Rect) -> None:
             """Set camera AOI. Specify as x,y,width,height or a tuple
             (x, y, width, height) or as Rect object."""
-            rect_aoi = value.to_uye_rect()
+            rect_aoi = value.to_ueye_rect()
             ret = ueye.is_AOI(self.handle, ueye.IS_AOI_IMAGE_SET_AOI,
                                 rect_aoi, ueye.sizeof(rect_aoi))
             assert return_code_OK(self.handle, ret)
@@ -220,9 +228,8 @@ flowchart TD
     H --> J{Store in database/<br/>configuration management?}
     I --> J
     J -- Yes --> K[Call database setter method/<br/>commit in configuration management]
-    J -- No --> L[Skip database or configuration management]
+    J -- No --> N
     K --> N{observable?}
-    L --> N
     N -- Yes --> M[Notify local observers and push change events]
     N -- No --> Z
     M --> Z
@@ -255,4 +262,27 @@ flowchart TD
 
 #### Observables
 
-- Observers can be notified when the value is set, allowing for reactive programming
+By setting the `observable` parameter to `True`, the property automatically pushes change events to clients. 
+
+- for readonly properties, a change event is pushed when the read value differes from the previous read value.
+- for writable properties, a change event is pushed when the value is set successfully and differs from the previous value, or when the read value differs from the previous set or read value (this may need to be optimized as it could lead to duplicate notifications).
+
+Apart from that, `param`'s watchers are technically supported (but **disabled for time being**). A local observer can be implmented as follows:
+
+```python
+import param # hololinked's Property descriptor machinery is based on param
+
+class DCPowerSupply(Thing):
+    
+    voltage = Property(model=float, default=0.0, min=0, max=30, observable=True,
+        description="Voltage set point of the power supply.")
+
+    @param.depends('voltage')
+    def _on_voltage_change(self):
+        """Local observer for voltage property change."""
+        # do custom post set logic here
+        print(f"Voltage changed to {self.voltage}") # placeholder
+```
+
+
+

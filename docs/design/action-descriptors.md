@@ -1,6 +1,6 @@
 # Action Descriptors
 
-This document summarized the API possibilities of property descriptors that one may wish to support in an IoT runtime:
+This document summarizes the API possibilities of action descriptors that one may wish to support in an IoT runtime:
 
 ## Payload Validation
 
@@ -13,12 +13,18 @@ The most expressive way to define payload validation to use type annotations in 
 class Picoscope(Thing):
 
     @action()
-    def run_block(self, pre_trigger_samples : int, post_trigger_samples : int, timebase : int,
-                oversample : int = 0, seg_index : int = 0, lp_ready = None, p_param = None) -> float:
+    def run_block(self, 
+            pre_trigger_samples: int, 
+            post_trigger_samples: int, 
+            timebase: int,
+            oversample: int = 0, 
+            seg_index: int = 0
+        ) -> float:
+        """Run a single block capture on the Picoscope device"""
         time_indisposed = ct.c_int32()
         self._status['run-block'] = ps.ps6000RunBlock(self._ct_handle,
             pre_trigger_samples, post_trigger_samples, timebase, oversample,
-            ct.byref(time_indisposed), seg_index, lp_ready, p_param)
+            ct.byref(time_indisposed), seg_index, None, None)
         assert_pico_ok(self._status['run-block'])
         return time_indisposed.value
 ```
@@ -26,32 +32,43 @@ class Picoscope(Thing):
 If one generates the Thing Model fragment for the action, the `input` (schema) field will be defined:
 
 ```python
-Picoscope.get_analogue_offset.to_affordance()
+Picoscope.run_block.to_affordance()
 ```
 
 ```json
-{   
-    "get_analogue_offset": {
-        "title": "get_analogue_offset",
-        "description": "Get the analogue offset for a voltage range and coupling",
+{
+    "run_block": {
+        "title": "run_block",
+        "description": "Run a single block capture on the Picoscope device",
         "input": {
             "type": "object",
             "properties": {
-                "voltage_range": {
-                    "type": "string"
+                "pre_trigger_samples": {
+                    "type": "integer"
                 },
-                "coupling": {
-                    "type": "string"
+                "post_trigger_samples": {
+                    "type": "integer"
+                },
+                "timebase": {
+                    "type": "integer"
+                },
+                "oversample": {
+                    "type": "integer",
+                    "default": 0
+                },
+                "seg_index": {
+                    "type": "integer",
+                    "default": 0
                 }
             },
-            "required": ["voltage_range", "coupling"]
+            "required": [
+                "pre_trigger_samples",
+                "post_trigger_samples",
+                "timebase"
+            ]
         },
         "output": {
-            "type": "array",
-            "items": [
-                {"type": "number"},
-                {"type": "number"}
-            ]
+            "type": "number"
         }
     }
 }
@@ -75,7 +92,7 @@ The output payload is not validated.
 
 ## Execution Control
 
-Execution control can be offered in three different ways:
+Execution control of operations (like `invokeAction`) can be offered in three different ways:
 
 - synchronous - queued one after another, default behaviour of **both** properties and actions
     - `Thing` object is not manipulated simultaneously by multiple operations in multiple threads by a remote client, its a fundamental assumption based on the OOP paradigm

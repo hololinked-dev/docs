@@ -5,11 +5,11 @@ It is intuitive to think or abstract a physical device as a class (as-)in object
 - [pymeasure](https://github.com/pymeasure/pymeasure)
 - [pylablib](https://github.com/AlexShkarin/pyLabLib)
 - [CALA public](https://gitlab.lrz.de/cala-public)
-- individual implementations of device drivers one may find in GitHub repositories.
+- Implementations of individual device drivers one may find in GitHub repositories.
 
-The division of interactions with a device can be segrated into properties, actions and events and operations on these interactions (`readProperty`, `invokeAction`, `subscribeEvent`). 
+Interactions with a device can be segregated into properties, actions and events and operations on these interactions (for example, `readProperty`, `invokeAction`, `subscribeEvent`). See W3C WoT for an elaborate theory - [Homepage](https://www.w3.org/WoT/). Such interactions can be described in a JSON format in a [WoT Thing Description](https://www.w3.org/TR/wot-thing-description/).  
 
-Within python's class API, properties can be easily implemented with the `@property` decorator and actions can be implemented as methods. Say a DC power supply has a voltage property that reads and writes voltage value and an action to turn the power supply ON or OFF:
+Within python's class API, properties can be easily implemented with the `@property` decorator/`property` object and actions can be implemented as methods. Say a DC power supply has a voltage property that reads and writes voltage value and an action to turn the power supply ON or OFF:
 
 ```python
 class DCPowerSupply(Thing):
@@ -38,13 +38,16 @@ class DCPowerSupply(Thing):
 
 Events may be supported by reactive programming libraries or pub-sub messaging.
 
+This simplistic approach will be used as a starting point to create the object API as it is easy to understand and has a low barrier to entry. But it needs to be extended to be more robust and flexible.
+
+
 ## Descriptors for Interaction Affordances
 
 A superset of the above code with signifcantly added functionality can be implmented using the descriptor protocol in python. Descriptor protocols are the machinery behind:
 
-- `@property` decorators, validated object attributes (`param`, `traitlets`, `attrs` etc.)
+- `@property` decorators, validated object attributes ([`param`](https://param.holoviz.org/), [`traitlets`](https://traitlets.readthedocs.io/en/stable/), [`attrs`](https://www.attrs.org/en/stable/) etc.)
 - python bound methods, `@classmethod`, `@staticmethod`
-- ORMs for database packages like `SQLAlchemy`, `Django ORM`, `Tortoise ORM` where SQL statemments are auto generated
+- ORMs for database packages like `SQLAlchemy`, `Django ORM`, `Tortoise ORM` where SQL statements are auto generated
 
 Accessing an interaction affordace gives the following behaviour:
 
@@ -59,7 +62,7 @@ The same DC power supply example can be rewritten using descriptors as follows:
 ```python
 class DCPowerSupply(Thing):
     
-    voltage = Property(type=float, default=0.0, min=0, max=30, observable=True,
+    voltage = Property(model=float, default=0.0, min=0, max=30, observable=True,
         description="Voltage set point of the power supply.")
 
     @voltage.setter
@@ -92,6 +95,7 @@ This allows using the same affordance object in different contexts, for example 
 - Accessing a property at the class level to get metadata like default value, schema, observability etc.
 - Access at the instance level to get the current value.
 - `Thing` class can autogenerate Thing models using the affordance objects, whereas protocols can add forms to autogenerate Thing Descriptions.
+- `ThingModel`s can generate Thing objects by mapping it to descriptors easily for an API first approach.
 
 
 === "instance level access"
@@ -109,9 +113,9 @@ This allows using the same affordance object in different contexts, for example 
 
 === "object level access"
 
-    The interaction affordances can also accessed in the exact same fashion internally within the object
+    The interaction affordances can also accessed in the exact same fashion internally within the object:
 
-    ```python
+    ```python hl_lines="13 16 18 23"
 
     class DCPowerSupply(Thing):
 
