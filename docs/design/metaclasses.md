@@ -87,10 +87,10 @@ This is especially useful when there is a configuration management system in pla
 
 ```mermaid
 flowchart TD
-    A[Instance is created <br/> __init__() is called] --> B[Device is connected by the user]
+    A[Instance is created, <br/> __init__ is called] --> B[Device is connected by the user]
     B --> C[Configuration properties are loaded from file or database]
     C --> D[Properties are applied onto the connected device]
-    D --> E[__post_init__() is called to run additional setup code]
+    D --> E[__post_init__ is called to run additional setup code]
 ```
 
-Of course, the `__post__init__` method can be used for any other purpose.
+Of course, the `__post_init__` method can be used for any other purpose.
