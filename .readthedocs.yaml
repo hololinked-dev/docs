@@ -24,4 +24,4 @@ mkdocs:
 
 python:
    install:
-   - requirements: pyproject.toml
+   - requirements: requirements.txt
