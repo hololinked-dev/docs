@@ -5,7 +5,7 @@ metadata:
   name: dev-python-docs
 build:
   artifacts:
-  - image: docs_dev
+  - image: hololinked_docs_dev
     context: .
     docker:
       dockerfile: Dockerfile
@@ -36,8 +36,8 @@ deploy:
         image.ports.containerPort: 8000
       setValueTemplates:
         image:
-          repository: "{{ .IMAGE_REPO_docs_dev }}"
-          tag: "{{ .IMAGE_TAG_docs_dev }}@{{ .IMAGE_DIGEST_docs_dev }}"
+          repository: "{{ .IMAGE_REPO_hololinked_docs_dev }}"
+          tag: "{{ .IMAGE_TAG_hololinked_docs_dev }}@{{ .IMAGE_DIGEST_hololinked_docs_dev }}"
 
     - name: dev-python-docs-ingress
       chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
@@ -58,7 +58,7 @@ metadata:
   name: staging-python-docs
 build:
   artifacts:
-  - image: docs-v2
+  - image: hololinked_docs_staging
     context: .
     docker:
       dockerfile: Dockerfile
@@ -80,9 +80,9 @@ deploy:
         image.ports.containerPort: 80
       setValueTemplates:
         image:
-          repository: "{{ .IMAGE_REPO_docs_v2 }}"
-          tag: "{{ .IMAGE_TAG_docs_v2 }}@{{ .IMAGE_DIGEST_docs_v2 }}"
-    
+          repository: "{{ .IMAGE_REPO_hololinked_docs_staging }}"
+          tag: "{{ .IMAGE_TAG_hololinked_docs_staging }}@{{ .IMAGE_DIGEST_hololinked_docs_staging }}"
+
     - name: staging-python-docs-ingress
       chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
       namespace: staging
@@ -99,6 +99,55 @@ deploy:
         annotations:
           cert-manager\.io/cluster-issuer: letsencrypt-prod
         
+
+---
+# production version of the Python docs
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: hololinked-python-docs
+build:
+  artifacts:
+  - image: hololinked_docs
+    context: .
+    docker:
+      dockerfile: Dockerfile
+      target: prod
+  tagPolicy:
+    envTemplate:
+      template: prod
+  local:
+    push: true
+deploy:
+  helm:
+    releases:
+    - name: hololinked-python-docs
+      chartPath: deployment/vps-maintenance/cluster/manifests/helm/apps
+      namespace: docs
+      createNamespace: true
+      setValues:
+        nameOverride: hololinked-python-docs
+        image.ports.containerPort: 80
+      setValueTemplates:
+        image:
+          repository: "{{ .IMAGE_REPO_hololinked_docs }}"
+          tag: "{{ .IMAGE_TAG_hololinked_docs }}@{{ .IMAGE_DIGEST_hololinked_docs }}"
+    
+    - name: hololinked-python-docs-ingress
+      chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
+      namespace: docs
+      createNamespace: true
+      valuesFiles:
+        - deployment/vps-maintenance/cluster/manifests/helm/ingress/values.yaml
+        - deployment/ingress-values.yaml
+      setValues:
+        nameOverride: hololinked-python-docs-ingress
+        rules[0].host: docs.hololinked.dev
+        rules[0].http.paths[0].backend.service.name: hololinked-python-docs
+        tls[0].hosts[0]: docs.hololinked.dev
+        tls[0].secretName: docs-hololinked-dev-tls
+        annotations:
+          cert-manager\.io/cluster-issuer: letsencrypt-prod
 
 
 
