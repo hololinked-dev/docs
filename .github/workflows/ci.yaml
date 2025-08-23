@@ -90,13 +90,13 @@ jobs:
       - name: Set up Skaffold
         uses: hiberbee/github-action-skaffold@1.20.0
 
+      # Provide your cluster config (example expects a base64-encoded kubeconfig secret)
       - name: Configure kubeconfig
-        if: ${{ secrets.KUBECONFIG_B64 != '' }}
+        env:
+          KUBECONFIG_B64: ${{ secrets.KUBECONFIG_B64 }}
         run: |
           mkdir -p ~/.kube
           echo "${KUBECONFIG_B64}" | base64 -d > ~/.kube/config
-        env:
-          KUBECONFIG_B64: ${{ secrets.KUBECONFIG_B64 }}
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
