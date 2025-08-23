@@ -26,5 +26,7 @@ build:
     python: "3.13"
   jobs:
     install:
-      - pip install --no-deps -e git+https://github.com/hololinked-dev/hololinked.git@main#egg=hololinked
-      - pip install -r requirements.txt --no-deps
+      - pip install -r requirements.txt
+      - git clone https://github.com/hololinked-dev/hololinked
+      - cd hololinked
+      - pip install .
