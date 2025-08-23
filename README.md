@@ -1,4 +1,5 @@
-# docs-v2
+# hololinked docs
+
 Documentation in material mkdocs for [hololinked](https://github.com/hololinked-dev/hololinked).
 
 To build the documentation, while setting up a local development environment with `uv` (`pip install uv`), run:
@@ -14,7 +15,7 @@ or
 mkdocs serve
 ```
 
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs-v2/ci.yaml?label=Build%20And%20Publish%20Website)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Website)
 
 ### skaffold
 
