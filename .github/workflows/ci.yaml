@@ -12,7 +12,7 @@ env:
   
 jobs:
   build:
-    name: build & sign docker image
+    name: build, sign & deploy
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,8 +30,12 @@ jobs:
         with:
           cosign-release: 'v2.2.4'
       
-      - name: Set up Skaffold
-        uses: hiberbee/github-action-skaffold@1.20.0
+      - name: Install Skaffold
+        run: |
+          set -euo pipefail
+          curl -L "https://storage.googleapis.com/skaffold/releases/v2.16.1/skaffold-linux-amd64" -o skaffold
+          chmod +x skaffold
+          sudo mv skaffold /usr/local/bin/skaffold
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
@@ -68,28 +72,6 @@ jobs:
             cosign sign --yes "$REF"
           done
           
-      - name: Upload build artifacts for deploy
-        uses: actions/upload-artifact@v4
-        with:
-          name: skaffold-build-output
-          path: build.out.json
-          if-no-files-found: error
-    
-
-  run-skaffold:
-    name: deploy
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-       
-      - name: Set up Skaffold
-        uses: hiberbee/github-action-skaffold@1.20.0
-
       # Provide your cluster config (example expects a base64-encoded kubeconfig secret)
       - name: Configure kubeconfig
         env:
@@ -97,12 +79,6 @@ jobs:
         run: |
           mkdir -p ~/.kube
           echo "${KUBECONFIG_B64}" | base64 -d > ~/.kube/config
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: skaffold-build-output
-          path: .
 
       # Deploy using the exact images produced in the build job
       - name: Deploy with Skaffold
