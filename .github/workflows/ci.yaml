@@ -1,22 +1,22 @@
-name: build-docs
+name: deploy-docs
+
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  MODULE: hololinked-python-docs 
   
 jobs:
   build:
+    name: build & sign docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
       id-token: write
 
     steps:
@@ -29,6 +29,9 @@ jobs:
         uses: sigstore/cosign-installer@59acb6260d9c0ba8f4a2f9d9b48431a222b68e20 #v3.5.0
         with:
           cosign-release: 'v2.2.4'
+      
+      - name: Set up Skaffold
+        uses: hiberbee/github-action-skaffold@1.20.0
 
       # Set up BuildKit Docker container builder to be able to build
       # multi-platform images and export cache
@@ -45,39 +48,65 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      # Build & push with skaffold, and write the build outputs to a JSON file
+      - name: Build with Skaffold (push)
+        run: |
+          skaffold build \
+            --default-repo=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} \
+            --push \
+            --file-output build.out.json \
+            -m ${{ env.MODULE }}
       
-      # Build and push Docker image with Buildx (don't push on PR)
-      # https://github.com/docker/build-push-action
-      - name: Build and push Docker image
-        id: build-and-push
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+      
+      # Cosign sign each built image by digest from the skaffold build output (keyless with OIDC)
+      - name: Cosign sign images
+        run: |
+          set -euo pipefail
+          # Extract full refs (they include @sha256:...); sign each
+          jq -r '.builds[].tag' build.out.json | while read -r REF; do
+            echo "Signing $REF"
+            cosign sign --yes "$REF"
+          done
+          
+      - name: Upload build artifacts for deploy
+        uses: actions/upload-artifact@v4
         with:
-          file: Dockerfile
-          context: .
-          target: prod
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          name: skaffold-build-output
+          path: build.out.json
+          if-no-files-found: error
+    
 
-      # Sign the resulting Docker image digest except on PRs.
-      # This will only write to the public Rekor transparency log when the Docker
-      # repository is public to avoid leaking data.  If you would like to publish
-      # transparency data even for private images, pass --force to cosign below.
-      # https://github.com/sigstore/cosign
-      - name: Sign the published Docker image
+  run-skaffold:
+    name: deploy
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+       
+      - name: Set up Skaffold
+        uses: hiberbee/github-action-skaffold@1.20.0
+
+      - name: Configure kubeconfig
+        if: ${{ secrets.KUBECONFIG_B64 != '' }}
+        run: |
+          mkdir -p ~/.kube
+          echo "${KUBECONFIG_B64}" | base64 -d > ~/.kube/config
         env:
-          # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
-          TAGS: ${{ steps.meta.outputs.tags }}
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
-        # This step uses the identity token to provision an ephemeral certificate
-        # against the sigstore community Fulcio instance.
-        run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}
+          KUBECONFIG_B64: ${{ secrets.KUBECONFIG_B64 }}
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: skaffold-build-output
+          path: .
+
+      # Deploy using the exact images produced in the build job
+      - name: Deploy with Skaffold
+        run: |
+          skaffold deploy \
+            --build-artifacts build.out.json \
+            -m ${{ env.MODULE }}
