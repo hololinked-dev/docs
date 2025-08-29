@@ -4,110 +4,108 @@ repo_url: https://github.com/hololinked-dev/hololinked
 repo_name: hololinked
 edit_uri: https://github.com/hololinked-dev/docs/edit/main/docs/
 
-
 nav:
   # landing page
-  - Home: 
-    - Introduction: index.md
-    - Installation: introduction/installation.md
-    - Resources: introduction/resources.md
-  # textbook like How To tutorials
-  - Beginner's Guide: 
-    - Expose Python Objects: howto/articles/servers.md
-    # - Connect to Things with Clients: howto/articles/clients.md
-    - Properties in Depth: 
-      - Properties: howto/articles/properties/index.md
-      - Default Arguments: howto/articles/properties/arguments.md
-      - Extending: howto/articles/properties/extending.md
-    - Using Actions: howto/articles/actions.md
-    - Using Events: howto/articles/events.md
-    - Using State Machine: howto/articles/state-machine.md
-    - Configuring Thing Class: 
-      - Thing: howto/articles/thing/index.md
-    - Using Different Protocols:
-      - Object Proxy: howto/articles/object-proxy.md
-    - Serialization: howto/articles/serialization.md
+  - Home:
+      - Introduction: index.md
+      - Installation: introduction/installation.md
+      - Resources: introduction/resources.md
+  # textbook like how-to tutorials
+  - Beginner's Guide:
+      - Expose Python Objects: beginners-guide/articles/servers.md
+      # - Connect to Things with Clients: beginners-guide/articles/clients.md
+      - Properties in Depth:
+          - Properties: beginners-guide/articles/properties/index.md
+          - Default Arguments: beginners-guide/articles/properties/arguments.md
+          - Extending: beginners-guide/articles/properties/extending.md
+      - Using Actions: beginners-guide/articles/actions.md
+      - Using Events: beginners-guide/articles/events.md
+      - Using State Machine: beginners-guide/articles/state-machine.md
+      - Configuring Thing Class:
+          - Thing: beginners-guide/articles/thing/index.md
+      - Using Different Protocols:
+          - Object Proxy: beginners-guide/articles/object-proxy.md
+      - Serialization: beginners-guide/articles/serialization.md
   # API Reference
   - API Reference:
-    - Thing:
-      - Thing: api-reference/thing/index.md
-      - RemoteAccessHandler: api-reference/thing/logger.md
-      - Meta: api-reference/thing/thing-meta.md
-      - Bases:
-        - Propertized: api-reference/thing/bases/propertized.md
-        - RemoteInvokable: api-reference/thing/bases/remote-invokable.md
-        - EventSource: api-reference/thing/bases/event-source.md
-      - Descriptor Registries: 
-        - DescriptorRegistry: api-reference/thing/registries/descriptor-registry.md
-        - PropertyRegistry: api-reference/thing/registries/property-registry.md
-        - ActionRegistry: api-reference/thing/registries/actions-registry.md
-        - EventRegistry: api-reference/thing/registries/events-registry.md
-    - Property: api-reference/property/index.md
-    - Actions: 
-      - action: api-reference/action/index.md
-      - Bases: api-reference/action/bases/index.md
-    - Events:
-      - Event: api-reference/events/index.md
-      - EventDispatcher: api-reference/events/event-dispatcher.md
-    - StateMachine: 
-      - StateMachine: api-reference/state_machine/state-machine.md
-      - BoundFSM: api-reference/state_machine/bound-fsm.md
-    - RPC Server: 
-      - RPCServer: api-reference/rpc_server/rpc-server.md
-      - Messaging Contracts: 
-        - RequestMessage: api-reference/rpc_server/messaging_contract/request-message.md
-        - ResponseMessage: api-reference/rpc_server/messaging_contract/response-message.md
-      - Brokers:
-        - BaseZMQ: api-reference/rpc_server/brokers/base-zmq.md
-        - AsyncZMQServer: api-reference/rpc_server/brokers/async-zmq-server.md
-        - SyncZMQClient: api-reference/rpc_server/brokers/sync-zmq-client.md
-        - AsyncZMQClient: api-reference/rpc_server/brokers/async-zmq-client.md
-        - MessageMappedClientPool: api-reference/rpc_server/brokers/message-mapped-zmq-client-pool.md
-      - Schedulers:
-        - Scheduler: api-reference/rpc_server/schedulers/scheduler.md
-        - QueuedScheduler: api-reference/rpc_server/schedulers/queued-scheduler.md
-        - ThreadedScheduler: api-reference/rpc_server/schedulers/threaded-scheduler.md
-        - AsyncScheduler: api-reference/rpc_server/schedulers/async-scheduler.md
-    - Clients:
-      - Abstractions: 
-        - ConsumedThingAction: api-reference/clients/bases/cta.md
-        - ConsumedThingProperty: api-reference/clients/bases/ctp.md
-        - ConsumedThingEvent: api-reference/clients/bases/cte.md
-    - Protocols:
-      - HTTP:
-        - HTTPServer: api-reference/protocols/http/http-server.md
-    #  - ZMQ: 
-    - Serializers:
-      - Serializers: api-reference/serializers/index.md
-    - Thing Descriptions:
-      - Interaction Affordances:
-        - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
-        - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
-        - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
-        - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
-      - DataSchema: api-reference/td/data_schema.md
-      - Bases:
-        - Schema: api-reference/td/bases/schema.md
+      - Thing:
+          - Thing: api-reference/thing/index.md
+          - RemoteAccessHandler: api-reference/thing/logger.md
+          - Meta: api-reference/thing/thing-meta.md
+          - Bases:
+              - Propertized: api-reference/thing/bases/propertized.md
+              - RemoteInvokable: api-reference/thing/bases/remote-invokable.md
+              - EventSource: api-reference/thing/bases/event-source.md
+          - Descriptor Registries:
+              - DescriptorRegistry: api-reference/thing/registries/descriptor-registry.md
+              - PropertyRegistry: api-reference/thing/registries/property-registry.md
+              - ActionRegistry: api-reference/thing/registries/actions-registry.md
+              - EventRegistry: api-reference/thing/registries/events-registry.md
+      - Property: api-reference/property/index.md
+      - Actions:
+          - action: api-reference/action/index.md
+          - Bases: api-reference/action/bases/index.md
+      - Events:
+          - Event: api-reference/events/index.md
+          - EventDispatcher: api-reference/events/event-dispatcher.md
+      - StateMachine:
+          - StateMachine: api-reference/state_machine/state-machine.md
+          - BoundFSM: api-reference/state_machine/bound-fsm.md
+      - RPC Server:
+          - RPCServer: api-reference/rpc_server/rpc-server.md
+          - Messaging Contracts:
+              - RequestMessage: api-reference/rpc_server/messaging_contract/request-message.md
+              - ResponseMessage: api-reference/rpc_server/messaging_contract/response-message.md
+          - Brokers:
+              - BaseZMQ: api-reference/rpc_server/brokers/base-zmq.md
+              - AsyncZMQServer: api-reference/rpc_server/brokers/async-zmq-server.md
+              - SyncZMQClient: api-reference/rpc_server/brokers/sync-zmq-client.md
+              - AsyncZMQClient: api-reference/rpc_server/brokers/async-zmq-client.md
+              - MessageMappedClientPool: api-reference/rpc_server/brokers/message-mapped-zmq-client-pool.md
+          - Schedulers:
+              - Scheduler: api-reference/rpc_server/schedulers/scheduler.md
+              - QueuedScheduler: api-reference/rpc_server/schedulers/queued-scheduler.md
+              - ThreadedScheduler: api-reference/rpc_server/schedulers/threaded-scheduler.md
+              - AsyncScheduler: api-reference/rpc_server/schedulers/async-scheduler.md
+      - Clients:
+          - Abstractions:
+              - ConsumedThingAction: api-reference/clients/bases/cta.md
+              - ConsumedThingProperty: api-reference/clients/bases/ctp.md
+              - ConsumedThingEvent: api-reference/clients/bases/cte.md
+      - Protocols:
+          - HTTP:
+              - HTTPServer: api-reference/protocols/http/http-server.md
+      #  - ZMQ:
+      - Serializers:
+          - Serializers: api-reference/serializers/index.md
+      - Thing Descriptions:
+          - Interaction Affordances:
+              - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
+              - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
+              - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
+              - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
+          - DataSchema: api-reference/td/data_schema.md
+          - Bases:
+              - Schema: api-reference/td/bases/schema.md
   # Examples
   - Examples:
-    - Energy Meter: examples/energy-meter.md
-    - Linear Stage: examples/linear-stage.md
-    - Oscilloscope: examples/oscilloscope.md
-    - Camera: examples/camera.md
-    - ADC in Raspberry Pi: examples/adc.md
+      - Energy Meter: examples/energy-meter.md
+      - Linear Stage: examples/linear-stage.md
+      - Oscilloscope: examples/oscilloscope.md
+      - Camera: examples/camera.md
+      - ADC in Raspberry Pi: examples/adc.md
   # - Blog:
   #   - blog/index.md
   - Design Considerations:
-    - Descriptors: design/descriptors.md
-    - Property Descriptors: design/property-descriptors.md
-    - Action Descriptors: design/action-descriptors.md
-    - Event Descriptors: design/event-descriptors.md
-    - Descriptor Registry: design/descriptor-registry.md
-    - Metaclasses: design/metaclasses.md
-    - State Machine: design/state-machine.md    
-    - ZMQ RPC Layer: design/zmq.md
-    - Serialization: design/serialization.md
-
+      - Descriptors: design/descriptors.md
+      - Property Descriptors: design/property-descriptors.md
+      - Action Descriptors: design/action-descriptors.md
+      - Event Descriptors: design/event-descriptors.md
+      - Descriptor Registry: design/descriptor-registry.md
+      - Metaclasses: design/metaclasses.md
+      - State Machine: design/state-machine.md
+      - ZMQ RPC Layer: design/zmq.md
+      - Serialization: design/serialization.md
 
 theme:
   name: material
@@ -115,7 +113,7 @@ theme:
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      scheme: default 
+      scheme: default
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -132,7 +130,7 @@ theme:
 
   icon:
     repo: fontawesome/brands/github
-    
+
   features:
     # editing the page
     - content.action.edit
@@ -147,12 +145,12 @@ theme:
     - content.code.annotate
     # headers
     - announce.dismiss
-    # footer 
+    # footer
     - navigation.footer
     # navigation
     - navigation.tabs
     - navigation.path
-    - navigation.prune 
+    - navigation.prune
     - navigation.tracking
     - navigation.instant
     - navigation.instant.progress
@@ -160,14 +158,14 @@ theme:
 
   font:
     text: Delius
-    heading: Lexend 
+    heading: Lexend
     # Lexend Deca
     # Recursive
-    # Google Sans Code 
+    # Google Sans Code
     # Funnel Sans
-    # Comme 
+    # Comme
     code: Roboto Mono
-   
+
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
@@ -181,7 +179,7 @@ plugins:
   # - social
   - mkdocstrings:
       handlers:
-        python: 
+        python:
           options:
             # code base and inheritance
             allow_inspection: true
@@ -192,16 +190,14 @@ plugins:
             parameter_headings: true
             heading_level: 1
             show_category_heading: true
-            # docstrings style 
+            # docstrings style
             docstring_style: numpy
             group_by_category: true
             # annotations
             modernize_annotations: true
             show_signature_annotations: true
             separate_signature: true
-           
-        
-                  
+
 markdown_extensions:
   - attr_list
   - md_in_html
@@ -224,7 +220,6 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - toc:
       toc_depth: 3
-  
 
 extra:
   social:
@@ -232,7 +227,7 @@ extra:
       link: https://github.com/hololinked-dev/examples
       name: examples repository
     # - icon: fontawesome/solid/table-list
-    #   link: https://hololinked.dev/ 
+    #   link: https://hololinked.dev/
     #   name: directory of device implementations
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/hololinked/
@@ -252,13 +247,13 @@ extra:
     - icon: fontawesome/solid/globe
       link: https://hololinked.dev/
       name: project website containing non-documentation resources
-    - icon: fontawesome/solid/circle-dollar-to-slot 
+    - icon: fontawesome/solid/circle-dollar-to-slot
       link: https://github.com/sponsors/VigneshVSV
       name: sponsor
 
   # consent:
   #   title: Cookie Consent
-  #   description: >- 
+  #   description: >-
   #     We use cookies to recognize your repeated visits and preferences, as well
   #     as to measure the effectiveness of our documentation and whether users
   #     find what they're searching for. With your consent, you're helping us to
@@ -266,13 +261,11 @@ extra:
   #   actions:
   #     - reject
   #     - accept
-  #     - manage 
-
+  #     - manage
 
 extra_css:
   - stylesheets/extra.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
-
 
 extra_javascript:
   - https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js

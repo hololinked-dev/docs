@@ -53,19 +53,20 @@ Each device, or **Thing**, is modeled in software with:
 
 - **Properties**: Validated, get-set attributes for settings, captured/computed data, or network-accessible values.
 
-  - _Oscilloscope_: time resolution, time range, channel data
-  - _Camera_: frame rate, exposure time, captured image
-  - _DC Power Supply_: current voltage, voltage range, max allowed current
+    - _Oscilloscope_: time resolution, time range, channel data
+    - _Camera_: frame rate, exposure time, captured image
+    - _DC Power Supply_: current voltage, voltage range, max allowed current
 
 - **Actions**: Methods that command the hardware to perform operations.
 
-  - _Oscilloscope_: connect/disconnect hardware
-  - _Camera_: start/stop measurement or video capture
-  - _DC Power Supply_: execute control routines (e.g., closed-loop control)
+    - _Oscilloscope_: connect/disconnect hardware
+    - _Camera_: start/stop measurement or video capture
+    - _DC Power Supply_: execute control routines (e.g., closed-loop control)
 
-- **Events**: Asynchronous messages or data streams to clients (e.g., alarms, measured values).
-  - _Camera_: streams images as events
-  - _DC Power Supply_: raises alarms on over-current or over-voltage
+- **Events**: Asynchronous messages or data streams to clients (e.g., alarms, measured values)
+
+    - _Camera_: streams images as events
+    - _DC Power Supply_: raises alarms on over-current or over-voltage
 
 This separation is independent of:
 
