@@ -1,5 +1,4 @@
-Installation 
-============
+# Installation
 
 From pip:
 
@@ -15,23 +14,15 @@ One may also clone it from github & install directly (in develop mode):
     cd hololinked
     pip install -e .
 
-One could setup a conda environment from the included ``hololinked.yml`` file:
+One could setup a virtual environment from the included `hololinked.yml` file:
 
-    conda env create -f hololinked.yml 
+    conda env create -f hololinked.yml
     conda activate hololinked
     pip install -e .
 
-To build & host docs locally, in top directory:
+With `uv`:
 
-    conda activate hololinked
-    cd doc
-    make clean 
-    make html
-    python -m http.server --directory build\html
-
-To open the docs in the default browser, one can also issue the following instead of starting a python server 
-
-    make host-doc
-
-
-
+    uv venv hololinked
+    source venv/bin/activate # for Linux/Mac
+    .venv\Scripts\activate # for Windows
+    uv sync

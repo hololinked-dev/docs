@@ -5,49 +5,80 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 # hololinked - Pythonic Object-Oriented Supervisory Control & Data Acquisition / Internet of Things
 
-`hololinked` is a beginner-friendly server side pythonic tool suited for instrumentation control and data acquisition over network, especially with HTTP. If you have a 
-requirement to remote control and capture data from your hardware, visualize the data in a web browser or a desktop GUI, run automated scripts and scan routines, 
-`hololinked` can help. Even for isolated applications or a small lab setup without networking concepts, one can still separate the concerns of the tools that interact 
-with the hardware & the hardware itself.
- 
-[![Documentation Status](https://readthedocs.org/projects/hololinked/badge/?version=latest)](https://hololinked.readthedocs.io/en/latest/?badge=latest) [![PyPI](https://img.shields.io/pypi/v/hololinked?label=pypi%20package)](https://pypi.org/project/hololinked/) [![Anaconda](https://anaconda.org/conda-forge/hololinked/badges/version.svg)](https://anaconda.org/conda-forge/hololinked)
-[![codecov](https://codecov.io/gh/VigneshVSV/hololinked/graph/badge.svg?token=JF1928KTFE)](https://codecov.io/gh/VigneshVSV/hololinked) 
-<br>
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/hololinked?label=pypi%20downloads)](https://pypistats.org/packages/hololinked)
-[![Conda Downloads](https://img.shields.io/conda/d/conda-forge/hololinked)](https://anaconda.org/conda-forge/hololinked)
+`hololinked` is a beginner-friendly pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
 
-`hololinked` is compatible with the [W3C Web of Things](https://www.w3.org/WoT/) (WoT) recommended pattern for developing hardware/instrumentation control software. 
-Each device or `Thing` can be controlled systematically when their design in software is segregated into properties, actions and events. In object oriented terms, where the hardware is generally represented by a class:
+As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI, run automated scripts, scan routines or jupyter notebooks, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
-- properties are validated get-set attributes of the class which may be used to model settings, hold captured/computed data or generic network accessible quantities. For example, 
-    <ul style="list-style-type: square;"> 
-        <li>an oscilloscope can have properties like time resolution, time range, data for each channel</li>
-        <li>a camera can have properties like frame rate, exposure time, captured image</li>
-        <li>a DC power supply can have properties like the current voltage, voltage range, maximum allowed current</li>
-    </ul>
-- actions are methods that command the hardware to perform some operation:
-    <ul style="list-style-type: square;"> 
-        <li>connect/disconnect hardware from computer or raspberry pi</li>
-        <li>DC power supply should execute a closed loop control routine</li>
-        <li>oscilloscope should start/stop measurement or the camera should start/stop video capture</li>
-    </ul>
-- events can asynchronously communicate/push arbitrary data to a client, like alarm messages, streaming measured quantities etc.
-    <ul style="list-style-type: square;"> 
-        <li>camera may stream the images as events</li>
-        <li>DC power supply may raise an alarm when the current value exceeds the allowed value</li>
-    </ul>
+If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP & ZMQ are supported. See [Use Cases Table](#use-cases-table).
 
-This division of interactions with the hardware is irrespective of:
+This implementation is based on RPC.
 
-* the protocol that exchange the messages on the network
-* the serialization of the data format/how the data is represented in the binary format in those messages
-* any security considerations regarding how the hardware may be accessed. 
+<div align="left">
 
-Additionally, a state machine may constrain property and action execution:
-    <ul style="list-style-type: square;"> 
-        <li>camera may not change the exposure time while capturing video</li>
-        <li>oscilloscope should not start a fresh measurement when a measurement is already ongoing</li>
-    </ul>
+<a href="https://github.com/hololinked-dev/docs">
+    <img src="https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Docs" alt="Documentation Status">
+</a>
+<a href="https://pypi.org/project/hololinked/">
+    <img src="https://img.shields.io/pypi/v/hololinked?label=pypi%20package" alt="PyPI">
+</a>
+<a href="https://anaconda.org/conda-forge/hololinked">
+    <img src="https://anaconda.org/conda-forge/hololinked/badges/version.svg" alt="Anaconda">
+</a>
+<a href="https://codecov.io/github/hololinked-dev/hololinked">
+    <img src="https://codecov.io/github/hololinked-dev/hololinked/graph/badge.svg?token=5DI4XJ2KX9" alt="codecov">
+</a>
+<a href="https://anaconda.org/conda-forge/hololinked">
+    <img src="https://img.shields.io/conda/d/conda-forge/hololinked" alt="Conda Downloads">
+</a>
+<a href="https://pypistats.org/packages/hololinked">
+    <img src="https://img.shields.io/pypi/dm/hololinked?label=pypi%20downloads" alt="PyPI - Downloads">
+</a>
+<a href="https://doi.org/10.5281/zenodo.12802841">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.15155942.svg" alt="DOI">
+</a>
+<a href="https://discord.com/invite/kEz87zqQXh">
+    <img src="https://img.shields.io/discord/1265289049783140464?label=Discord%20Members&amp;logo=discord" alt="Discord">
+</a>
+<a href="mailto:info@hololinked.dev">
+    <img src="https://img.shields.io/badge/email-brown" alt="email">
+</a>
 
+</div>
 
-Please read how-to section to proceed further with coding patterns and examples section for hardware-specific implementations.
+---
+
+## High Level Overview
+
+Each device, or **Thing**, is modeled in software with:
+
+- **Properties**: Validated, get-set attributes for settings, captured/computed data, or network-accessible values.
+
+  - _Oscilloscope_: time resolution, time range, channel data
+  - _Camera_: frame rate, exposure time, captured image
+  - _DC Power Supply_: current voltage, voltage range, max allowed current
+
+- **Actions**: Methods that command the hardware to perform operations.
+
+  - _Oscilloscope_: connect/disconnect hardware
+  - _Camera_: start/stop measurement or video capture
+  - _DC Power Supply_: execute control routines (e.g., closed-loop control)
+
+- **Events**: Asynchronous messages or data streams to clients (e.g., alarms, measured values).
+  - _Camera_: streams images as events
+  - _DC Power Supply_: raises alarms on over-current or over-voltage
+
+This separation is independent of:
+
+- The network protocol used for communication (HTTP, MQTT, ZMQ etc.)
+- Data serialization or binary representation (JSON, MessagePack)
+- Security or access control mechanisms (JWT, Basic Auth)
+
+The `Thing` object represents the physical device and is modeled as a class, encapsulating its properties, actions, and events as its attributes & methods. Additionally, **state machines** can constrain property and action execution:
+
+- _Oscilloscope_: Cannot start a new measurement while one is ongoing
+- _Camera_: Cannot change exposure time while capturing video
+
+---
+
+> **Ready to get started?**  
+> See the [Beginner's Guide](#beginner-guide) or [How-To](#how-to) section for code and the [Examples](#examples) section for hardware-specific implementations.
