@@ -22,6 +22,37 @@
     }
 }
 
+.md-content {
+    position: relative;
+}
+
+.md-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.5px;
+    background: #e4e4e4;
+    z-index: 1;
+}
+
+.md-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -5px;
+    width: 0.5px;
+    background: #e4e4e4;
+    z-index: 1;
+}
+
+@media (max-width: 959px) {
+    .md-content::before,
+    .md-content::after {
+        display: none;
+    }
+}
 
 
 
