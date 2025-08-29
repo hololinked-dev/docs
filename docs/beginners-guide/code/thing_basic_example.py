@@ -51,7 +51,7 @@ class OceanOpticsSpectrometer(Thing):
     def get_integration_time(self) -> float:
         try:
             return self._integration_time
-        except:
+        except AttributeError:
             return 1000.0
 
     trigger_mode = Selector(
@@ -84,7 +84,7 @@ class OceanOpticsSpectrometer(Thing):
     measurement_event = Event(
         name="intensity-measurement-event",
         doc="""event generated on measurement of intensity, 
-                max 30 per second even if measurement is faster.""",
+            max 30 per second even if measurement is faster.""",
     )
 
     def capture(self):
@@ -176,28 +176,26 @@ if __name__ == "__main__":
 
 class Axis(Thing):
     """
-    Represents a single stepper module of a Phytron Phymotion Control Rack
+    Represents a single axis of stepper module controlling a linear stage
     """
 
     def execute(self, command):
         # implement device driver logic to send command to hardware
         ...
 
-    def get_referencing_run_frequency(self):
-        resp = self.execute("P08R")
-        return int(resp)
-
-    def set_referencing_run_frequency(self, value):
-        self.execute("P08S{}".format(value))
-
     referencing_run_frequency = Number(
         bounds=(0, 40000),
         inclusive_bounds=(False, True),
         step=100,
-        URL_path="/frequencies/referencing-run",
-        fget=get_referencing_run_frequency,
-        fset=set_referencing_run_frequency,
-        doc="""Run frequency during initializing (referencing), 
-                            in Hz (integer value).
-                            I1AM0x: 40 000 maximum, I4XM01: 4 000 000 maximum""",
+        doc="""Run frequency during initializing (referencing), in Hz (integer value).
+            I1AM0x: 40 000 maximum, I4XM01: 4 000 000 maximum""",
     )
+
+    @referencing_run_frequency.getter
+    def get_referencing_run_frequency(self):
+        resp = self.execute("P08R")
+        return int(resp)
+
+    @referencing_run_frequency.setter
+    def set_referencing_run_frequency(self, value):
+        self.execute("P08S{}".format(value))

@@ -17,7 +17,7 @@ mandatory argument to be supplied to the `Thing` parent. Non-experts may use str
 characters, numbers, forward slashes etc., which looks like a part of a browser URL, but the general definition is
 that `id` should be a URI compatible string:
 
-```py title="ID" linenums="1" hl_lines="3"
+```py title="Thing ID" linenums="1" hl_lines="3"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:130:137"
 ```
 
@@ -76,9 +76,8 @@ running multiple requests at once to different properties or actions. If a singl
 
 To overload the get-set of properties to directly apply property values onto devices, one may supply a custom getter & setter method:
 
-```py title="Property Get Set Overload" linenums="1"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:8:12"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:37:52"
+```py title="Property Get Set Overload" linenums="1" hl_lines="19 24"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:177:202"
 ```
 
 Properties follow the python descriptor protocol. In non expert terms, when a custom get-set method is not provided,
@@ -86,16 +85,16 @@ properties look like class attributes however their data containers are instanti
 For example, the [`serial_number`](#__codelineno-2-9) property defined
 previously as `String`, whenever set/written, will be complied to a string and assigned as an attribute to each instance
 of the `OceanOpticsSpectrometer` class. This is done with an internally generated name. It is not necessary to know this
-internally generated name as the property value can be accessed again in any python logic, say, <br>
+internally generated name as the property value can be accessed again in any python logic using the dot operator, say, <br>
 [`self.device = Spectrometer.from_serial_number(self.serial_number)`](#__codelineno-3-17)
 <br>
 
 However, to avoid generating such an internal data container and instead apply the value on the device, one may supply
-custom get-set methods using the fget and fset argument. This is generally useful as the hardware is a better source
+custom get-set methods. This is generally useful as the hardware is a better source
 of truth about the value of a property. Further, the write value of a property may not always correspond to a read
-value due to hardware limitations. Say, the write value of `integration_time` requested by the user is `1000.2`, however, the device adjusted it to `1000.0` automatically.
+value due to hardware limitations. Say, the write value of `referencing_run_frequency` requested by the user is `1050`, however, the device adjusted it to `1000` automatically.
 
-### Push Events
+### Publish Events
 
 Events are to be used to asynchronously push data to clients. For example, one can supply clients with the
 measured data using events:
@@ -103,15 +102,16 @@ measured data using events:
 ```py title="Events" linenums="1" hl_lines="19"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:2:2"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:7:11"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:71:85"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:84:97"
 ```
 
 Data may also be polled by the client repeatedly but events save network time or allow sending data which cannot be timed,
-like alarm messages. Arbitrary payloads are supported, as long as the data is serializable.
+like alarm messages. Arbitrary payloads are supported, as long as the data is serializable. One can also specify the payload structure using
+[pydantic or JSON schema](#event-payload-schema)
 
 To start the capture method defined above, to receive the events, one may thread it as follows:
 
-```py title="Events" linenums="1" hl_lines="8"
+```py title="Events" linenums="1"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:7:12"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:86:100"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:90:104"
 ```

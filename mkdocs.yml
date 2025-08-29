@@ -159,9 +159,10 @@ theme:
   font:
     text: Delius
     heading: Lexend
+    # Other useful fonts that we may use:
     # Lexend Deca
     # Recursive
-    # Google Sans Code
+    # Google Sans Code (Used for titles and headers)
     # Funnel Sans
     # Comme
     code: Roboto Mono
