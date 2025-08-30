@@ -10,6 +10,7 @@ nav:
       - Introduction: index.md
       - Installation: introduction/installation.md
       - Resources: introduction/resources.md
+      - Contributing: introduction/contributing.md
   # textbook like how-to tutorials
   - Beginner's Guide:
       - Expose Python Objects: beginners-guide/articles/servers.md
@@ -88,12 +89,12 @@ nav:
           - Bases:
               - Schema: api-reference/td/bases/schema.md
   # Examples
-  - Examples:
-      - Energy Meter: examples/energy-meter.md
-      - Linear Stage: examples/linear-stage.md
-      - Oscilloscope: examples/oscilloscope.md
-      - Camera: examples/camera.md
-      - ADC in Raspberry Pi: examples/adc.md
+  # - Examples:
+  #     - Energy Meter: examples/energy-meter.md
+  #     - Linear Stage: examples/linear-stage.md
+  #     - Oscilloscope: examples/oscilloscope.md
+  #     - Camera: examples/camera.md
+  #     - ADC in Raspberry Pi: examples/adc.md
   # - Blog:
   #   - blog/index.md
   - Design Considerations:
