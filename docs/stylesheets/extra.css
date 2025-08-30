@@ -1,4 +1,5 @@
-/* custom.css */
+
+/* main reading area */
 .md-content {
     text-align: justify;
 }
@@ -15,12 +16,28 @@
     display: none;
 }
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1000px) {
     .md-content {
         min-width: 1000px;
         margin: 0 auto;
     }
+} */
+
+@media screen and (min-width: 76.25em) and (max-width: 120rem)  {
+  .md-sidebar--primary {
+    margin-left: 0 !important;  /* Removes the extra gap */
+  }
+
+  .md-sidebar {
+    padding-left: 0 !important;
+  }
+
+  .md-main__inner {
+    margin-left: 0 !important;  
+    max-width: 100% !important; /* Allow content to expand */
+  }
 }
+
 
 
 /* adds borders to either side of the reading area */
