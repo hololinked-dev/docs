@@ -202,7 +202,7 @@ on the robustness the developer is expecting in their application:
         class Picoscope6000(Thing):
 
             @action()
-            def set_channel_pydantic(
+            def set_channel(
                 self,
                 channel: Literal["A", "B", "C", "D"],
                 enabled: bool = True,
@@ -228,6 +228,10 @@ on the robustness the developer is expecting in their application:
         ```
 
         ???+ note "JSON schema seen in Thing Description"
+
+            ```py
+            Picoscope6000.set_channel.to_affordance().json()
+            ```
 
             ```json
             {
@@ -278,13 +282,54 @@ on the robustness the developer is expecting in their application:
             }
             ```
 
+    === "Return Type"
+
+        ```py
+        from typing import Annotated
+        from pydantic import Field
+
+        class SerialUtility(Thing):
+
+            @action()
+            def execute_instruction(
+                self, command: str, return_data_size: Annotated[int, Field(ge=0)] = 0
+            ) -> str:
+                """
+                executes instruction given by the ASCII string parameter 'command'. If return data size is greater than 0, it reads the response and returns the response. Return Data Size - in bytes - 1 ASCII character = 1 Byte.
+                """
+        ```
+
+        ???+ note "JSON schema seen in Thing Description"
+
+            ```py
+            SerialUtility.execute_instruction.to_affordance().json()
+            ```
+
+            ```json
+            {
+                "description": "executes instruction given by the ASCII string parameter 'command'. If return data size is greater than 0, it reads the response and returns the response. Return Data Size - in bytes - 1 ASCII character = 1 Byte.",
+                "input": {
+                    "properties": {
+                        "command": {"type": "string"},
+                        "return_data_size": {"default": 0, "minimum": 0, "type": "integer"}
+                    },
+                    "required": ["command"],
+                    "type": "object"
+                },
+                "output": {"type": "string"},
+                "synchronous": True
+            }
+            ```
+
 However, a schema is optional and it only matters that
-the method signature is matching when requested from a client. To enable this, set global attribute `allow_relaxed_schema_actions=True`. This setting is used especially when a schema is useful for validation of arguments but not available - not for methods with no arguments.
+the method signature is matching when requested from a client.
+
+<!-- To enable this, set global attribute`allow_relaxed_schema_actions=True`. This setting is used especially when a schema is useful for validation of arguments but not available - not for methods with no arguments.
 
 ```py title="Relaxed or Unavailable Schema for Actions" linenums="1"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:168:172"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:558:559"
-```
+``` -->
 
 It is always possible to custom validate the arguments after invoking the action:
 
@@ -293,7 +338,7 @@ It is always possible to custom validate the arguments after invoking the action
 --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:9:27"
 ```
 
-The last and least preferred possibility is to use `ParameterizedFunction`:
+<!-- The last and least preferred possibility is to use `ParameterizedFunction`:
 
 ```py title="Parameterized Function" linenums="1"
 --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:52:"
@@ -317,8 +362,89 @@ client side, there is no difference between invoking a normal action and an acti
 
     ```py title="Custom Validation" linenums="1"
     --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:30:36"
-    ```
+    ``` -->
 
-## Async & Threaded Actions
+## Threaded & Async Actions
 
-## TD
+Actions can be made asynchronous or threaded by setting the `synchronous` flag to `False` in the decorator. For methods
+that are **not** `async`:
+
+```py title="Threaded Actions" linenums="3"
+class ServoMotor(Thing):
+
+    @action(synchronous=False)
+    def poll_device_state(self) -> str:
+        """check device state, especially when it got stuck up"""
+        ...
+
+    @action(threaded=True) # exactly the same effect for sync methods
+    def poll_device_state(self) -> str:
+        """check device state, especially when it got stuck up"""
+        ...
+```
+
+The return value is fetched and returned to the client. One could also start long running actions without fetching a return value,
+(although it would be better in many cases to manually thread out a long running action):
+
+```py title="Threaded Actions" linenums="3"
+class DCPowerSupply(Thing):
+    """A DC Power Supply from 0-30V"""
+
+    @action(threaded=True)
+    def monitor_over_voltage(self, period: float = 5):
+        """background voltage monitor loop"""
+        while True:
+            voltage = self.measure_voltage()
+            if voltage > self.over_voltage_threshold:
+                self.over_voltage_event(
+                    dict(
+                        timestamp=datetime.datetime.now().strftime(
+                            "%Y-%m-%d %H:%M:%S"
+                        ),
+                        voltage=voltage
+                    )
+                )
+            time.sleep(period)
+    # The suitability of this example in a realistic use case is untested
+```
+
+Same applies for `async`:
+
+```py title="Async Actions" linenums="3"
+class DCPowerSupply(Thing):
+
+    @action(create_task=True)
+    async def monitor_over_voltage(self, period: float = 5):
+        """background monitor loop"""
+        while True:
+            voltage = await asyncio.get_running_loop().run_in_executor(
+                            None, self.measure_voltage
+                    )
+            if voltage > self.over_voltage_threshold:
+                self.over_voltage_event(
+                    dict(
+                        timestamp=datetime.datetime.now().strftime(
+                            "%Y-%m-%d %H:%M:%S"
+                        ),
+                        voltage=voltage
+                    )
+                )
+            await asyncio.sleep(period)
+    # The suitability of this example in a realistic use case is untested
+```
+
+For long running actions that do not return, call them with `noblock` flag on the client, otherwise except a `TimeoutError`:
+
+```py
+client.invoke_action("monitor_over_voltage", period=10, noblock=True)
+```
+
+## Thing Description Metadata
+
+| field       | supported | description                                                                                                                     |
+| ----------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| input       | ✓         | schema of the input payload (validation carried out)                                                                            |
+| output      | ✓         | schema of the output payload (validation not carried out)                                                                       |
+| safe        | ✓         | whether the action is safe to execute, only treated as a metadata                                                               |
+| idempotent  | ✓         | whether the action is idempotent, `True` when the action is executable in all states of a state machine, otherwise `False`      |
+| synchronous | ✓         | whether the action is synchronous, `False` for threaded actions and async actions which are scheduled in the running event loop |

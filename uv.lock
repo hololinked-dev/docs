@@ -233,13 +233,14 @@ wheels = [
 
 [[package]]
 name = "hololinked"
-version = "0.2.12"
-source = { git = "https://github.com/hololinked-dev/hololinked.git?branch=main-next-release#8bb5a7bfc37e6e4c75b752f070434699a5159a85" }
+version = "0.3.1"
+source = { git = "https://github.com/hololinked-dev/hololinked.git?branch=main#4f24e2d56188a0d41d118fa21386f4f45140c693" }
 dependencies = [
     { name = "argon2-cffi" },
     { name = "ifaddr" },
     { name = "jsonschema" },
     { name = "msgspec" },
+    { name = "pydantic" },
     { name = "pyzmq" },
     { name = "sqlalchemy" },
     { name = "sqlalchemy-utils" },
@@ -258,18 +259,20 @@ dependencies = [
     { name = "mkdocs-macros-plugin" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
+    { name = "pip" },
     { name = "pydantic" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "hololinked", git = "https://github.com/hololinked-dev/hololinked.git?branch=main-next-release" },
+    { name = "hololinked", git = "https://github.com/hololinked-dev/hololinked.git?branch=main" },
     { name = "mkdocs-autorefs", specifier = "==1.4.2" },
     { name = "mkdocs-git-authors-plugin", specifier = "==0.9.5" },
     { name = "mkdocs-git-revision-date-localized-plugin", specifier = "==1.4.7" },
     { name = "mkdocs-macros-plugin", specifier = "==1.3.7" },
     { name = "mkdocs-material", specifier = "==9.6.14" },
     { name = "mkdocstrings", extras = ["python"], specifier = "==0.29.1" },
+    { name = "pip", specifier = ">=25.2" },
     { name = "pydantic", specifier = "==2.11.5" },
 ]
 
@@ -582,6 +585,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ca/bc/f35b8446f4531a7cb215605d100cd88b7ac6f44ab3fc94870c120ab3adbf/pathspec-0.12.1.tar.gz", hash = "sha256:a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712", size = 51043 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cc/20/ff623b09d963f88bfde16306a54e12ee5ea43e9b597108672ff3a408aad6/pathspec-0.12.1-py3-none-any.whl", hash = "sha256:a0d503e138a4c123b27490a4f7beda6a01c6f288df0e4a8b79c7eb0dc7b4cc08", size = 31191 },
+]
+
+[[package]]
+name = "pip"
+version = "25.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/16/650289cd3f43d5a2fadfd98c68bd1e1e7f2550a1a5326768cddfbcedb2c5/pip-25.2.tar.gz", hash = "sha256:578283f006390f85bb6282dffb876454593d637f5d1be494b5202ce4877e71f2", size = 1840021 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b7/3f/945ef7ab14dc4f9d7f40288d2df998d1837ee0888ec3659c813487572faa/pip-25.2-py3-none-any.whl", hash = "sha256:6d67a2b4e7f14d8b31b8b52648866fa717f45a1eb70e83002f4331d07e953717", size = 1752557 },
 ]
 
 [[package]]
