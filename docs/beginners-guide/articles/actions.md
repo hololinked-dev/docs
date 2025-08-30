@@ -11,6 +11,8 @@ Only methods decorated with `action()` are exposed to clients.
 --8<-- "docs/beginners-guide/code/thing_example_2.py:542:546"
 ```
 
+## Payload Validation
+
 Arguments are loosely typed and may need to be constrained with a schema based
 on the robustness the developer is expecting in their application:
 
@@ -149,13 +151,132 @@ on the robustness the developer is expecting in their application:
 
     === "Single Argument"
 
-    ```py title="Input Schema" linenums="1"
-    ```
+        ```py title="Input Schema with Single Argument" linenums="1"
+        from typing import Annotated
+
+        class GentecOpticalEnergyMeter(Thing):
+
+            @action()
+            def start_acquisition(self,
+                max_count: Annotated[int, Field(gt=0)]
+            ) -> None:
+                """
+                Start acquisition of energy measurements.
+
+                Parameters
+                ----------
+                max_count: int
+                    maximum number of measurements to acquire before stopping automatically.
+                """
+        ```
+
+        ???+ note "JSON schema seen in Thing Description"
+
+            ```py
+            GentecOpticalEnergyMeter.start_acquisition.to_affordance().json()
+            ```
+
+            ```json
+            {
+                "description": "Start acquisition of energy measurements. max_count: maximum number of measurements to acquire before stopping automatically.",
+                "input": {
+                    "properties": {
+                        "max_count": {
+                            "exclusiveMinimum": 0,
+                            "type": "integer"
+                        }
+                    },
+                    "required": ["max_count"],
+                    "title": "start_acquisition_input",
+                    "type": "object"
+                },
+                "synchronous": True
+            }
+            ```
 
     === "Multiple Arguments"
 
-    ```py title="Input Schema with Multiple Arguments" linenums="1"
-    ```
+        ```py title="Input Schema with Multiple Arguments"
+        from typing import Literal
+
+        class Picoscope6000(Thing):
+
+            @action()
+            def set_channel_pydantic(
+                self,
+                channel: Literal["A", "B", "C", "D"],
+                enabled: bool = True,
+                v_range: Literal[
+                    "10mV",
+                    "20mV",
+                    "50mV",
+                    "100mV",
+                    "200mV",
+                    "500mV",
+                    "1V",
+                    "2V",
+                    "5V",
+                    "10V",
+                    "20V",
+                    "50V",
+                    "MAX_RANGES",
+                ] = "2V",
+                offset: float = 0,
+                coupling: Literal["AC", "DC"] = "DC_1M",
+                bw_limiter: Literal["full", "20MHz"] = "full",
+            ) -> None:
+        ```
+
+        ???+ note "JSON schema seen in Thing Description"
+
+            ```json
+            {
+                "description": "Set the parameter for a channel. https://www.picotech.com/download/manuals/picoscope-6000-series-a-api-programmers-guide.pdf",
+                "input": {
+                    "properties": {
+                        "channel": {
+                            "enum": ["A", "B", "C", "D"],
+                            "type": "string"
+                        },
+                        "enabled": {"default": True, "type": "boolean"},
+                        "v_range": {
+                            "default": "2V",
+                            "enum": [
+                                "10mV",
+                                "20mV",
+                                "50mV",
+                                "100mV",
+                                "200mV",
+                                "500mV",
+                                "1V",
+                                "2V",
+                                "5V",
+                                "10V",
+                                "20V",
+                                "50V",
+                                "MAX_RANGES"
+                            ],
+
+                            "type": "string"
+                        },
+                        "offset": {"default": 0, "type": "number"},
+                        "coupling": {
+                            "default": "DC_1M",
+                            "enum": ["AC", "DC"],
+                            "type": "string"
+                        },
+                        "bw_limiter": {
+                            "default": "full",
+                            "enum": ["full", "20MHz"],
+                            "type": "string"
+                        }
+                    },
+                    "required": ["channel"],
+                    "type": "object"
+                },
+                "synchronous": True
+            }
+            ```
 
 However, a schema is optional and it only matters that
 the method signature is matching when requested from a client. To enable this, set global attribute `allow_relaxed_schema_actions=True`. This setting is used especially when a schema is useful for validation of arguments but not available - not for methods with no arguments.
@@ -197,3 +318,7 @@ client side, there is no difference between invoking a normal action and an acti
     ```py title="Custom Validation" linenums="1"
     --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:30:36"
     ```
+
+## Async & Threaded Actions
+
+## TD
