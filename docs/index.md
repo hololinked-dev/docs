@@ -70,9 +70,9 @@ Each device, or **Thing**, is modeled in software with:
 
 This separation is independent of:
 
-- The network protocol used for communication (HTTP, MQTT, ZMQ etc.)
-- Data serialization or binary representation (JSON, MessagePack, Base64 string etc.)
-- Security or access control mechanisms (JWT, Basic Auth, OAuth etc.)
+- the network protocol used for communication (HTTP, MQTT, ZMQ etc.)
+- data serialization or binary representation (JSON, MessagePack, Pickle etc.)
+- security or access control mechanisms (JWT, Basic Auth, OAuth etc.)
 
 The `Thing` object represents the physical device and is modeled as a class, encapsulating its properties, actions, and events as its attributes & methods. Additionally, **state machines** can constrain property and action execution:
 
@@ -82,4 +82,4 @@ The `Thing` object represents the physical device and is modeled as a class, enc
 ---
 
 > **Ready to get started?**  
-> See the [Beginner's Guide](#beginner-guide) or [How-To](#how-to) section for code and the [Examples](#examples) section for hardware-specific implementations.
+> See the [Beginner's Guide](#beginner-guide) section for concepts and code example and the [Examples](#examples) section for hardware-specific implementations.
