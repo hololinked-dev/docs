@@ -433,10 +433,10 @@ class DCPowerSupply(Thing):
     # The suitability of this example in a realistic use case is untested
 ```
 
-For long running actions that do not return, call them with `noblock` flag on the client, otherwise except a `TimeoutError`:
+For long running actions that do not return, call them with `oneway` flag on the client, otherwise except a `TimeoutError`:
 
 ```py
-client.invoke_action("monitor_over_voltage", period=10, noblock=True)
+client.invoke_action("monitor_over_voltage", period=10, oneway=True)
 ```
 
 ## Thing Description Metadata
