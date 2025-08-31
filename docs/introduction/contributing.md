@@ -2,7 +2,7 @@
 
 We welcome contributions to `hololinked`! All types of contributions are encouraged and valued.
 
-> And if you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
+> If you like the project, but just don't have time to contribute, that's fine. There are other easy ways to support the project and show your appreciation, which we would also be very happy about:
 >
 > - Star the project
 > - Tweet about it or share in social media
@@ -12,11 +12,11 @@ We welcome contributions to `hololinked`! All types of contributions are encoura
 
 You can contribute in the following ways:
 
-- Reporting bugs and issues
-- Suggesting new features
-- Improving documentation
-- Code
-- Submitting Examples or Implementations
+- reporting bugs and issues
+- submitting code
+- improving documentation
+- suggesting new features
+- submitting examples or implementations
 
 For good first issues, visit repository wise:
 
