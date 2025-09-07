@@ -94,7 +94,7 @@ class OceanOpticsSpectrometer(Thing):
                 correct_dark_counts=False, correct_nonlinearity=False
             )
             self.measurement_event.push(self._intensity.tolist())
-            self.logger.debug(f"pushed measurement event")
+            self.logger.debug("pushed measurement event")
 
     @action()
     def start_acquisition(self):

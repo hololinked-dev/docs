@@ -4,7 +4,7 @@
 
 Only methods decorated with `action()` are exposed to clients.
 
-```py title="Actions" linenums="1"
+```py title="Actions" linenums="1" hl_lines="5 10 15 16 21 25"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:189:192"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:431:445"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:643:646"
@@ -13,17 +13,16 @@ Only methods decorated with `action()` are exposed to clients.
 
 ## Payload Validation
 
-Arguments are loosely typed and may need to be constrained with a schema based
-on the robustness the developer is expecting in their application:
+If arguments are loosely typed, the action will be invoked with given payload without any validation. One may validate them manually inside the method. However, one can also specify the expected argument schema using either `JSON Schema` or `pydantic` models:
 
 <a id="actions-argument-schema"></a>
 === "JSON Schema"
 
     === "Single Argument"
 
-        Just specify the expected type of the argument (with or without name)
+        Specify the expected type of the argument (with or without name)
 
-        ```py title="Input Schema" linenums="1"
+        ```py title="Input Schema" linenums="1" hl_lines="8"
         --8<-- "docs/beginners-guide/code/thing_example_2.py:189:192"
         --8<-- "docs/beginners-guide/code/thing_example_2.py:210:222"
         ```
@@ -47,10 +46,10 @@ on the robustness the developer is expecting in their application:
 
     === "Multiple Arguments"
 
-        You need to specify the action argument names under the `properties` field with `type` as `object`.
-        Names not found in the `properties` field can be subsumed under python spread operator `**kwargs` if necessary.
+        Specify the argument names under the `properties` field with `type` as `object`.
+        Names not found in the `properties` field can be subsumed under python spread operator `**kwargs` if necessary (dont set `additionalProperties` to `False` in that case).
 
-        ```py title="Input Schema with Multiple Arguments" linenums="1"
+        ```py title="Input Schema with Multiple Arguments" linenums="1" hl_lines="32"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:57:85"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:87:87"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:213:226"
@@ -99,7 +98,9 @@ on the robustness the developer is expecting in their application:
 
     === "Return Type"
 
-        ```py title="With Return Type"
+        Specify return type under `output_schema` field:
+
+        ```py title="With Return Type" linenums="1" hl_lines="38 39"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:22:55"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:87:87"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:349:356"
@@ -151,7 +152,9 @@ on the robustness the developer is expecting in their application:
 
     === "Single Argument"
 
-        ```py title="Input Schema with Single Argument" linenums="1"
+        Type annotate the argument, either plainly or with `Annotated`. A pydantic model will be composed with the argument name as the field name and the type annotation as the field type:
+
+        ```py title="Input Schema with Single Argument" linenums="1" hl_lines="7"
         from typing import Annotated
 
         class GentecOpticalEnergyMeter(Thing):
@@ -195,6 +198,8 @@ on the robustness the developer is expecting in their application:
             ```
 
     === "Multiple Arguments"
+
+        Again, type annotate the arguments, either plainly or with `Annotated`:
 
         ```py title="Input Schema with Multiple Arguments"
         from typing import Literal
@@ -284,6 +289,8 @@ on the robustness the developer is expecting in their application:
 
     === "Return Type"
 
+        type annotate the return type:
+
         ```py
         from typing import Annotated
         from pydantic import Field
@@ -321,8 +328,38 @@ on the robustness the developer is expecting in their application:
             }
             ```
 
-However, a schema is optional and it only matters that
-the method signature is matching when requested from a client.
+    === "Supply Models Directly"
+
+        If the composed models from the type annotations are not sufficient or contain errors, one may directly supply the models:
+
+        ```py title="With Direct Models" linenums="1" hl_lines="3 7 22"
+        from pydantic import BaseModel, field_validator
+
+        class CommandModel(BaseModel):
+            command: str
+            return_data_size: int = Field(0, ge=0)
+
+            @field_validator("command")
+            def validate_command(cls, v):
+                if not isinstance(v, str) or not v:
+                    raise ValueError("Command must be a non-empty string")
+                if command not in SerialUtility.supported_commands:
+                    raise ValueError(f"Command {command} is not supported")
+                return v
+
+        class ResponseModel(BaseModel):
+            response: str = Field(..., description="Response from the device")
+
+        class SerialUtility(Thing):
+
+            supported_commands = ["*IDN?", "MEAS:VOLT?", "MEAS:CURR?"]
+
+            @action(input_schema=CommandModel, output_schema=ResponseModel)
+            def execute_instruction(self, command: str, return_data_size: int = 0) -> str:
+                """
+                executes instruction given by the ASCII string parameter 'command'
+                """
+        ```
 
 <!-- To enable this, set global attribute`allow_relaxed_schema_actions=True`. This setting is used especially when a schema is useful for validation of arguments but not available - not for methods with no arguments.
 
@@ -366,8 +403,7 @@ client side, there is no difference between invoking a normal action and an acti
 
 ## Threaded & Async Actions
 
-Actions can be made asynchronous or threaded by setting the `synchronous` flag to `False` in the decorator. For methods
-that are **not** `async`:
+Actions can be made asynchronous or threaded by setting the `synchronous` flag to `False`. For methods that are **not** `async`:
 
 ```py title="Threaded Actions" linenums="3"
 class ServoMotor(Thing):
@@ -408,12 +444,13 @@ class DCPowerSupply(Thing):
     # The suitability of this example in a realistic use case is untested
 ```
 
-Same applies for `async`:
+For `async` actions:
 
 ```py title="Async Actions" linenums="3"
 class DCPowerSupply(Thing):
 
     @action(create_task=True)
+    # @action(synchronous=False) # exactly the same effect for async methods
     async def monitor_over_voltage(self, period: float = 5):
         """background monitor loop"""
         while True:
@@ -421,11 +458,10 @@ class DCPowerSupply(Thing):
                             None, self.measure_voltage
                     )
             if voltage > self.over_voltage_threshold:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 self.over_voltage_event(
                     dict(
-                        timestamp=datetime.datetime.now().strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        ),
+                        timestamp=timestamp,
                         voltage=voltage
                     )
                 )
@@ -433,7 +469,7 @@ class DCPowerSupply(Thing):
     # The suitability of this example in a realistic use case is untested
 ```
 
-For long running actions that do not return, call them with `oneway` flag on the client, otherwise except a `TimeoutError`:
+For long running actions that do not return, call them with `oneway` flag on the client, otherwise expect a `TimeoutError`:
 
 ```py
 client.invoke_action("monitor_over_voltage", period=10, oneway=True)

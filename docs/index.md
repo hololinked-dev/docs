@@ -7,11 +7,11 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 `hololinked` is a beginner-friendly pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
 
-As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI, run automated scripts, scan routines or jupyter notebooks, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
+As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI, run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
-If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP & ZMQ are supported. See [Use Cases Table](#use-cases-table).
+If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP & ZMQ are supported.
 
-This implementation is based on RPC.
+This implementation is based on RPC, built ground-up in python keeping both the latest web technologies and python principles in mind.
 
 <div align="left">
 
@@ -82,4 +82,4 @@ The `Thing` object represents the physical device and is modeled as a class, enc
 ---
 
 > **Ready to get started?**  
-> See the [Beginner's Guide](#beginner-guide) section for concepts and code example and the [Examples](#examples) section for hardware-specific implementations.
+> See the [Beginner's Guide](#beginner-guide) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations.

@@ -30,7 +30,7 @@ One can subscribe to the event using the attribute name:
 
 === "async"
 
-    In the asynchronous mode, the `subscribe_event` method creates an event listening task in the running async loop:
+    In the asynchronous mode, the `subscribe_event` method creates an event listening task in the running async loop. This requires the client to be running in an async loop, otherwise no events will be received although the server will be publishing it:
 
     ```py title="Subscription" linenums="1" hl_lines="9"
     from hololinked.client import ClientFactory
@@ -38,8 +38,8 @@ One can subscribe to the event using the attribute name:
     energy_meter = ClientFactory.http(url="http://localhost:8000/energy-meter")
     # energy_meter = ClientFactory.zmq(id="energy_meter", access_point="IPC")
 
-    def event_cb(event_data):
-        print(event_data)
+    def event_cb(event):
+        print(event)
 
     energy_meter.subscribe_event(
         name="data_point_event",
@@ -48,69 +48,75 @@ One can subscribe to the event using the attribute name:
     )
     ```
 
----
+The callback function(s) must accept a single argument which is the event data payload, an instance of `SSE` object. The payload can be accessed as using the `data` attribute:
 
-One can also supply multiple callbacks which may called in series, threaded or async:
+```py title="Event Data" linenums="1" hl_lines="9"
+def event_cb(event):
+    print(event.data)
+```
+
+> The `SSE` object also contains metadata like `id`, `event` name and `retry` interval, but these are currently not well supported. Improvements in the future are expected.
+
+Each subscription creates a new event stream. One can also supply multiple callbacks which may called in series or concurrently:
 
 === "sequential"
 
     The background thread that listens to the event executes the callbacks in series in its own thread:
 
     ```py title="Sequential Callbacks" linenums="1" hl_lines="9"
-    def event_cb1(event_data):
-        print("First Callback", event_data)
+    def event_cb1(event):
+        print("First Callback", event.data)
 
-    def event_cb2(event_data):
-        print("Second callback", event_data)
+    def event_cb2(event):
+        print("Second callback", event.data)
 
     energy_meter.subscribe_event(
         name="statistics_event",
         callbacks=[event_cb1, event_cb2]
+        # This also works for async where all callbacks are awaited in series
     )
     ```
-
-    So please be careful while using GUI frameworks like PyQt where you can paint the GUI only from the main thread.
-    You would need to use signals and slots or other mechanisms.
 
 === "threaded"
 
     The background thread that listens to the event executes the callbacks by spawning new threads:
 
     ```py title="Thread Callbacks" linenums="1" hl_lines="9-10"
-    def event_cb1(event_data):
-        print("First Callback", event_data)
+    def event_cb1(event):
+        print("First Callback", event.data)
 
-    def event_cb2(event_data):
-        print("Second callback", event_data)
+    def event_cb2(event):
+        print("Second callback", event.data)
 
     energy_meter.subscribe_event(
         name="statistics_event",
         callbacks=[event_cb1, event_cb2],
-        thread_callbacks=True
+        concurrent=True
     )
     ```
-    Again, please be careful while using GUI frameworks like PyQt where you can paint the GUI only from the main thread.
 
 === "async"
 
-    Applies only when listening to event with `async=True`, the `async` method creates new tasks in the current loop:
+    The event listening task creates newer tasks in the running event loop:
 
-    ```py title="Thread Callbacks" linenums="1"
-    async def event_cb1(event_data):
-        print("First Callback", event_data)
-        await some_async_function1(event_data)
+    ```py title="Thread Callbacks" linenums="1" hl_lines="12-13"
+    async def event_cb1(event):
+        print("First Callback", event.data)
+        await some_async_function1(event.data)
 
-    async def event_cb2(event_data):
-        print("Second callback", event_data)
-        await some_async_function2(event_data)
+    async def event_cb2(event):
+        print("Second callback", event.data)
+        await some_async_function2(event.data)
 
     energy_meter.subscribe_event(
         name="statistics_event",
         callbacks=[event_cb1, event_cb2],
         asynch=True,
-        create_task_for_cbs=True
+        concurrent=True
     )
     ```
+
+> In GUI frameworks like PyQt, you cannot paint the GUI from the event thread. You would need to use signals and slots or other mechanisms to update the GUI to hand over the data.
 
 ---
 
@@ -120,11 +126,13 @@ To unsubscribe:
 energy_meter.unsubscribe_event(name="data_point_event")
 ```
 
+All subscriptions to the same event are removed.
+
 ## Payload Schema
 
-Schema may be supplied for the validation of the event data on the client:
+Schema may be supplied for the validation of the event data on the client using pydantic or JSON schema:
 
-```py title="" linenums="1" hl_lines="13"
+```py title="Payload Schema" linenums="1" hl_lines="13"
 class GentecMaestroEnergyMeter(Thing):
 
     data_point_event_schema = {
@@ -144,6 +152,8 @@ class GentecMaestroEnergyMeter(Thing):
 ```
 
 There is no separate validation on the server side.
+
+> There is no validation on the client side currently implemented in `hololinked.client`. This will be added in future releases.
 
 ???+ "Schema as seen in Thing Description"
 
@@ -172,9 +182,9 @@ There is no separate validation on the server side.
 
 ## Thing Description Metadata
 
-| Key          | Supported | Comment                                                                            |
-| ------------ | --------- | ---------------------------------------------------------------------------------- |
-| subscription | ✖         |                                                                                    |
-| data         | ✔         | payload schema for the event                                                       |
-| dataResponse | ✖         | schema for response message after arrival of an event, will be supported in future |
-| cancellation | -         | Server sent events can be cancelled by the client directly                         |
+| Key          | Supported | Comment                                                    |
+| ------------ | --------- | ---------------------------------------------------------- |
+| subscription | ✖         |                                                            |
+| data         | ✔         | payload schema for the event                               |
+| dataResponse | ✖         | will be supported in a future release                      |
+| cancellation | -         | Server sent events can be cancelled by the client directly |

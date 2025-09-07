@@ -28,4 +28,4 @@ For good first issues, visit repository wise:
 - [website](https://github.com/hololinked-dev/website/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - [kubernetes](https://github.com/hololinked-dev/vps-kubernetes-cluster/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 
-Our [contribution guidelines](https://github.com/hololinked-dev/hololinked/blob/main/CONTRIBUTING.md) may also help.
+Our [contribution guidelines](https://github.com/hololinked-dev/hololinked/blob/main/CONTRIBUTING.md) may also help. There are also [weekly office hours](https://github.com/hololinked-dev#monthly-meetings) & [discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).

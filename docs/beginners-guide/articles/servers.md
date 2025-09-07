@@ -11,8 +11,7 @@ Python objects are to be made by subclassing from `Thing`:
 --8<-- "docs/beginners-guide/code/thing_inheritance.py"
 ```
 
-`id` is a unique name recognising the instantiated object. It allows multiple
-hardware of the same type to be connected to the same computer without overlapping the exposed interface. It is therefore a
+`id` is a unique name recognising the instantiated object, allowing multiple instances of the same class to have a remote interface. It is therefore a
 mandatory argument to be supplied to the `Thing` parent. Non-experts may use strings composed of
 characters, numbers, forward slashes etc., which looks like a part of a browser URL, but the general definition is
 that `id` should be a URI compatible string:
@@ -37,7 +36,7 @@ Only properties defined in `hololinked.core.properties` or subclass of `Property
 
 For methods to be exposed on the network, one can use the `action` decorator:
 
-```py title="Actions" linenums="1" hl_lines="12"
+```py title="Actions" linenums="1" hl_lines="12 15"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:2:2"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:7:11"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:16:22"
@@ -46,7 +45,7 @@ For methods to be exposed on the network, one can use the `action` decorator:
 
 Properties usually model settings, captured data etc., which have a `read-write` operation (also `read-only`, `read-write-delete` operations) and usually a specific type. Actions are supposed to model activities in the physical world, like executing a control routine, start/stop measurement etc. Both properties and actions are symmetric, they can be invoked from within the object and externally by a client and expected to behave similarly (except while using a state machine).
 
-Actions can take arbitrary signature or can be constrained again using [pydantic or JSON schema](#actions-argument-schema).
+Actions can take arbitrary signature or the arguments can be constrained again using [pydantic or JSON schema](actions.md#payload-validation).
 
 ### Serve the Object
 
@@ -67,7 +66,7 @@ one can start one or multiple protocols to serve the thing:
 Further, all requests to properties and actions are generally queued as the domain of operation under the hood is remote procedure calls (RPC)
 mediated completely by ZMQ. Therefore, only one request is executed at a time as it is assumed that the hardware normally responds to only one (physical-)operation at a time.
 
-> This is **only an assumption** and the implementation enforces this limitation to simplify the programming model and avoid unintended race conditions. You need to override them explicitly if you need using [threaded or async methods](#threading-and-async).
+> This is **only an assumption** to simplify the programming model and avoid unintended race conditions. You could override them explicitly if you need using [threaded or async methods](actions.md#threaded--async-actions).
 
 Further, it is also expected that the internal state of the python object is not inadvertently affected by
 running multiple requests at once to different properties or actions. If a single request or operation takes 5-10ms, one can still run 100s of operations per second.
@@ -96,7 +95,7 @@ value due to hardware limitations. Say, the write value of `referencing_run_freq
 
 ### Publish Events
 
-Events are to be used to asynchronously push data to clients. For example, one can supply clients with the
+Events can asynchronously push data to clients. For example, one can supply clients with the
 measured data using events:
 
 ```py title="Events" linenums="1" hl_lines="19"
@@ -107,9 +106,9 @@ measured data using events:
 
 Data may also be polled by the client repeatedly but events save network time or allow sending data which cannot be timed,
 like alarm messages. Arbitrary payloads are supported, as long as the data is serializable. One can also specify the payload structure using
-[pydantic or JSON schema](#event-payload-schema)
+[pydantic or JSON schema](events.md#payload-schema).
 
-To start the capture method defined above, to receive the events, one may thread it as follows:
+To start the `capture` method defined above, to receive the events, one may thread it as follows to send it to the background:
 
 ```py title="Events" linenums="1"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:7:12"
