@@ -22,7 +22,7 @@ To make a property take any python value, use the base class `Property`:
 --8<-- "docs/beginners-guide/code/properties/untyped.py:49:53"
 ```
 
-One can also pass the property value to the parent's `__init__` to auto-set or auto-invoke the setter at `__init__`:
+One can also pass the property value to the `Thing` parent's `__init__` to auto-set or auto-invoke the setter at `__init__`:
 
 ```py title="init" linenums="1" hl_lines="13-17"
 --8<-- "docs/beginners-guide/code/properties/untyped.py:5:12"
@@ -34,12 +34,12 @@ especially when applying the property directly onto the hardware.
 The descriptor object (instance of `Property`) that holds the property metadata and performs the get-set operations can be
 accessed by the instance under `self.properties.descriptors["<property name>"]`:
 
-```py title="Custom Typed Property" linenums="1" hl_lines="20-22"
+```py title="Custom Typed Property" linenums="1" hl_lines="15 20-22 24"
 --8<-- "docs/beginners-guide/code/properties/untyped.py:1:7"
 --8<-- "docs/beginners-guide/code/properties/untyped.py:14:48"
 ```
 
-The value of the property must be serializable to be read by the clients. Read the [serializer section](#serialization) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible on the network.
+The value of the property must be serializable to be read by the clients. Read the [serializer section](#serialization) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible on the network nevertheless the descriptor behaviour can still be leveraged.
 
 ### Predefined Typed Properties
 
@@ -73,7 +73,7 @@ An example:
 ```
 
 For typed properties, before the setter is invoked, the value is internally validated.
-The return value of getter method is never validated and is left to the developer's or the client object's caution.
+The return value of getter method is never validated and is left to the developer's or the client's caution.
 
 ## Schema Constrained Property
 
@@ -81,12 +81,12 @@ For complicated data structures, one can use `pydantic` or JSON schema based typ
 
 === "pydantic"
 
-    ```py title="Properties Using Schema - pydantic" linenums="1" hl_lines="7 42-43"
-    --8<-- "docs/beginners-guide/code/properties/schema.py:1:43"
+    ```py title="Properties Using Schema - pydantic" linenums="1" hl_lines="7 54-56"
+    --8<-- "docs/beginners-guide/code/properties/schema.py:1:58"
     ```
 
 === "JSON Schema"
 
-    ```py title="Properties Using Schema - JSON schema" linenums="1" hl_lines="32-33"
-    --8<-- "docs/beginners-guide/code/properties/schema.py:46"
+    ```py title="Properties Using Schema - JSON schema" linenums="1" hl_lines="5 31"
+    --8<-- "docs/beginners-guide/code/properties/schema.py:60"
     ```

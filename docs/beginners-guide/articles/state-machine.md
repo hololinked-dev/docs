@@ -60,7 +60,7 @@ def state_change_cb(event):
 client.observe_property(name="state", callbacks=state_change_cb)
 ```
 
-> One can supply multiple callbacks which may called in series or concurrently (see [Events](events.md#subscription)).
+> One can supply multiple callbacks which may called in series or concurrently - see [Events](events.md#subscription).
 
 ## State Change Callbacks
 
@@ -72,4 +72,5 @@ irrespective of where or when the state change occured:
 --8<-- "docs/beginners-guide/code/fsm/def.py:75:"
 ```
 
+The state name and the list of callbacks are supplied as a dictionary to the `on_enter` and `on_exit` arguments.
 These callbacks are executed after the state change is effected, and are mostly useful when there are state changes at multiple places in the code which need to trigger the same side-effects.

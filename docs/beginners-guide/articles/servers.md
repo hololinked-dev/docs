@@ -3,8 +3,7 @@
 ### Subclass from Thing
 
 Normally, the hardware is interfaced with a computer through Ethernet, USB etc. or any OS supported method,
-and one would write a class to encapsulate its properties and commands. Exposing this class to other processes
-and/or to the network provides access to the hardware for multiple use cases in a client-server model. Such remotely visible
+and one would write a class to encapsulate its properties and commands. Exposing this class to the network or other processes provides access to the hardware for multiple use cases in a client-server model. Such remotely visible
 Python objects are to be made by subclassing from `Thing`:
 
 ```py title="Base Class - Spectrometer Example" linenums="1" hl_lines="10"
@@ -43,7 +42,7 @@ For methods to be exposed on the network, one can use the `action` decorator:
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:24:31"
 ```
 
-Properties usually model settings, captured data etc., which have a `read-write` operation (also `read-only`, `read-write-delete` operations) and usually a specific type. Actions are supposed to model activities in the physical world, like executing a control routine, start/stop measurement etc. Both properties and actions are symmetric, they can be invoked from within the object and externally by a client and expected to behave similarly (except while using a state machine).
+Properties usually model settings, captured data etc., which have a `read-write` operation (also `read-only`, `read-write-delete` operations) and usually a specific type. Actions are supposed to model activities in the physical world, like executing a control routine, start/stop measurement etc. Both properties and actions are symmetric - they can be invoked from within the object and externally by a client and expected to behave similarly (except while using a state machine).
 
 Actions can take arbitrary signature or the arguments can be constrained again using [pydantic or JSON schema](actions.md#payload-validation).
 
@@ -75,7 +74,7 @@ running multiple requests at once to different properties or actions. If a singl
 
 To overload the get-set of properties to directly apply property values onto devices, one may supply a custom getter & setter method:
 
-```py title="Property Get Set Overload" linenums="1" hl_lines="19 24"
+```py title="Property Get Set Overload" linenums="1" hl_lines="18-19 23-24"
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:177:202"
 ```
 

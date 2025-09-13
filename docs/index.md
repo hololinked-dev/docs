@@ -7,7 +7,7 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 `hololinked` is a beginner-friendly pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
 
-As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI, run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
+As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI or run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
 If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP & ZMQ are supported.
 
@@ -55,7 +55,7 @@ Each device, or **Thing**, is modeled in software with:
 
     - _Oscilloscope_ - time resolution, time range, channel data
     - _Camera_ - frame rate, exposure time, captured image
-    - _DC Power Supply_ - current voltage, voltage range, max allowed current
+    - _DC Power Supply_ - current, voltage, voltage range, max allowed current
 
 - **Actions**: Methods that command the hardware to perform operations.
 
@@ -65,6 +65,7 @@ Each device, or **Thing**, is modeled in software with:
 
 - **Events**: Asynchronous messages or data streams to clients (e.g., alarms, measured values)
 
+    - _Oscilloscope_ - publishes captured waveforms once a measurement is complete
     - _Camera_ - streams images as events
     - _DC Power Supply_ - raises alarms on over-current or over-voltage
 

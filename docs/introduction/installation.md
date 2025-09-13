@@ -21,8 +21,8 @@ With `uv`:
 ```sh
 git clone https://github.com/hololinked-dev/hololinked.git
 cd hololinked
-uv venv hololinked
-source venv/bin/activate # for Linux/Mac
+uv venv
+source .venv/bin/activate # for Linux/Mac
 .venv\Scripts\activate # for Windows
 uv sync
 ```

@@ -7,8 +7,8 @@ import time
 import typing
 
 from serial_utility import SerialCommunication
-from hololinked.server import Thing, action, Event, Property
-from hololinked.server.properties import Number, String, Integer, Boolean, TypedDict
+from hololinked.core import Thing, action, Event, Property
+from hololinked.core.properties import Number, String, Integer, Boolean, TypedDict
 from pydantic import BaseModel, Field
 
 

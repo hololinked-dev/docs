@@ -14,7 +14,7 @@ from picosdk.ps6000 import ps6000 as ps
 from picosdk.functions import assert_pico_ok
 
 from hololinked.core.properties import List, Integer
-from hololinked.server import action
+from hololinked.core import action
 
 from .base import Picoscope
 

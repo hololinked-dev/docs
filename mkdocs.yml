@@ -15,8 +15,8 @@ nav:
   - Beginner's Guide:
       - Expose Python Objects: beginners-guide/articles/servers.md
       # - Connect to Things with Clients: beginners-guide/articles/clients.md
-      - Properties in Depth:
-          - Properties: beginners-guide/articles/properties/index.md
+      - Using Properties:
+          - Types: beginners-guide/articles/properties/index.md
           - Default Arguments: beginners-guide/articles/properties/arguments.md
           - Extending: beginners-guide/articles/properties/extending.md
       - Using Actions: beginners-guide/articles/actions.md

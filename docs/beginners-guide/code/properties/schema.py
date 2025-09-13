@@ -1,4 +1,4 @@
-from hololinked.server import Property, Thing
+from hololinked.core import Property, Thing
 from typing import Annotated, Tuple
 from pydantic import BaseModel, Field
 from pyueye import ueye
@@ -10,8 +10,27 @@ class Rect(BaseModel):
     width: Annotated[int, Field(default=0, gt=0)]
     height: Annotated[int, Field(default=0, gt=0)]
 
+    @classmethod
+    def from_ueye_rect(cls, rect: ueye.IS_RECT) -> "Rect":
+        return cls(
+            x=rect.s32X.value,
+            y=rect.s32Y.value,
+            width=rect.s32Width.value,
+            height=rect.s32Height.value,
+        )
+
+    def to_ueye_rect(self) -> ueye.IS_RECT:
+        rect = ueye.IS_RECT()
+        rect.s32X = ueye.int(self.x)
+        rect.s32Y = ueye.int(self.y)
+        rect.s32Width = ueye.int(self.width)
+        rect.s32Height = ueye.int(self.height)
+        return rect
+
 
 class UEyeCamera(Thing):
+    """A camera from IDS Imaging"""
+
     def get_aoi(self) -> Rect:
         """Get current AOI from camera as Rect object (with x, y, width, height)"""
         rect_aoi = ueye.IS_RECT()
@@ -19,21 +38,12 @@ class UEyeCamera(Thing):
             self.handle, ueye.IS_AOI_IMAGE_GET_AOI, rect_aoi, ueye.sizeof(rect_aoi)
         )
         assert return_code_OK(self.handle, ret)
-        return Rect(
-            x=rect_aoi.s32X.value,
-            y=rect_aoi.s32Y.value,
-            width=rect_aoi.s32Width.value,
-            height=rect_aoi.s32Height.value,
-        )
+        return Rect.from_ueye_rect(rect_aoi)
 
     def set_aoi(self, value: Rect) -> None:
         """Set camera AOI. Specify as x,y,width,height or a tuple
         (x, y, width, height) or as Rect object."""
-        rect_aoi = ueye.IS_RECT()
-        rect_aoi.s32X = ueye.int(value.x)
-        rect_aoi.s32Y = ueye.int(value.y)
-        rect_aoi.s32Width = ueye.int(value.width)
-        rect_aoi.s32Height = ueye.int(value.height)
+        rect_aoi = value.to_ueye_rect()
 
         ret = ueye.is_AOI(
             self.handle, ueye.IS_AOI_IMAGE_SET_AOI, rect_aoi, ueye.sizeof(rect_aoi)
@@ -76,6 +86,8 @@ trigger_schema = {
 
 
 class Picoscope(Thing):
+    """A PC based Oscilloscope from Picotech"""
+
     trigger = Property(doc="Trigger settings", model=trigger_schema)  # type: dict
 
     @trigger.setter
