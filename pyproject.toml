@@ -18,3 +18,20 @@ dependencies = [
 
 [tool.uv.sources]
 hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main" }
+
+[dependency-groups]
+dev = [
+    "ConfigParser==7.1.0",
+    "fastjsonschema==2.20.0",
+    "ipython==8.12.3",
+    "serpent==1.41",
+    "numpy>=2.0.0",
+    "pip>=25.2",
+    "pandas==2.2.3",
+    "faker==37.5.0",
+    "bcrypt==4.3.0",
+    "ruff>=0.12.10",
+    "jupyter>=1.1.1",
+    "requests==2.32.3",
+    "imageio"
+]

@@ -16,12 +16,12 @@
     display: none;
 }
 
-/* @media (min-width: 1000px) {
-    .md-content {
-        min-width: 1000px;
-        margin: 0 auto;
-    }
-} */
+@media (min-width: 1920px) {
+  .md-content {
+    min-width: 1000px;
+    margin: 0 auto;
+  }
+}
 
 @media screen and (min-width: 76.25em) and (max-width: 120rem)  {
   .md-sidebar--primary {

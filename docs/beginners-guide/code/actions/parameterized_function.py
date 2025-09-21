@@ -1,7 +1,7 @@
 import multiprocessing
-from hololinked.server import Thing, action
+from hololinked.core import Thing, action
 from hololinked.param import ParameterizedFunction
-from hololinked.server.properties import ClassSelector
+from hololinked.core.properties import ClassSelector
 from hololinked.client import ObjectProxy
 import numpy
 
