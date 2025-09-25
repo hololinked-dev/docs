@@ -32,7 +32,7 @@ nav:
   - API Reference:
       - Thing:
           - Thing: api-reference/thing/index.md
-          - RemoteAccessHandler: api-reference/thing/logger.md
+          - Log Handlers: api-reference/thing/logger.md
           - Meta: api-reference/thing/thing-meta.md
           - Bases:
               - Propertized: api-reference/thing/bases/propertized.md
