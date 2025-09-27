@@ -13,7 +13,7 @@ descriptor protocol.
 
 ### Untyped/Custom Typed Property
 
-[API Reference](../../api-reference/property/index.md)
+[API Reference](../../../api-reference/property/index.md)
 
 To make a property take any python value, use the base class `Property`:
 

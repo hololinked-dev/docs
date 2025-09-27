@@ -2,7 +2,6 @@
 
 ::: hololinked.client.proxy.ObjectProxy
     options:
-        heading_level: 2
         members:
         - __init__
         - invoke_action
