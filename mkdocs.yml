@@ -70,13 +70,14 @@ nav:
               - ThreadedScheduler: api-reference/rpc-server/schedulers/threaded-scheduler.md
               - AsyncScheduler: api-reference/rpc-server/schedulers/async-scheduler.md
       - Clients:
+          - ClientFactory: api-reference/clients/base.md
+          - ObjectProxy: api-reference/clients/object-proxy.md
           - Abstractions:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
               - ConsumedThingProperty: api-reference/clients/bases/ctp.md
               - ConsumedThingEvent: api-reference/clients/bases/cte.md
               - SSE: api-reference/clients/bases/sse.md
               - Utils: api-reference/clients/bases/utils.md
-          - ObjectProxy: api-reference/clients/object-proxy.md
       - Protocols:
           - HTTP:
               - HTTPServer: api-reference/protocols/http/http-server.md

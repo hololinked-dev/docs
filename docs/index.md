@@ -83,4 +83,4 @@ The `Thing` object represents the physical device and is modeled as a class, enc
 ---
 
 > **Ready to get started?**  
-> See the [Beginner's Guide](#beginner-guide/articles/servers.md) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations.
+> See the [Beginner's Guide](beginners-guide/articles/servers) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations.
