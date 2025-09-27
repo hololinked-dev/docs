@@ -1,6 +1,6 @@
 # Common arguments to all properties
 
-[API Reference](../../api-reference/property)
+[API Reference](../../../api-reference/property/index.md)
 
 ### `allow_None`, `constant` & `readonly`
 
