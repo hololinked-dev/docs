@@ -51,24 +51,24 @@ nav:
           - Event: api-reference/events/index.md
           - EventDispatcher: api-reference/events/event-dispatcher.md
       - StateMachine:
-          - StateMachine: api-reference/state_machine/state-machine.md
-          - BoundFSM: api-reference/state_machine/bound-fsm.md
+          - StateMachine: api-reference/state-machine/state-machine.md
+          - BoundFSM: api-reference/state-machine/bound-fsm.md
       - RPC Server:
-          - RPCServer: api-reference/rpc_server/rpc-server.md
+          - RPCServer: api-reference/rpc-server/rpc-server.md
           - Messaging Contracts:
-              - RequestMessage: api-reference/rpc_server/messaging_contract/request-message.md
-              - ResponseMessage: api-reference/rpc_server/messaging_contract/response-message.md
+              - RequestMessage: api-reference/rpc-server/messaging_contract/request-message.md
+              - ResponseMessage: api-reference/rpc-server/messaging_contract/response-message.md
           - Brokers:
-              - BaseZMQ: api-reference/rpc_server/brokers/base-zmq.md
-              - AsyncZMQServer: api-reference/rpc_server/brokers/async-zmq-server.md
-              - SyncZMQClient: api-reference/rpc_server/brokers/sync-zmq-client.md
-              - AsyncZMQClient: api-reference/rpc_server/brokers/async-zmq-client.md
-              - MessageMappedClientPool: api-reference/rpc_server/brokers/message-mapped-zmq-client-pool.md
+              - BaseZMQ: api-reference/rpc-server/brokers/base-zmq.md
+              - AsyncZMQServer: api-reference/rpc-server/brokers/async-zmq-server.md
+              - SyncZMQClient: api-reference/rpc-server/brokers/sync-zmq-client.md
+              - AsyncZMQClient: api-reference/rpc-server/brokers/async-zmq-client.md
+              - MessageMappedClientPool: api-reference/rpc-server/brokers/message-mapped-zmq-client-pool.md
           - Schedulers:
-              - Scheduler: api-reference/rpc_server/schedulers/scheduler.md
-              - QueuedScheduler: api-reference/rpc_server/schedulers/queued-scheduler.md
-              - ThreadedScheduler: api-reference/rpc_server/schedulers/threaded-scheduler.md
-              - AsyncScheduler: api-reference/rpc_server/schedulers/async-scheduler.md
+              - Scheduler: api-reference/rpc-server/schedulers/scheduler.md
+              - QueuedScheduler: api-reference/rpc-server/schedulers/queued-scheduler.md
+              - ThreadedScheduler: api-reference/rpc-server/schedulers/threaded-scheduler.md
+              - AsyncScheduler: api-reference/rpc-server/schedulers/async-scheduler.md
       - Clients:
           - Abstractions:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
