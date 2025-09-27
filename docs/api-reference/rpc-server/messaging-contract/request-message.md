@@ -7,6 +7,9 @@
             - header
             - body
             - thing_id
+            - byte_array
             - craft_from_arguments
             - craft_with_message_type
+            - parse_header
+            - parse_body
         

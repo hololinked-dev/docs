@@ -6,9 +6,7 @@
             - __init__
             - header
             - body
+            - event_id
             - thing_id
             - byte_array
             - craft_from_arguments
-            - craft_reply_from_request
-            - parse_header
-            - parse_body
