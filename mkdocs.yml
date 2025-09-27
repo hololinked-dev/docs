@@ -79,9 +79,8 @@ nav:
               - SSE: api-reference/clients/bases/sse.md
               - Utils: api-reference/clients/bases/utils.md
       - Protocols:
-          - HTTP:
-              - HTTPServer: api-reference/protocols/http/http-server.md
-      #  - ZMQ:
+          - HTTP: api-reference/protocols/http/index.md
+          - ZMQ: api-reference/protocols/zmq/index.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
       - Thing Descriptions:
