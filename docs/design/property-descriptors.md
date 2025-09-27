@@ -58,7 +58,7 @@ For example:
     ```
 
 
-See list of predefined types [here](../howto/articles/properties/index.md#predefined-typed-properties).
+See list of predefined types [here](../beginners-guide/articles/properties/index.md#predefined-typed-properties).
 
 ## Schema Constrained Properties
 

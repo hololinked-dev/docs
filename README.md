@@ -32,3 +32,15 @@ Once the ingress and apps helm chart is available locally, run:
 ```bash
 skaffold dev --module dev-python-docs
 ```
+
+### Docker
+
+To build, tag, and publish the Docker image from your local machine, run:
+
+```sh
+set -e
+docker build -t hololinked-docs .
+docker tag hololinked-docs:latest ghcr.io/hololinked-dev/hololinked-docs:latest
+docker push ghcr.io/hololinked-dev/hololinked-docs:latest
+echo "Docker image built and pushed successfully."
+```

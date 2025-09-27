@@ -43,7 +43,7 @@ The value of the property must be serializable to be read by the clients. Read t
 
 ### Predefined Typed Properties
 
-[API Reference](../../api-reference/property/typed/index.md)
+[API Reference](../../../api-reference/property/typed/index.md)
 
 Certain typed properties are already available in `hololinked.core.properties`,
 defined by `param`:

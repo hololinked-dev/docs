@@ -74,6 +74,8 @@ nav:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
               - ConsumedThingProperty: api-reference/clients/bases/ctp.md
               - ConsumedThingEvent: api-reference/clients/bases/cte.md
+              - SSE: api-reference/clients/bases/sse.md
+              - Utils: api-reference/clients/bases/utils.md
       - Protocols:
           - HTTP:
               - HTTPServer: api-reference/protocols/http/http-server.md

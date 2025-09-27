@@ -1,4 +1,4 @@
-[API Reference](../../api-reference/thing/state-machine.md)
+[API Reference](../../api-reference/state-machine/state-machine.md)
 
 Often, certain operations are not allowed during certain conditions, for example,
 one cannot turn ON a motor twice in a row, or a measurement device cannot modify a setting change if a measurement is ongoing.
