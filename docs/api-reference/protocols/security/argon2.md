@@ -1,0 +1,1 @@
+::: hololinked.server.security.Argon2BasicSecurity
