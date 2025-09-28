@@ -1,0 +1,1 @@
+::: hololinked.td.tm.ThingModel

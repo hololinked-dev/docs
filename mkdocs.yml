@@ -28,7 +28,6 @@ nav:
       # - Using Different Protocols:
       #     - Object Proxy: beginners-guide/articles/object-proxy.md
       # - Serialization: beginners-guide/articles/serialization.md
-  # API Reference
   - API Reference:
       - Thing:
           - Thing: api-reference/thing/index.md
@@ -99,6 +98,7 @@ nav:
               - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
               - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
           - DataSchema: api-reference/td/data_schema.md
+          - Thing Model: api-reference/td/tm.md
           - Bases:
               - Schema: api-reference/td/bases/schema.md
   # Examples
