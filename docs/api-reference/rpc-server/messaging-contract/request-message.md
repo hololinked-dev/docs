@@ -1,5 +1,3 @@
-
-
 ::: hololinked.core.zmq.message.RequestMessage
     options:
         members:

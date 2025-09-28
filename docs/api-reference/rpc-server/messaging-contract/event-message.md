@@ -1,6 +1,4 @@
-
-
-::: hololinked.core.zmq.message.ResponseMessage
+::: hololinked.core.zmq.message.EventMessage
     options:
         members:
             - __init__

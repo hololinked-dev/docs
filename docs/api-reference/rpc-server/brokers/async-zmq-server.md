@@ -1,6 +1,3 @@
-
-
-
 ::: hololinked.core.zmq.brokers.AsyncZMQServer
     options:
         members:
@@ -10,9 +7,6 @@
             - async_send_response
             - async_send_response_with_message_type
             - poll_requests
-            - stop_pollling
-            - _handshake
-            - _handle_timeout
-            - _handle_invalid_message
-            - exit
+            - stop_polling
             - poll_timeout
+            - exit

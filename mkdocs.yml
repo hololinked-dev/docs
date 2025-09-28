@@ -59,29 +59,35 @@ nav:
               - RequestMessage: api-reference/rpc-server/messaging-contract/request-message.md
               - ResponseMessage: api-reference/rpc-server/messaging-contract/response-message.md
               - EventMessage: api-reference/rpc-server/messaging-contract/event-message.md
+              - Headers: api-reference/rpc-server/messaging-contract/headers.md
+              - Contexts: api-reference/rpc-server/messaging-contract/contexts.md
           - Brokers:
               - BaseZMQ: api-reference/rpc-server/brokers/base-zmq.md
               - AsyncZMQServer: api-reference/rpc-server/brokers/async-zmq-server.md
               - SyncZMQClient: api-reference/rpc-server/brokers/sync-zmq-client.md
               - AsyncZMQClient: api-reference/rpc-server/brokers/async-zmq-client.md
               - MessageMappedClientPool: api-reference/rpc-server/brokers/message-mapped-zmq-client-pool.md
-          - Schedulers:
-              - Scheduler: api-reference/rpc-server/schedulers/scheduler.md
-              - QueuedScheduler: api-reference/rpc-server/schedulers/queued-scheduler.md
-              - ThreadedScheduler: api-reference/rpc-server/schedulers/threaded-scheduler.md
-              - AsyncScheduler: api-reference/rpc-server/schedulers/async-scheduler.md
+              - EventPublisher: api-reference/rpc-server/brokers/event-publisher.md
+              - EventConsumer: api-reference/rpc-server/brokers/event-consumer.md
+          # - Schedulers:
+          #     - Scheduler: api-reference/rpc-server/schedulers/scheduler.md
+          #     - QueuedScheduler: api-reference/rpc-server/schedulers/queued-scheduler.md
+          #     - ThreadedScheduler: api-reference/rpc-server/schedulers/threaded-scheduler.md
+          #     - AsyncScheduler: api-reference/rpc-server/schedulers/async-scheduler.md
       - Clients:
           - ClientFactory: api-reference/clients/base.md
           - ObjectProxy: api-reference/clients/object-proxy.md
+          # Security
           - Abstractions:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
               - ConsumedThingProperty: api-reference/clients/bases/ctp.md
               - ConsumedThingEvent: api-reference/clients/bases/cte.md
               - SSE: api-reference/clients/bases/sse.md
               - Utils: api-reference/clients/bases/utils.md
-      - Protocols:
+      - Servers:
           - HTTP: api-reference/protocols/http/index.md
           - ZMQ: api-reference/protocols/zmq/index.md
+          # - Security:
       - Serializers:
           - Serializers: api-reference/serializers/index.md
       - Thing Descriptions:

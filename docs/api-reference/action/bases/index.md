@@ -1,5 +1,3 @@
-
-
 ::: hololinked.core.actions.Action
     options:
         show_root_heading: true
