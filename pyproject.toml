@@ -5,7 +5,6 @@ description = "mkdocs material based documentation for hololinked"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "hololinked",
     "mkdocs-autorefs==1.4.2",
     "mkdocs-git-authors-plugin==0.9.5",
     "mkdocs-git-revision-date-localized-plugin==1.4.7",
@@ -15,9 +14,6 @@ dependencies = [
     "pydantic==2.11.5",
     "pip>=25.2",
 ]
-
-[tool.uv.sources]
-hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main" }
 
 [dependency-groups]
 dev = [
@@ -33,5 +29,11 @@ dev = [
     "ruff>=0.12.10",
     "jupyter>=1.1.1",
     "requests==2.32.3",
-    "imageio"
+    "imageio",
 ]
+repo = [
+    "hololinked"
+]
+
+[tool.uv.sources]
+hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main" }
