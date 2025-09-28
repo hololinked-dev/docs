@@ -6,12 +6,14 @@
             - __init__
             - run
             - stop
+            - exit
+            - get_thing_description
             - run_zmq_request_listener
             - recv_requests_and_dispatch_jobs
+            - tunnel_message_to_things
             - run_things
             - run_thing_instance
             - execute_operation
-            - exit
          
 
 ## Attributes
