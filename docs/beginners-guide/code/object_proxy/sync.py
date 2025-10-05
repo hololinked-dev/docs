@@ -1,99 +1,107 @@
-from hololinked.client import ObjectProxy
+from hololinked.client import ClientFactory
 
-spectrometer_proxy = ObjectProxy(instance_name='spectrometer', 
-                                protocol='IPC')
-spectrometer_proxy = ObjectProxy(instance_name='spectrometer')
-spectrometer_proxy = ObjectProxy(instance_name='spectrometer',
-                        protocol='TCP', socket_address='tcp://my-pc:5555')
- 
-#----------------------------
-# setting property by accessing property with dot operator
-spectrometer_proxy.serial_number = 'USB2+H15897'
-# settings property by name
-spectrometer_proxy.write_property('serial_number', 'USB2+H15897')
-# both are the same
+spectrometer = ClientFactory.http(url="http://localhost:8000/my-thing/resources/wot-td")
+spectrometer = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="tcp://localhost:5555")
+spectrometer = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="IPC")
 
-# similarly for getting property
-print(spectrometer_proxy.serial_number) # prints 'USB2+H15897'
-print(spectrometer_proxy.read_property('serial_number')) # prints 'USB2+H15897'
+# ----------------------------
+# create client
+spectrometer = ClientFactory.http(url="http://localhost:8000/spectrometer/resources/wot-td")
+# setting property by name
+spectrometer.write_property("serial_number", "USB2+H15897")
+# setting property by accessing property with dot operator leads to the same effect
+spectrometer.serial_number = "USB2+H15897"
+
+# similar API for reading property
+print(spectrometer.serial_number)  # prints 'USB2+H15897'
+print(spectrometer.read_property("serial_number"))  # prints 'USB2+H15897'
 
 
-#----------------------------
+# ----------------------------
 # normal action call
 # with keyword arguments
-spectrometer_proxy.connect(trigger_mode=2, integration_time=1000)
-spectrometer_proxy.disconnect()
-# with non keyword arguments
-spectrometer_proxy.connect(2, 1000)
-spectrometer_proxy.disconnect()
-# with both non-keyword and keyword arguments
-spectrometer_proxy.connect(2, integration_time=1000) 
-spectrometer_proxy.disconnect()
+spectrometer.connect(trigger_mode=2, integration_time=1000)
+spectrometer.disconnect()
+# with positional arguments
+spectrometer.connect(2, 1000)
+spectrometer.disconnect()
+# with both positional and keyword arguments
+spectrometer.connect(2, integration_time=1000)
+spectrometer.disconnect()
 
 
-#----------------------------
+# ----------------------------
 # using invoke_action
-spectrometer_proxy.connect()
-spectrometer_proxy.invoke_action('disconnect')
+spectrometer.connect()
+spectrometer.invoke_action("disconnect")
 # keyword arguments
-spectrometer_proxy.invoke_action('connect', trigger_mode=2, integration_time=1000)
-spectrometer_proxy.invoke_action('disconnect')
-# non keyword arguments
-spectrometer_proxy.invoke_action('connect', 2, 1000)
-spectrometer_proxy.invoke_action('disconnect')
-# with both non-keyword and keyword arguments
-spectrometer_proxy.invoke_action('connect', 2, integration_time=1000)
-spectrometer_proxy.invoke_action('disconnect')
+spectrometer.invoke_action("connect", trigger_mode=2, integration_time=1000)
+spectrometer.invoke_action("disconnect")
+# positional arguments
+spectrometer.invoke_action("connect", 2, 1000)
+spectrometer.invoke_action("disconnect")
+# with both positional and keyword arguments
+spectrometer.invoke_action("connect", 2, integration_time=1000)
+spectrometer.invoke_action("disconnect")
 
-#----------------------------
-# set and get multiple properties
-print(spectrometer_proxy.read_multiple_properties(
-    names=["integration_time", "trigger_mode"]))
-spectrometer_proxy.write_multiple_properties(
-    integration_time=100, 
-    nonlinearity_correction=False
+# ----------------------------
+# read and write multiple properties
+print(spectrometer.read_multiple_properties(names=["integration_time", "trigger_mode"]))
+spectrometer.write_multiple_properties(integration_time=100, nonlinearity_correction=False)
+print(
+    spectrometer.read_multiple_properties(
+        names=["state", "nonlinearity_correction", "integration_time", "trigger_mode"]
+    )
 )
-print(spectrometer_proxy.read_multiple_properties(
-    names=["state", "nonlinearity_correction", 
-            "integration_time", "trigger_mode"]))
 
-
-#----------------------------
+# ----------------------------
 # oneway action call
-spectrometer_proxy.invoke_action('connect', oneway=True, 
-                        trigger_mode=2, integration_time=1000)
-spectrometer_proxy.invoke_action('disconnect', oneway=True)
-# with non keyword arguments
-spectrometer_proxy.invoke_action('connect', 2, 1000, oneway=True)
-# set properties one way
-spectrometer_proxy.write_multiple_properties(
-    integration_time=100, 
-    nonlinearity_correction=False,
-    oneway=True
-)
-# get multiple properties one way not supported 
+spectrometer.invoke_action("connect", trigger_mode=2, integration_time=1000, oneway=True)
+spectrometer.invoke_action("disconnect", oneway=True)
+# oneway action with positional arguments
+spectrometer.invoke_action("connect", 2, 1000, oneway=True)
+# write multiple properties one way
+spectrometer.write_multiple_properties(integration_time=100, nonlinearity_correction=False, oneway=True)
+# read multiple properties one way not supported
 # as return value is mandatory
-print(spectrometer_proxy.read_multiple_properties(
-    names=["state", "nonlinearity_correction", 
-        "integration_time", "trigger_mode"]))
-# set single property one way
-spectrometer_proxy.write_property('integration_time', 100, oneway=True)
+print(
+    spectrometer.read_multiple_properties(
+        names=["state", "nonlinearity_correction", "integration_time", "trigger_mode"]
+    )
+)
+# write property one way
+spectrometer.write_property("integration_time", 100, oneway=True)
 
 
-#----------------------------
+# ----------------------------
 # no block calls
-spectrometer1_proxy = ObjectProxy(instance_name='spectrometer1')
-spectrometer2_proxy = ObjectProxy(instance_name='spectrometer2')
-reply_id1 = spectrometer1_proxy.invoke_action('connect', noblock=True, 
-                                trigger_mode=2, integration_time=1000)
-reply_id2 = spectrometer2_proxy.invoke_action('connect', noblock=True, 
-                                trigger_mode=2, integration_time=1000)
-# say connecting take 2 seconds per spectrometer
-spectrometer1_proxy.read_reply(reply_id1) 
-spectrometer2_proxy.read_reply(reply_id2)  
+spectrometer1_proxy = ClientFactory.zmq(server_id="server1", thing_id="spectrometer1", access_point="tcp://mypc1:8000")
+spectrometer2_proxy = ClientFactory.http(url="http://mypc2:8000/spectrometer2/resources/wot-td")
 
-reply_id3 = spectrometer1_proxy.invoke_action('disconnect')
-reply_id4 = spectrometer2_proxy.invoke_action('disconnect')
+reply_ids = []
+
+for client in [spectrometer1_proxy, spectrometer2_proxy]:
+    reply_id = client.write_property("serial_number", "USB2+H15897", noblock=True)
+    reply_ids.append(reply_id)
+
+# no return value expected
+assert all(client.read_reply(reply_id) is None for reply_id in reply_ids)
+reply_ids = []
+
+for client in [spectrometer1_proxy, spectrometer2_proxy]:
+    reply_id = client.invoke_action(
+        "connect",
+        trigger_mode=2,
+        integration_time=1000,
+        noblock=True,
+    )
+    reply_ids.append(reply_id)
+
+# no return value expected
+assert all(client.read_reply(reply_id) is None for reply_id in reply_ids)
+
+reply_id3 = spectrometer1_proxy.invoke_action("disconnect")
+reply_id4 = spectrometer2_proxy.invoke_action("disconnect")
 # say disconnecting take 1 second per spectrometer
-spectrometer1_proxy.read_reply(reply_id3, timeout=0.05) # 50 milliseconds
+spectrometer1_proxy.read_reply(reply_id3, timeout=0.05)  # 50 milliseconds
 # can raise TimeoutError

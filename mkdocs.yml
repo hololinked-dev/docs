@@ -15,7 +15,8 @@ nav:
   # textbook like how-to tutorials
   - Beginner's Guide:
       - Expose Python Objects: beginners-guide/articles/servers.md
-      # - Connect to Things with Clients: beginners-guide/articles/clients.md
+      - Using Clients:
+          - Object Proxy: beginners-guide/articles/object-proxy.md
       - Using Properties:
           - Types: beginners-guide/articles/properties/index.md
           - Default Arguments: beginners-guide/articles/properties/arguments.md
@@ -23,6 +24,7 @@ nav:
       - Using Actions: beginners-guide/articles/actions.md
       - Using Events: beginners-guide/articles/events.md
       - Using State Machine: beginners-guide/articles/state-machine.md
+      # - Connect to Things with Clients: beginners-guide/articles/clients.md
       # - Configuring Thing Class:
       #     - Thing: beginners-guide/articles/thing/index.md
       # - Using Different Protocols:
