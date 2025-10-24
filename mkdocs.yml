@@ -25,8 +25,8 @@ nav:
       - Using Events: beginners-guide/articles/events.md
       - Using State Machine: beginners-guide/articles/state-machine.md
       # - Connect to Things with Clients: beginners-guide/articles/clients.md
-      # - Configuring Thing Class:
-      #     - Thing: beginners-guide/articles/thing/index.md
+      - Configuring Thing Class: beginners-guide/articles/thing/index.md
+      - Security: beginners-guide/articles/security.md
       # - Using Different Protocols:
       #     - Object Proxy: beginners-guide/articles/object-proxy.md
       # - Serialization: beginners-guide/articles/serialization.md
