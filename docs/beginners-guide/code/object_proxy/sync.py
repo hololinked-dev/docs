@@ -1,12 +1,22 @@
 from hololinked.client import ClientFactory
 
-spectrometer = ClientFactory.http(url="http://localhost:8000/my-thing/resources/wot-td")
-spectrometer = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="tcp://localhost:5555")
-spectrometer = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="IPC")
+spectrometer = ClientFactory.http(
+    url="http://localhost:8000/my-thing/resources/wot-td"
+)
+spectrometer = ClientFactory.zmq(
+    server_id="test-server",
+    thing_id="my-thing",
+    access_point="tcp://localhost:5555",
+)
+spectrometer = ClientFactory.zmq(
+    server_id="test-server", thing_id="my-thing", access_point="IPC"
+)
 
 # ----------------------------
 # create client
-spectrometer = ClientFactory.http(url="http://localhost:8000/spectrometer/resources/wot-td")
+spectrometer = ClientFactory.http(
+    url="http://localhost:8000/spectrometer/resources/wot-td"
+)
 # setting property by name
 spectrometer.write_property("serial_number", "USB2+H15897")
 # setting property by accessing property with dot operator leads to the same effect
@@ -46,27 +56,47 @@ spectrometer.invoke_action("disconnect")
 
 # ----------------------------
 # read and write multiple properties
-print(spectrometer.read_multiple_properties(names=["integration_time", "trigger_mode"]))
-spectrometer.write_multiple_properties(integration_time=100, nonlinearity_correction=False)
 print(
     spectrometer.read_multiple_properties(
-        names=["state", "nonlinearity_correction", "integration_time", "trigger_mode"]
+        names=["integration_time", "trigger_mode"]
+    )
+)
+spectrometer.write_multiple_properties(
+    integration_time=100, nonlinearity_correction=False
+)
+print(
+    spectrometer.read_multiple_properties(
+        names=[
+            "state",
+            "nonlinearity_correction",
+            "integration_time",
+            "trigger_mode",
+        ]
     )
 )
 
 # ----------------------------
 # oneway action call
-spectrometer.invoke_action("connect", trigger_mode=2, integration_time=1000, oneway=True)
+spectrometer.invoke_action(
+    "connect", trigger_mode=2, integration_time=1000, oneway=True
+)
 spectrometer.invoke_action("disconnect", oneway=True)
 # oneway action with positional arguments
 spectrometer.invoke_action("connect", 2, 1000, oneway=True)
 # write multiple properties one way
-spectrometer.write_multiple_properties(integration_time=100, nonlinearity_correction=False, oneway=True)
+spectrometer.write_multiple_properties(
+    integration_time=100, nonlinearity_correction=False, oneway=True
+)
 # read multiple properties one way not supported
 # as return value is mandatory
 print(
     spectrometer.read_multiple_properties(
-        names=["state", "nonlinearity_correction", "integration_time", "trigger_mode"]
+        names=[
+            "state",
+            "nonlinearity_correction",
+            "integration_time",
+            "trigger_mode",
+        ]
     )
 )
 # write property one way
@@ -75,13 +105,21 @@ spectrometer.write_property("integration_time", 100, oneway=True)
 
 # ----------------------------
 # no block calls
-spectrometer1_proxy = ClientFactory.zmq(server_id="server1", thing_id="spectrometer1", access_point="tcp://mypc1:8000")
-spectrometer2_proxy = ClientFactory.http(url="http://mypc2:8000/spectrometer2/resources/wot-td")
+spectrometer1_proxy = ClientFactory.zmq(
+    server_id="server1",
+    thing_id="spectrometer1",
+    access_point="tcp://mypc1:8000",
+)
+spectrometer2_proxy = ClientFactory.http(
+    url="http://mypc2:8000/spectrometer2/resources/wot-td"
+)
 
 reply_ids = []
 
 for client in [spectrometer1_proxy, spectrometer2_proxy]:
-    reply_id = client.write_property("serial_number", "USB2+H15897", noblock=True)
+    reply_id = client.write_property(
+        "serial_number", "USB2+H15897", noblock=True
+    )
     reply_ids.append(reply_id)
 
 # no return value expected

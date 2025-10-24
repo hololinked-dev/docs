@@ -39,7 +39,9 @@ class OceanOpticsSpectrometer(Thing):
     )
 
 
-spectrometer = OceanOpticsSpectrometer(id="spectrometer1", serial_number="S14155")
+spectrometer = OceanOpticsSpectrometer(
+    id="spectrometer1", serial_number="S14155"
+)
 
 # allow_None
 spectrometer.custom_background_intensity = None  # OK

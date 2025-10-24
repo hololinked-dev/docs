@@ -25,7 +25,10 @@ class IDSCamera(Thing):
     """Camera example object"""
 
     frame_rate = Number(
-        default=1, bounds=(0, 40), doc="frame rate of the camera", crop_to_bounds=True
+        default=1,
+        bounds=(0, 40),
+        doc="frame rate of the camera",
+        crop_to_bounds=True,
     )
 
     @frame_rate.setter
@@ -77,7 +80,10 @@ class IDSCamera(Thing):
     def get_pixelclock(self) -> int:
         cint_in = ueye.uint()
         ret = ueye.is_PixelClock(
-            self.handle, ueye.IS_PIXELCLOCK_CMD_GET, cint_in, ueye.sizeof(cint_in)
+            self.handle,
+            ueye.IS_PIXELCLOCK_CMD_GET,
+            cint_in,
+            ueye.sizeof(cint_in),
         )
         assert return_code_OK(self.handle, ret)
         return cint_in.value
@@ -85,7 +91,10 @@ class IDSCamera(Thing):
     def set_pixelclock(self, value: int) -> None:
         cint_in = ueye.uint(value)
         ret = ueye.is_PixelClock(
-            self.handle, ueye.IS_PIXELCLOCK_CMD_SET, cint_in, ueye.sizeof(cint_in)
+            self.handle,
+            ueye.IS_PIXELCLOCK_CMD_SET,
+            cint_in,
+            ueye.sizeof(cint_in),
         )
         assert return_code_OK(self.handle, ret)
 
@@ -138,6 +147,10 @@ if __name__ == "__main__":
     print(cam.id)  # prints 1
     print(cam.frame_rate)  # does not print default,
     # but the actual value in device after invoking the getter
-    print("error codes class level", IDSCamera.error_codes)  # prints error codes
-    print("error codes instance level", cam.error_codes)  # prints error codes
+    print("errorcodes class level", IDSCamera.error_codes)  # prints error codes
+    print("errorcodes instance level", cam.error_codes)  # prints error codes
     print(IDSCamera.error_codes == cam.error_codes)  # prints True
+
+    for i in range(10):
+        cam.exposure_time = i * 10.0  # pushes change event to a client
+        cam.capture_image()  # captures an image with current exposure time
