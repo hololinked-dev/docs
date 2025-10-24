@@ -16,7 +16,7 @@ characters, numbers, forward slashes etc., which looks like a part of a browser 
 that `id` should be a URI compatible string:
 
 ```py title="Thing ID" linenums="1" hl_lines="3"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:130:137"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:134:142"
 ```
 
 ### Properties
@@ -51,21 +51,21 @@ Actions can take arbitrary signature or the arguments can be constrained again u
 To start a server, say a HTTP server, one can call the `run_with_http_server` method after instantiating the `Thing`:
 
 ```py title="HTTP Server" linenums="1" hl_lines="8"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:130:137"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:134:142"
 ```
 
 The exposed properties, actions and events (discussed below) are independent of protocol implementation, therefore,
-one can start one or multiple protocols to serve the thing:
+one can start one or multiple protocols to serve the Thing:
 
-```py title="Another Protocol - ZMQ" linenums="1" hl_lines="5"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:130:130"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:142:145"
+```py title="Multiple Protocols" linenums="1" hl_lines="5"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:134:134"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:146:155"
 ```
 
 Further, all requests to properties and actions are generally queued as the domain of operation under the hood is remote procedure calls (RPC)
 mediated completely by ZMQ. Therefore, only one request is executed at a time as it is assumed that the hardware normally responds to only one (physical-)operation at a time.
 
-> This is **only an assumption** to simplify the programming model and avoid unintended race conditions. You could override them explicitly if you need using [threaded or async methods](actions.md#threaded--async-actions).
+> This is **only an assumption** to simplify the programming model and avoid unintended race conditions (also physical). One could override them explicitly using [threaded or async methods](actions.md#threaded--async-actions).
 
 Further, it is also expected that the internal state of the python object is not inadvertently affected by
 running multiple requests at once to different properties or actions. If a single request or operation takes 5-10ms, one can still run 100s of operations per second.
@@ -75,7 +75,7 @@ running multiple requests at once to different properties or actions. If a singl
 To overload the get-set of properties to directly apply property values onto devices, one may supply a custom getter & setter method:
 
 ```py title="Property Get Set Overload" linenums="1" hl_lines="18-19 23-24"
---8<-- "docs/beginners-guide/code/thing_basic_example.py:177:202"
+--8<-- "docs/beginners-guide/code/thing_basic_example.py:191:217"
 ```
 
 Properties follow the python descriptor protocol. In non expert terms, when a custom get-set method is not provided,

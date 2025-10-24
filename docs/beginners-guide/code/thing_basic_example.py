@@ -98,7 +98,8 @@ class OceanOpticsSpectrometer(Thing):
 
     @action()
     def start_acquisition(self):
-        if self._acquisition_thread is None:  # _acquisition_thread defined in __init__
+        if self._acquisition_thread is None:
+            # _acquisition_thread defined in __init__
             self._acquisition_thread = threading.Thread(target=self.capture)
             self._acquisition_thread.start()
 
@@ -123,7 +124,10 @@ def start_https_server():
     # if there is no SSL
 
     HTTPServer(
-        ["spectrometer"], port=8083, ssl_context=ssl_context, log_level=logging.DEBUG
+        ["spectrometer"],
+        port=8083,
+        ssl_context=ssl_context,
+        log_level=logging.DEBUG,
     ).listen()
 
 
@@ -142,7 +146,13 @@ if __name__ == "__main__":
     spectrometer = OceanOpticsSpectrometer(
         id="spectrometer", serial_number=None, autoconnect=False
     )
-    spectrometer.run_with_zmq_server(access_points="IPC")
+    spectrometer.run(
+        access_points=[
+            ("HTTP", 3569),
+            ("ZMQ", "IPC"),
+            ("MQTT", "localhost:1883"),
+        ]
+    )
     # ZMQ interprocess-communication - suitable for beginners and
     # apps automatically behind firewall
 
@@ -153,7 +163,9 @@ if __name__ == "__main__":
         serial_number=None,
         autoconnect=False,
     )
-    spectrometer.run(zmq_protocols=["TCP", "IPC"], tcp_socket_address="tcp://*:6539")
+    spectrometer.run(
+        zmq_protocols=["TCP", "IPC"], tcp_socket_address="tcp://*:6539"
+    )
 
     # example code, but will never reach here unless exit() is called by the client
     spectrometer = OceanOpticsSpectrometer(
@@ -168,7 +180,9 @@ if __name__ == "__main__":
         serial_number=None,
         autoconnect=False,
     )
-    spectrometer.run(zmq_protocols=["TCP", "IPC"], tcp_socket_address="tcp://*:6539")
+    spectrometer.run(
+        zmq_protocols=["TCP", "IPC"], tcp_socket_address="tcp://*:6539"
+    )
 
 
 # Another example
