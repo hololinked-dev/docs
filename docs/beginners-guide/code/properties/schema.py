@@ -35,7 +35,10 @@ class UEyeCamera(Thing):
         """Get current AOI from camera as Rect object (with x, y, width, height)"""
         rect_aoi = ueye.IS_RECT()
         ret = ueye.is_AOI(
-            self.handle, ueye.IS_AOI_IMAGE_GET_AOI, rect_aoi, ueye.sizeof(rect_aoi)
+            self.handle,
+            ueye.IS_AOI_IMAGE_GET_AOI,
+            rect_aoi,
+            ueye.sizeof(rect_aoi),
         )
         assert return_code_OK(self.handle, ret)
         return Rect.from_ueye_rect(rect_aoi)
@@ -46,7 +49,10 @@ class UEyeCamera(Thing):
         rect_aoi = value.to_ueye_rect()
 
         ret = ueye.is_AOI(
-            self.handle, ueye.IS_AOI_IMAGE_SET_AOI, rect_aoi, ueye.sizeof(rect_aoi)
+            self.handle,
+            ueye.IS_AOI_IMAGE_SET_AOI,
+            rect_aoi,
+            ueye.sizeof(rect_aoi),
         )
         assert return_code_OK(self.handle, ret)
 
@@ -76,7 +82,13 @@ trigger_schema = {
         "adc": {"type": "boolean"},
         "direction": {
             "type": "string",
-            "enum": ["above", "below", "rising", "falling", "rising_or_falling"],
+            "enum": [
+                "above",
+                "below",
+                "rising",
+                "falling",
+                "rising_or_falling",
+            ],
         },
         "delay": {"type": "integer"},
         "auto_trigger": {"type": "integer", "minimum": 0},
@@ -114,6 +126,12 @@ class Picoscope(Thing):
         threshold = ctypes.c_int16(threshold)
         auto_trigger = ctypes.c_int16(int(auto_trigger))
         self._status["trigger"] = ps.ps6000SetSimpleTrigger(
-            self._ct_handle, enabled, channel, threshold, direction, delay, auto_trigger
+            self._ct_handle,
+            enabled,
+            channel,
+            threshold,
+            direction,
+            delay,
+            auto_trigger,
         )
         assert_pico_ok(self._status["trigger"])

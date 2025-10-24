@@ -8,11 +8,15 @@ class OceanOpticsSpectrometer(Thing):
     """
 
     serial_number = String(
-        default="USB2+H15897", allow_None=False, doc="serial number of the spectrometer"
+        default="USB2+H15897",
+        allow_None=False,
+        doc="serial number of the spectrometer",
     )  # type: str
 
-    def __init__(self, instance_name, serial_number, integration_time) -> None:
-        super().__init__(instance_name=instance_name, serial_number=serial_number)
+    def __init__(
+        self, id: str, serial_number: str, integration_time: float
+    ) -> None:
+        super().__init__(id=id, serial_number=serial_number)
         self.connect()  # connect first before setting integration time
         self.integration_time = integration_time
 

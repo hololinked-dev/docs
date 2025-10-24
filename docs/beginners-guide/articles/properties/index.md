@@ -51,10 +51,10 @@ defined by `param`:
 | Property Class                      | Type                          | Options                                                               |
 | ----------------------------------- | ----------------------------- | --------------------------------------------------------------------- |
 | `String`                            | `str`                         | comply to regex                                                       |
-| `Number`                            | `float`, `integer`            | min & max bounds, inclusive bounds, crop to bounds, multiples         |
-| `Integer`                           | `integer`                     | same as `Number`                                                      |
+| `Number`                            | `float`, `int`                | min & max bounds, inclusive bounds, crop to bounds, multiples         |
+| `Integer`                           | `int`                         | same as `Number`                                                      |
 | `Boolean`                           | `bool`                        | tristate if `allow_None=True`                                         |
-| `Iterable`                          | iterables                     | length/bounds, item_type, dtype (allowed type of the iterable itself) |
+| `Iterable`                          | general python iterables      | length/bounds, item_type, dtype (allowed type of the iterable itself) |
 | `Tuple`                             | `tuple`                       | same as iterable                                                      |
 | `List`                              | `list`                        | same as iterable                                                      |
 | `Selector`                          | one of many objects           | allowed list of objects                                               |
@@ -69,7 +69,7 @@ An example:
 
 ```py title="Typed Properties" linenums="1"
 --8<-- "docs/beginners-guide/code/properties/typed.py:2:5"
---8<-- "docs/beginners-guide/code/properties/typed.py:36:59"
+--8<-- "docs/beginners-guide/code/properties/typed.py:40:62"
 ```
 
 For typed properties, before the setter is invoked, the value is internally validated.
@@ -81,12 +81,12 @@ For complicated data structures, one can use `pydantic` or JSON schema based typ
 
 === "pydantic"
 
-    ```py title="Properties Using Schema - pydantic" linenums="1" hl_lines="7 54-56"
-    --8<-- "docs/beginners-guide/code/properties/schema.py:1:58"
+    ```py title="Properties Using Schema - pydantic" linenums="1" hl_lines="7 62-63"
+    --8<-- "docs/beginners-guide/code/properties/schema.py:1:64"
     ```
 
 === "JSON Schema"
 
-    ```py title="Properties Using Schema - JSON schema" linenums="1" hl_lines="5 31"
-    --8<-- "docs/beginners-guide/code/properties/schema.py:60"
+    ```py title="Properties Using Schema - JSON schema" linenums="1" hl_lines="5 37"
+    --8<-- "docs/beginners-guide/code/properties/schema.py:67"
     ```
