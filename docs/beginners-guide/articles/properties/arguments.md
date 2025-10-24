@@ -16,25 +16,25 @@
 === "`allow_None=True`"
 
     ```py title="allow None, constant and readonly" linenums="1"
-    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:44:47"
+    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:46:49"
     ```
 
 === "`allow_None=False`"
 
     ```py title="allow None, constant and readonly" linenums="1"
-    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:49:51"
+    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:51:53"
     ```
 
 === "`readonly=True`"
 
     ```py title="allow None, constant and readonly" linenums="1"
-    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:53:54"
+    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:55:56"
     ```
 
 === "`constant=True`"
 
     ```py title="allow None, constant and readonly" linenums="1"
-    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:56:59"
+    --8<-- "docs/beginners-guide/code/properties/common_args_1.py:58:61"
     ```
 
 ### `doc` and `label`
@@ -59,16 +59,16 @@ When a value assignment was never called on the property, `default` is returned 
 
     ```py linenums="1" hl_lines="24 31"
     --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:50"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:53:60"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:135:140"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:53:63"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:145:149"
     ```
 
 === "with fget-fset-fdel arguments"
 
     ```py linenums="1" hl_lines="26-27"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:30"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:32:37"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:39:53"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:35:40"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:42:56"
     ```
 
 If default is desirable, one has to return it manually in the getter method by accessing the property [descriptor object directly](../#__codelineno-2-15).
@@ -83,9 +83,9 @@ which in turn has precedence over `default`.
 ```py title="class member" linenums="1" hl_lines="26"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:7:22"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:64:73"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:135:136"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:141:143"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:67:77"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:145:146"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:150:152"
 ```
 
 `class_member` can still be used with a default value if there is no custom fget-fset-fdel.
@@ -119,7 +119,7 @@ in the list of allowed states):
 
 ```py title="state machine state" linenums="1" hl_lines="22"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:77:100"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:80:109"
 ```
 
 This is also currently applicable only when set operations are called by clients. Local set operations are always executed irrespective of the state machine state. A get operation is always executed even from the clients irrespective of the state.
@@ -131,7 +131,9 @@ property for changes without polling from the client. The payload of the change 
 
 ```py title="observable" linenums="1" hl_lines="29"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:104:133"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:113:142"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:145:146"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:153:156"
 ```
 
 ## `metadata`

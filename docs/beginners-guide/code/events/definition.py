@@ -49,7 +49,10 @@ class GentecMaestroEnergyMeter(Thing):
 
     data_point_event_schema = {
         "type": "object",
-        "properties": {"timestamp": {"type": "string"}, "energy": {"type": "number"}},
+        "properties": {
+            "timestamp": {"type": "string"},
+            "energy": {"type": "number"},
+        },
         "required": ["timestamp", "energy"],
     }
 
@@ -63,4 +66,6 @@ class GentecMaestroEnergyMeter(Thing):
 if __name__ == "__main__":
     threading.Thread(target=start_https_server).start()
     # add your HTTP server starter code in the above method
-    GentecMaestroEnergyMeter(instance_name="gentec-maestro").run(zmq_protocols="IPC")
+    GentecMaestroEnergyMeter(instance_name="gentec-maestro").run(
+        zmq_protocols="IPC"
+    )

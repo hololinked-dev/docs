@@ -30,7 +30,9 @@ def event_cb(event_data):
     print(event_data)
 
 
-spectrometer_proxy.subscribe_event(name="intensity-measurement", callbacks=event_cb)
+spectrometer_proxy.subscribe_event(
+    name="intensity-measurement", callbacks=event_cb
+)
 spectrometer_proxy.start_acquisition()
 # name can be the value for name given to the event in the server side or the
 # python attribute where the Event was assigned.

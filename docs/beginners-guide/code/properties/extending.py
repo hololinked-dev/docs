@@ -31,7 +31,9 @@ class JPEG(Property):
             # no need to check readonly & constant
             raise ValueError("image attribute cannot take None")
         if isinstance(value, bytes):
-            raise ValueError("Supply numpy.ndarray instead of pre-encoded JPEG image")
+            raise ValueError(
+                "Supply numpy.ndarray instead of pre-encoded JPEG image"
+            )
         if isinstance(value, numpy.ndarray):
             if self.flip_horizontal:
                 value = numpy.fliplr(value)
@@ -40,7 +42,10 @@ class JPEG(Property):
             if self.transpose:
                 value = numpy.transpose(value)
             return imageio.imwrite(
-                "<bytes>", value, format="JPEG", compress_level=self.compression_ratio
+                "<bytes>",
+                value,
+                format="JPEG",
+                compress_level=self.compression_ratio,
             )
         raise ValueError(f"invalid type for JPEG image data - {type(value)}")
 
@@ -51,7 +56,9 @@ class JPEG(Property):
         if value is None and not self.allow_None:
             raise ValueError("None is not allowed")
         if isinstance(value, bytes):
-            raise ValueError("Supply numpy.ndarray instead of pre-encoded JPEG image")
+            raise ValueError(
+                "Supply numpy.ndarray instead of pre-encoded JPEG image"
+            )
         if isinstance(value, numpy.ndarray):
             if self.flip_horizontal:
                 value = numpy.fliplr(value)
@@ -94,7 +101,8 @@ class Camera(Thing):
             self._image = image  # captured image
 
     horizontally_flipped_image = JPEG(
-        doc="Image data in JPEG format, flipped horizontally", flip_horizontal=True
+        doc="Image data in JPEG format, flipped horizontally",
+        flip_horizontal=True,
     )  # type: bytes
 
     vertically_flipped_image = JPEG(
@@ -112,7 +120,12 @@ class Camera(Thing):
 class JPEG(Property):
     """JPEG image data"""
 
-    __slots__ = ["compression_ratio", "transpose", "flip_horizontal", "flip_vertical"]
+    __slots__ = [
+        "compression_ratio",
+        "transpose",
+        "flip_horizontal",
+        "flip_vertical",
+    ]
 
     def __init__(
         self,

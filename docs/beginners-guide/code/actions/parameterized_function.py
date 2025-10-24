@@ -34,7 +34,9 @@ def client():
         instance_name="spectrometer", protocol="IPC", serializer="pickle"
     )
     ret = client.subtract_custom_background(
-        custom_background=numpy.array([1 for i in range(len(client.last_intensity))])
+        custom_background=numpy.array(
+            [1 for i in range(len(client.last_intensity))]
+        )
     )
     print("reply", type(ret), ret)
     # prints - reply <class 'numpy.ndarray'> [-1 -1 -1 ... -1 -1 -1]
@@ -42,7 +44,9 @@ def client():
 
 def server():
     O = OceanOpticsSpectrometer(
-        instance_name="spectrometer", serial_number="S14155", zmq_serializer="pickle"
+        instance_name="spectrometer",
+        serial_number="S14155",
+        zmq_serializer="pickle",
     )
     O.run(zmq_protocols="IPC")
 
@@ -82,6 +86,8 @@ class OceanOpticsSpectrometer(Thing):
         )
 
         def __call__(
-            self, instance: "OceanOpticsSpectrometer", custom_background: numpy.ndarray
+            self,
+            instance: "OceanOpticsSpectrometer",
+            custom_background: numpy.ndarray,
         ) -> numpy.ndarray:
             return instance.last_intensity - custom_background

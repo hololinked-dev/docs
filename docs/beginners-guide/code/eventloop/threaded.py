@@ -18,4 +18,6 @@ if __name__ == "__main__()":
 
     camera = UEyeCamera(instance_name="camera", camera_id=3)
 
-    EventLoop([spectrometer, camera], instance_name="eventloop", threaded=True).run()
+    EventLoop(
+        [spectrometer, camera], instance_name="eventloop", threaded=True
+    ).run()

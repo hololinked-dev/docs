@@ -19,8 +19,12 @@ def event_cb2(event_data):
     print("Second callback", event_data)
 
 
-energy_meter.subscribe_event(name="statistics_event", callbacks=[event_cb1, event_cb2])
+energy_meter.subscribe_event(
+    name="statistics_event", callbacks=[event_cb1, event_cb2]
+)
 
 energy_meter.subscribe_event(
-    name="statistics_event", callbacks=[event_cb1, event_cb2], thread_callbacks=True
+    name="statistics_event",
+    callbacks=[event_cb1, event_cb2],
+    thread_callbacks=True,
 )
