@@ -5,10 +5,10 @@
 Only methods decorated with `action()` are exposed to clients.
 
 ```py title="Actions" linenums="1" hl_lines="5 10 15 16 21 25"
---8<-- "docs/beginners-guide/code/thing_example_2.py:189:192"
---8<-- "docs/beginners-guide/code/thing_example_2.py:431:445"
---8<-- "docs/beginners-guide/code/thing_example_2.py:643:646"
---8<-- "docs/beginners-guide/code/thing_example_2.py:542:546"
+--8<-- "docs/beginners-guide/code/thing_example_2.py:195:198"
+--8<-- "docs/beginners-guide/code/thing_example_2.py:448:462"
+--8<-- "docs/beginners-guide/code/thing_example_2.py:683:685"
+--8<-- "docs/beginners-guide/code/thing_example_2.py:563:567"
 ```
 
 ## Payload Validation
@@ -23,8 +23,8 @@ If arguments are loosely typed, the action will be invoked with given payload wi
         Specify the expected type of the argument (with or without name)
 
         ```py title="Input Schema" linenums="1" hl_lines="8"
-        --8<-- "docs/beginners-guide/code/thing_example_2.py:189:192"
-        --8<-- "docs/beginners-guide/code/thing_example_2.py:210:222"
+        --8<-- "docs/beginners-guide/code/thing_example_2.py:195:198"
+        --8<-- "docs/beginners-guide/code/thing_example_2.py:216:231"
         ```
 
         ???+ note "JSON schema seen in Thing Description"
@@ -52,8 +52,8 @@ If arguments are loosely typed, the action will be invoked with given payload wi
         ```py title="Input Schema with Multiple Arguments" linenums="1" hl_lines="32"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:57:85"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:87:87"
-        --8<-- "docs/beginners-guide/code/thing_example_3.py:213:226"
-        --8<-- "docs/beginners-guide/code/thing_example_3.py:247:247"
+        --8<-- "docs/beginners-guide/code/thing_example_3.py:215:228"
+        --8<-- "docs/beginners-guide/code/thing_example_3.py:249:249"
         ```
 
         ???+ note "JSON schema seen in Thing Description"
@@ -103,7 +103,7 @@ If arguments are loosely typed, the action will be invoked with given payload wi
         ```py title="With Return Type" linenums="1" hl_lines="38 39"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:22:55"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:87:87"
-        --8<-- "docs/beginners-guide/code/thing_example_3.py:349:356"
+        --8<-- "docs/beginners-guide/code/thing_example_3.py:361:368"
         ```
 
         ???+ note "JSON schema seen in Thing Description"
@@ -432,11 +432,10 @@ class DCPowerSupply(Thing):
         while True:
             voltage = self.measure_voltage()
             if voltage > self.over_voltage_threshold:
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 self.over_voltage_event(
                     dict(
-                        timestamp=datetime.datetime.now().strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        ),
+                        timestamp=timestamp,
                         voltage=voltage
                     )
                 )

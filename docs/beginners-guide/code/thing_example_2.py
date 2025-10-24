@@ -8,7 +8,13 @@ import typing
 
 from serial_utility import SerialCommunication
 from hololinked.core import Thing, action, Event, Property
-from hololinked.core.properties import Number, String, Integer, Boolean, TypedDict
+from hololinked.core.properties import (
+    Number,
+    String,
+    Integer,
+    Boolean,
+    TypedDict,
+)
 from pydantic import BaseModel, Field
 
 
@@ -210,7 +216,10 @@ class GentecOpticalEnergyMeter(Thing):
 
     # action with input schema
     @action(
-        input_schema={"type": "string", "enum": ["QE25LP-S-MB", "QE12LP-S-MB-QED-D0"]}
+        input_schema={
+            "type": "string",
+            "enum": ["QE25LP-S-MB", "QE12LP-S-MB-QED-D0"],
+        }
     )
     def set_sensor_model(self, value: str):
         """
@@ -323,7 +332,9 @@ class GentecOpticalEnergyMeter(Thing):
     )
 
     analog_output_enabled = Boolean(
-        default=False, readonly=True, fget=lambda self: self._analog_output_enabled
+        default=False,
+        readonly=True,
+        fget=lambda self: self._analog_output_enabled,
     )
 
     # some more actions
@@ -345,7 +356,9 @@ class GentecOpticalEnergyMeter(Thing):
     @range.getter
     def get_range(self) -> int:
         """reads the current scale of measurement"""
-        return int(self.serial_comm_handle.execute_instruction("*GCR", 100)[-4:-2])
+        return int(
+            self.serial_comm_handle.execute_instruction("*GCR", 100)[-4:-2]
+        )
 
     @range.setter
     def set_range(self, value) -> None:
@@ -354,7 +367,9 @@ class GentecOpticalEnergyMeter(Thing):
             "*SCS{}".format(str(value).zfill(2))
         )
 
-    autorange = Boolean(default=None, doc="autoscale/autorange mode of the meter")
+    autorange = Boolean(
+        default=None, doc="autoscale/autorange mode of the meter"
+    )
 
     @autorange.getter
     def get_autorange(self) -> bool:
@@ -404,7 +419,9 @@ class GentecOpticalEnergyMeter(Thing):
 
     def read_wavelength(self):
         time.sleep(0.1)
-        return int(self.serial_comm_handle.execute_instruction("*GWL", 100)[4:-2])
+        return int(
+            self.serial_comm_handle.execute_instruction("*GWL", 100)[4:-2]
+        )
         # This instruction seems to have an issue. sometimes garbage data comes in before
         # although flush_input and flush_output are repeatedly called by the Serial Handler.
         # Issue is solved by adding a 100ms sleep.
@@ -449,7 +466,9 @@ class GentecOpticalEnergyMeter(Thing):
         self.multiplier = 1
 
     def read_multiplier(self):
-        return float(self.serial_comm_handle.execute_instruction("*GUM", 100)[16:-2])
+        return float(
+            self.serial_comm_handle.execute_instruction("*GUM", 100)[16:-2]
+        )
 
     def write_multiplier(self, value):
         if value > self.min_multiplier and value < self.max_multiplier:
@@ -467,7 +486,9 @@ class GentecOpticalEnergyMeter(Thing):
     )
 
     def read_offset(self) -> float:
-        return float(self.serial_comm_handle.execute_instruction("*GUO", 100)[12:-2])
+        return float(
+            self.serial_comm_handle.execute_instruction("*GUO", 100)[12:-2]
+        )
 
     def write_offset(self, value: float) -> None:
         if value > self.min_offset and value < self.max_offset:
@@ -553,13 +574,18 @@ class GentecOpticalEnergyMeter(Thing):
         value = str(value)
         if value.__len__() > GentecOpticalEnergyMeter._data_string_maxlen:
             if value.find(".") > 8:
-                raise ValueError(f"Given value greater than 8 characters - {value}")
+                raise ValueError(
+                    f"Given value greater than 8 characters - {value}"
+                )
             value = value[:8]
         if "e" not in value:
             if "." in value:
                 value = value + (
                     "0"
-                    * (GentecOpticalEnergyMeter._data_string_maxlen - value.__len__())
+                    * (
+                        GentecOpticalEnergyMeter._data_string_maxlen
+                        - value.__len__()
+                    )
                 )
             else:
                 if "-" in value:
@@ -586,16 +612,27 @@ class GentecOpticalEnergyMeter(Thing):
             e_index = value.find("e")
             len_after_e = value.__len__() - e_index
             to_fill = (
-                GentecOpticalEnergyMeter._data_string_maxlen - len_after_e - e_index
+                GentecOpticalEnergyMeter._data_string_maxlen
+                - len_after_e
+                - e_index
             )  # e_index is also len_before_e
             if "-" in value[0:e_index]:
                 if "." in value[0:e_index]:
-                    value = value[0:e_index] + ("0" * (to_fill)) + value[e_index:]
+                    value = (
+                        value[0:e_index] + ("0" * (to_fill)) + value[e_index:]
+                    )
                 else:
-                    value = "-" + ("0" * (to_fill)) + value[1:e_index] + value[e_index:]
+                    value = (
+                        "-"
+                        + ("0" * (to_fill))
+                        + value[1:e_index]
+                        + value[e_index:]
+                    )
             else:
                 if "." in value[0:e_index]:
-                    value = value[0:e_index] + ("0" * (to_fill)) + value[e_index:]
+                    value = (
+                        value[0:e_index] + ("0" * (to_fill)) + value[e_index:]
+                    )
                 else:
                     value = ("0" * (to_fill)) + value
         return value
@@ -629,7 +666,9 @@ class GentecOpticalEnergyMeter(Thing):
     )
 
     energy_history = Property(
-        default=EnergyHistory(timestamp=deque(maxlen=300), energy=deque(maxlen=300)),
+        default=EnergyHistory(
+            timestamp=deque(maxlen=300), energy=deque(maxlen=300)
+        ),
         readonly=True,
         doc="Energy data as timestamps (datetime) in x-axis and energy value in y-axis (mJ)",
     )  # type: EnergyHistory
@@ -659,11 +698,15 @@ class GentecOpticalEnergyMeter(Thing):
                 self.energy_history.timestamp.append(timestamp)
                 self.energy_history.energy.append(self._last_measurement)
                 self.data_point_event.push(
-                    EnergyDataPoint(timestamp=timestamp, energy=self._last_measurement)
+                    EnergyDataPoint(
+                        timestamp=timestamp, energy=self._last_measurement
+                    )
                 )
                 if self._statistics_enabled:
                     self.statistics_event.push(self.statistics)
-                self.logger.debug(f"New data point : {self._last_measurement} J")
+                self.logger.debug(
+                    f"New data point : {self._last_measurement} J"
+                )
             else:
                 self.logger.debug("No new data point available")
             # auto serialization of the event data happens when a json() method is implemented,

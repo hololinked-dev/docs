@@ -119,7 +119,9 @@ class Picoscope6000(Picoscope):
             serial_number = self.serial_number
         sb = ctypes.create_string_buffer(10)
         sb.value = bytes(serial_number, encoding="utf-8")
-        self._status["open-unit"] = ps.ps6000OpenUnit(ctypes.byref(self._ct_handle), sb)
+        self._status["open-unit"] = ps.ps6000OpenUnit(
+            ctypes.byref(self._ct_handle), sb
+        )
         assert_pico_ok(self._status["open-unit"])
         for code in range(11):
             self.get_unit_info(code)
@@ -323,10 +325,14 @@ class Picoscope6000(Picoscope):
             ADC = U * 32512 / U_max
         """
         enabled = ctypes.c_int16(int(enabled))
-        direction = ps.PS6000_THRESHOLD_DIRECTION["PS6000_{}".format(direction.upper())]
+        direction = ps.PS6000_THRESHOLD_DIRECTION[
+            "PS6000_{}".format(direction.upper())
+        ]
         ch = channel.upper()
         if channel.upper() in ["A", "B", "C", "D"]:
-            channel = ps.PS6000_CHANNEL["PS6000_CHANNEL_{}".format(channel.upper())]
+            channel = ps.PS6000_CHANNEL[
+                "PS6000_CHANNEL_{}".format(channel.upper())
+            ]
         else:
             channel = ps.PS6000_CHANNEL["PS6000_TRIGGER_AUX"]
         if not adc:
@@ -343,7 +349,13 @@ class Picoscope6000(Picoscope):
         threshold = ctypes.c_int16(threshold)
         auto_trigger = ctypes.c_int16(int(auto_trigger))
         self._status["trigger"] = ps.ps6000SetSimpleTrigger(
-            self._ct_handle, enabled, channel, threshold, direction, delay, auto_trigger
+            self._ct_handle,
+            enabled,
+            channel,
+            threshold,
+            direction,
+            delay,
+            auto_trigger,
         )
         assert_pico_ok(self._status["trigger"])
 
@@ -360,12 +372,19 @@ class Picoscope6000(Picoscope):
         v_range = ps.PS6000_RANGE["PS6000_{}".format(voltage_range.upper())]
         coupling = ps.PS6000_COUPLING["PS6000_{}".format(coupling.upper())]
         self._status["getAnalogueOffset"] = ps.ps6000GetAnalogueOffset(
-            self._ct_handle, v_range, coupling, ctypes.byref(v_max), ctypes.byref(v_min)
+            self._ct_handle,
+            v_range,
+            coupling,
+            ctypes.byref(v_max),
+            ctypes.byref(v_min),
         )
         assert_pico_ok(self._status["getAnalogueOffset"])
         return v_max.value, v_min.value
 
-    @action(input_schema=get_timebase_schema, output_schema=get_timebase_output_schema)
+    @action(
+        input_schema=get_timebase_schema,
+        output_schema=get_timebase_output_schema,
+    )
     def get_timebase(
         self, interval: float = 1000, resolution: float = 8, oversample: int = 0
     ):
@@ -500,7 +519,9 @@ class Picoscope6000(Picoscope):
         self,
         channel: str,
         num_samples: int,
-        downsample_ratio_mode: int = ps.PS6000_RATIO_MODE["PS6000_RATIO_MODE_NONE"],
+        downsample_ratio_mode: int = ps.PS6000_RATIO_MODE[
+            "PS6000_RATIO_MODE_NONE"
+        ],
     ):
         """
         Prepare a data buffer for a single channel.
@@ -522,12 +543,14 @@ class Picoscope6000(Picoscope):
         """
         ch = ps.PS6000_CHANNEL["PS6000_CHANNEL_{}".format(channel.upper())]
         buffer = (ctypes.c_int16 * num_samples)()
-        self._status["set-data-buffer-{}".format(channel)] = ps.ps6000SetDataBuffer(
-            self._ct_handle,
-            ch,
-            ctypes.byref(buffer),
-            num_samples,
-            downsample_ratio_mode,
+        self._status["set-data-buffer-{}".format(channel)] = (
+            ps.ps6000SetDataBuffer(
+                self._ct_handle,
+                ch,
+                ctypes.byref(buffer),
+                num_samples,
+                downsample_ratio_mode,
+            )
         )
         assert_pico_ok(self._status["set-data-buffer-{}".format(channel)])
         return buffer
