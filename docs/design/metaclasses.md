@@ -42,12 +42,12 @@ class CameraMeta(ThingMeta):
 class Image(Property):
 
     def __init__(self,
-                compression_ratio: int = 1,
-                transpose: bool = False,
-                flip_horizontal: bool = False,
-                flip_vertical: bool = False,
-                observable: bool = False,
-            ) -> None:
+            compression_ratio: int = 1,
+            transpose: bool = False,
+            flip_horizontal: bool = False,
+            flip_vertical: bool = False,
+            observable: bool = False,
+        ) -> None:
         ...
 
 class RPiCamera(Thing, metaclass=CameraMeta):
@@ -65,7 +65,7 @@ class IDSCamera(Thing, metaclass=CameraMeta):
 
 ## `__post_init__` Method
 
-There is no specific need to explicitly call a `__post_init__` method. A possible application of `__post_init__` could be to run default code after connecting to the hardware:
+There is no specific need to explicitly call a `__post_init__` method as it is auto-invoked by the [`ThingMeta`](../api-reference/thing/thing-meta.md). A possible application of `__post_init__` could be to run default code after connecting to the hardware:
 
 ```python
 
@@ -93,4 +93,4 @@ flowchart TD
     D --> E[__post_init__ is called to run additional setup code <br/>which are dependent on the loaded properties]
 ```
 
-Of course, the `__post_init__` method can be used for any other purpose. The `__post_init__` is auto-invoked by the [`ThingMeta`](../api-reference/thing/thing-meta.md).
+Of course, the `__post_init__` method can be used for any other purpose.

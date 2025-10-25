@@ -4,8 +4,8 @@ The main purpose of the RPC broker is to:
 
 - add scheduling control for the interaction affordances
 - decouple protocol handlers (a.k.a controllers) from the actual execution of the interaction affordances
-- unify execution control across multiple protocols
-- maintain standardized behaviour irrespective of the protocol, for example, pushing an event must cause both the HTTP and MQTT clients to receive the same event
+- unify execution across multiple protocols
+- maintain standardized behaviour irrespective of the protocol, for example, pushing an event must cause both a HTTP and a MQTT client to receive the same event
 
 Three types of scheduling are supported:
 
@@ -35,7 +35,7 @@ sequenceDiagram
     ProtocolHandler-->>Client: Forward Event (Pub, protocol specific)
 ```
 
-In a certain way, this is definitely a protocol-to-protocol transfer of request and response, with a minor difference that ZMQ handles this over its `INPROC` transport over threads & shared memory, which is significantly more efficient than TCP-to-TCP communication.
+In a certain way, this is definitely a protocol-to-protocol transfer of request and response, with a minor difference that ZMQ handles this over its `INPROC` transport over threads & shared memory, which is significantly more efficient than TCP-to-TCP communication & adds very little overhead.
 
 The scheduling message is a simple JSON object, tailored to arbitrary serialization and ZMQ multipart messaging scheme:
 

@@ -4,7 +4,7 @@
 
 A default logger with IO stream handler is configured for each `Thing` instance. One can override the logger by passing a custom logger instance to the `Thing` constructor:
 
-```py title="Custom Logger" linenums="1" hl_lines="3"
+```py title="Custom Logger" linenums="1" hl_lines="12"
 class WarningsToFileHandler(logging.FileHandler):
     """Custom handler that writes only WARNING+ logs to a separate file."""
     def emit(self, record):
@@ -48,9 +48,16 @@ Endpoint | Description
 `http(s)://<host>:<port>/<thing_id>/logger/logs` | all logs
 `http(s)://<host>:<port>/<thing_id>/logger/logs/debug` | debug logs and above -->
 
+### Meta
+
+To be updated with use cases of modifying Thing metaclass, in the meanwhile there is decent documentation in
+the developer notes: [Thing MetaClass](../../../design/metaclasses.md#metaclasses).
+
 ### Post Init
 
-`Thing` classes define a `__post_init__` method which is invoked after loading properties from a database.
+To be updated, please refer to the developer notes in the meantime: [Thing Post Init](../../../design/metaclasses.md#__post_init__-method).
+
+<!-- `Thing` classes define a `__post_init__` method which is invoked after loading properties from a database.
 All initialization logic which depend on database loaded properties can placed in this method:
 
 ```py title="Post Init" linenums="1"
@@ -61,11 +68,8 @@ class MyThing(Thing):
         super().__post_init__() # dont forget to call parent
         self.logger.info("Thing initialized with properties from DB")
 ```
-
-### Meta
-
-To be updated with use cases of modifying Thing metaclass.
+-->
 
 ### Composition
 
-To be updated with using sub-things within a Thing.
+To be updated.
