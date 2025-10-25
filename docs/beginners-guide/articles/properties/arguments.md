@@ -57,15 +57,15 @@ When a value assignment was never called on the property, `default` is returned 
 
 === "with decorator"
 
-    ```py linenums="1" hl_lines="24 31"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:50"
+    ```py linenums="1" hl_lines="11 18"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:43"
     --8<-- "docs/beginners-guide/code/properties/common_args_2.py:53:63"
-    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:145:149"
+    --8<-- "docs/beginners-guide/code/properties/common_args_2.py:144:149"
     ```
 
 === "with fget-fset-fdel arguments"
 
-    ```py linenums="1" hl_lines="26-27"
+    ```py linenums="1" hl_lines="22-23"
     --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
     --8<-- "docs/beginners-guide/code/properties/common_args_2.py:35:40"
     --8<-- "docs/beginners-guide/code/properties/common_args_2.py:42:56"
@@ -92,7 +92,7 @@ which in turn has precedence over `default`.
 
 ### `remote`
 
-setting `remote` to False makes the inaccessible to a client but accessible to the object locally. This is still useful to type-restrict python attributes to provide an interface to other developers using your class, for example, when someone else inherits your `Thing`. For example, the `Thing`'s `logger` is implemented in this fashion:
+setting `remote` to False makes the property inaccessible to a client but accessible to the object locally. This is still useful to type-restrict python attributes to provide an interface to other developers using your class, for example, when someone else inherits your `Thing`. For example, the `Thing`'s `logger` is implemented in this fashion:
 
 ```py title="local properties" linenums="1" hl_lines="11"
 import logging
@@ -105,7 +105,7 @@ class Thing(metaclass=ThingMeta):
         class_=logging.Logger,
         default=None,
         allow_None=True,
-        remote=False,  # does not make sense to expose the logger object, its not serializable
+        remote=False,  # does not make sense to expose the logger object
         doc="""logging.Logger instance to print log messages.
             Default logger with a IO-stream handler and network
             accessible handler is created if none supplied."""
@@ -117,12 +117,12 @@ class Thing(metaclass=ThingMeta):
 When `state` is specifed, the property is writeable only when the `Thing`'s `StateMachine` is in that specified state (or
 in the list of allowed states):
 
-```py title="state machine state" linenums="1" hl_lines="22"
+```py title="state machine state" linenums="1" hl_lines="28"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:80:109"
 ```
 
-This is also currently applicable only when set operations are called by clients. Local set operations are always executed irrespective of the state machine state. A get operation is always executed even from the clients irrespective of the state.
+This is also currently applicable only when write operations are called by clients. Local write operations are always executed irrespective of the state machine state. A read operation is always executed even from the clients irrespective of the state.
 
 ## `observable`
 
@@ -132,7 +132,7 @@ property for changes without polling from the client. The payload of the change 
 ```py title="observable" linenums="1" hl_lines="29"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:24:26"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:113:142"
---8<-- "docs/beginners-guide/code/properties/common_args_2.py:145:146"
+--8<-- "docs/beginners-guide/code/properties/common_args_2.py:144:146"
 --8<-- "docs/beginners-guide/code/properties/common_args_2.py:153:156"
 ```
 
@@ -150,6 +150,6 @@ Properties can be stored in a file or a database and loaded from them when the `
 
 - `db_commit` only writes the value into the database when an assignment/write operation is called.
 
-- `db_persist` stores and loads the property from the database. property value is assigned after `__init__()` method, therefore its recommended to ensure that the device connection is established at `__init__()` itself. Other, errors should be expected.
+- `db_persist` stores and loads the property from the database. property value is assigned after `__init__()` method, therefore its recommended to ensure that the device connection is established at `__init__()` itself. Otherwise, errors should be expected.
 
-Supported databases are MySQL, Postgres & SQLite currently. Look at database how-to for supply database configuration.
+Supported databases are MySQL, Postgres, SQLite & Mongo currently. Look at database how-to for supply database configuration.

@@ -13,8 +13,10 @@ It is possible to use the `__set__()` to carry out type validation & coercion. T
 
 ```py title='Validation with __set__()' linenums="1" hl_lines="9-10"
 --8<-- "docs/beginners-guide/code/properties/extending.py:1:7"
---8<-- "docs/beginners-guide/code/properties/extending.py:46:71"
+--8<-- "docs/beginners-guide/code/properties/extending.py:50:78"
 ```
+
+Essentially:
 
 - check metadata options like `readonly`, `constant` etc.
 - check the type of the input value
@@ -23,11 +25,11 @@ It is possible to use the `__set__()` to carry out type validation & coercion. T
 
 It is necessary to use the `instance_descriptor` decorator as shown above to allow `class_member` option to function correctly. If the `Property` will not be a `class_member`, this decorator can be skipped.
 
-Further, the parent class [`Property` takes care](https://github.com/VigneshVSV/hololinked/blob/main/hololinked/core/property.py) of allocating an instance variable, checking `constant`, `readonly`, pushing change events, writing the value to the database etc. Therefore, to avoid redundancy, its recommended to implement a `validate_and_adapt()` method instead of `__set__`:
+Further, the parent class [`Property` takes care](https://github.com/VigneshVSV/hololinked/blob/main/hololinked/core/property.py) of allocating an instance variable, checking `constant`, `readonly`, pushing change events etc. Therefore, to avoid redundancy, its recommended to implement a `validate_and_adapt()` method instead of `__set__`:
 
 ```py title='Validation and Adaption' linenums="1"
 --8<-- "docs/beginners-guide/code/properties/extending.py:6:8"
---8<-- "docs/beginners-guide/code/properties/extending.py:29:46"
+--8<-- "docs/beginners-guide/code/properties/extending.py:29:50"
 ```
 
 The `__set__()` method automatically invokes `validate_and_adapt()`, and a return value is expected.
@@ -35,7 +37,7 @@ The `__set__()` method automatically invokes `validate_and_adapt()`, and a retur
 To use the `JPEG` property in a `Thing` class, follow the normal procedure of property instantiation:
 
 ```py title="Instantiating Custom Property" linenums="1"
---8<-- "docs/beginners-guide/code/properties/extending.py:74:94"
+--8<-- "docs/beginners-guide/code/properties/extending.py:81:101"
 ```
 
 In this particular example, since we dont want the `JPEG` to be set externally by a client, we create a local `Property` which carries out the image manipulation and an externally visible `readonly` Property that can supply the processed image to the client.
@@ -44,12 +46,12 @@ The difference between using a custom setter/`fset` method and overloading the `
 `Property`:
 
 ```py title="Reusing Custom Property" linenums="1"
---8<-- "docs/beginners-guide/code/properties/extending.py:74:76"
---8<-- "docs/beginners-guide/code/properties/extending.py:96:109"
+--8<-- "docs/beginners-guide/code/properties/extending.py:81:83"
+--8<-- "docs/beginners-guide/code/properties/extending.py:103:117"
 ```
 
 One may also use slots to store the attributes of the `Property`. Most properties predefined in this package use slots:
 
 ```py title="Using slots" linenums="1"
---8<-- "docs/beginners-guide/code/properties/extending.py:112:"
+--8<-- "docs/beginners-guide/code/properties/extending.py:120:"
 ```

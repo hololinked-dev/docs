@@ -39,7 +39,7 @@ accessed by the instance under `self.properties.descriptors["<property name>"]`:
 --8<-- "docs/beginners-guide/code/properties/untyped.py:14:48"
 ```
 
-The value of the property must be serializable to be read by the clients. Read the [serializer section](#serialization) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible on the network nevertheless the descriptor behaviour can still be leveraged.
+The value of the property must be serializable to be read by the clients. Read the [serializer section](../serialization.md) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible on the network nevertheless the descriptor behaviour can still be leveraged.
 
 ### Predefined Typed Properties
 

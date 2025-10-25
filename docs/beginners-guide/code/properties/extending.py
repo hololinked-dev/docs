@@ -16,11 +16,11 @@ class JPEG(Property):
         **kwargs,
     ) -> None:
         super().__init__(default=default, allow_None=True, **kwargs)
-        assert (
-            isinstance(compression_ratio, int)
-            and compression_ratio >= 0
-            and compression_ratio <= 9
-        ), "compression_ratio must be an integer between 0 and 9"
+        if (
+            not isinstance(compression_ratio, int)
+            or not 0 <= compression_ratio <= 9
+        ):
+            raise ValueError("compression_ratio must be an integer from 0 to 9")
         self.compression_ratio = compression_ratio
         self.transpose = transpose
         self.flip_horizontal = flip_horizontal
@@ -66,7 +66,7 @@ class JPEG(Property):
                 value = numpy.flipud(value)
             if self.transpose:
                 value = numpy.transpose(value)
-            bytes = (
+            binary = (
                 imageio.imwrite(
                     "<bytes>",
                     value,
@@ -74,7 +74,7 @@ class JPEG(Property):
                     compress_level=self.compression_ratio,
                 ),
             )
-            return super().__set__(obj, bytes)
+            return super().__set__(obj, binary)
         raise ValueError(f"invalid type for JPEG image data - {type(value)}")
 
 
