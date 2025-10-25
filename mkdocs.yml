@@ -5,15 +5,13 @@ repo_name: hololinked
 edit_uri: https://github.com/hololinked-dev/docs/edit/main/docs/
 
 nav:
-  # landing page
   - Home:
       - Introduction: index.md
       - Installation: introduction/installation.md
       - Resources: introduction/resources.md
       - Contributing: introduction/contributing.md
       - License: introduction/license.md
-  # textbook like how-to tutorials
-  - Beginner's Guide:
+  - Handbook:
       - Expose Python Objects: beginners-guide/articles/servers.md
       - Using Clients:
           - Object Proxy: beginners-guide/articles/object-proxy.md
@@ -24,12 +22,9 @@ nav:
       - Using Actions: beginners-guide/articles/actions.md
       - Using Events: beginners-guide/articles/events.md
       - Using State Machine: beginners-guide/articles/state-machine.md
-      # - Connect to Things with Clients: beginners-guide/articles/clients.md
       - Configuring Thing Class: beginners-guide/articles/thing/index.md
+      - Serialization: beginners-guide/articles/serialization.md
       - Security: beginners-guide/articles/security.md
-      # - Using Different Protocols:
-      #     - Object Proxy: beginners-guide/articles/object-proxy.md
-      # - Serialization: beginners-guide/articles/serialization.md
   - API Reference:
       - Thing:
           - Thing: api-reference/thing/index.md
@@ -173,7 +168,7 @@ theme:
     - navigation.top
 
   font:
-    text: Delius
+    text: DM Sans
     heading: Lexend
     # Other useful fonts that we may use:
     # Lexend Deca
