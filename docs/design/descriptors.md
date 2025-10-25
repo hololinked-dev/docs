@@ -2,10 +2,8 @@
 
 It is intuitive to think or abstract a physical device as a class (as-)in object-oriented programming. A good amount of code base exists in open source within scientific community that uses OOP to model physical devices, such as:
 
-- [pymeasure](https://github.com/pymeasure/pymeasure)
 - [pylablib](https://github.com/AlexShkarin/pyLabLib)
 - [CALA public](https://gitlab.lrz.de/cala-public)
-- Implementations of individual device drivers one may find in GitHub repositories.
 
 Interactions with a device can be segregated into properties, actions and events and operations on these interactions (for example, `readproperty`, `invokeaction`, `subscribeevent`). See W3C WoT for an elaborate theory - [Homepage](https://www.w3.org/WoT/). Such interactions can be described in a JSON format in a [WoT Thing Description](https://www.w3.org/TR/wot-thing-description/).
 
