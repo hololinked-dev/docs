@@ -13,8 +13,7 @@ nav:
       - License: introduction/license.md
   - Handbook:
       - Expose Python Objects: beginners-guide/articles/servers.md
-      - Using Clients:
-          - Object Proxy: beginners-guide/articles/object-proxy.md
+      - Using Clients: beginners-guide/articles/object-proxy.md
       - Using Properties:
           - Types: beginners-guide/articles/properties/index.md
           - Default Arguments: beginners-guide/articles/properties/arguments.md
@@ -168,7 +167,7 @@ theme:
     - navigation.top
 
   font:
-    text: DM Sans
+    text: Work Sans
     heading: Lexend
     # Other useful fonts that we may use:
     # Lexend Deca
