@@ -2,8 +2,9 @@
 
 ### Subclass from Thing
 
-Normally, the hardware is interfaced with a computer through Ethernet, USB etc. or any OS supported method,
-and one would write a class to encapsulate its properties and commands. Exposing this class to the network or other processes provides access to the hardware for multiple use cases in a client-server model. Such remotely visible
+Normally, the hardware is interfaced with a computer through Ethernet, USB, an embedded module etc.,
+and one would write a class to encapsulate its properties and commands. Exposing this class to the network or other
+processes provides access to the hardware for multiple use cases in a client-server model. Such remotely visible
 Python objects are to be made by subclassing from `Thing`:
 
 ```py title="Base Class - Spectrometer Example" linenums="1" hl_lines="10"
@@ -12,7 +13,7 @@ Python objects are to be made by subclassing from `Thing`:
 
 `id` is a unique name recognising the instantiated object, allowing multiple instances of the same class to have a remote interface. It is therefore a
 mandatory argument to be supplied to the `Thing` parent. Non-experts may use strings composed of
-characters, numbers, forward slashes etc., which looks like a part of a browser URL, but the general definition is
+characters, numbers, forward slashes etc., which look like a part of a browser URL, but the general definition is
 that `id` should be a URI compatible string:
 
 ```py title="Thing ID" linenums="1" hl_lines="3"
@@ -29,7 +30,7 @@ For attributes (like serial number above), if one requires them to be exposed on
 ```
 
 Apart from [predefined attributes](properties/index.md#predefined-typed-properties) like `String`, `Number`, `List` etc., it is possible to create custom properties with [pydantic or JSON schema](properties/index.md#schema-constrained-property).
-Only properties defined in `hololinked.core.properties` or subclass of `Property` object (note the captial 'P') can be exposed to the network, not normal python attributes or python's own `property`.
+Only properties defined in `hololinked.core.properties` or subclass of [`Property`](properties/index.md) object (note the captial 'P') can be exposed to the network, not normal python attributes or python's own `property`.
 
 ### Actions
 
@@ -54,7 +55,7 @@ To start a server, say a HTTP server, one can call the `run_with_http_server` me
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:134:142"
 ```
 
-The exposed properties, actions and events (discussed below) are independent of protocol implementation, therefore,
+The exposed properties, actions and events (discussed [below](#publish-events)) are independent of protocol implementation, therefore,
 one can start one or multiple protocols to serve the Thing:
 
 ```py title="Multiple Protocols" linenums="1" hl_lines="5"
@@ -65,7 +66,7 @@ one can start one or multiple protocols to serve the Thing:
 Further, all requests to properties and actions are generally queued as the domain of operation under the hood is remote procedure calls (RPC)
 mediated completely by ZMQ. Therefore, only one request is executed at a time as it is assumed that the hardware normally responds to only one (physical-)operation at a time.
 
-> This is **only an assumption** to simplify the programming model and avoid unintended race conditions (also physical). One could override them explicitly using [threaded or async methods](actions.md#threaded--async-actions).
+> This is **only an assumption** to simplify the programming model and avoid unintended race conditions, both logical and physical. One could override them explicitly using [threaded or async methods](actions.md#threaded--async-actions).
 
 Further, it is also expected that the internal state of the python object is not inadvertently affected by
 running multiple requests at once to different properties or actions. If a single request or operation takes 5-10ms, one can still run 100s of operations per second.
@@ -81,7 +82,7 @@ To overload the get-set of properties to directly apply property values onto dev
 Properties follow the python descriptor protocol. In non expert terms, when a custom get-set method is not provided,
 properties look like class attributes however their data containers are instantiated at object instance level by default.
 For example, the [`serial_number`](#__codelineno-2-9) property defined
-previously as `String`, whenever set/written, will be complied to a string and assigned as an attribute to each instance
+previously as `String`, whenever set/written, will be complied to a string and assigned as an attribute to each **instance**
 of the `OceanOpticsSpectrometer` class. This is done with an internally generated name. It is not necessary to know this
 internally generated name as the property value can be accessed again in any python logic using the dot operator, say, <br>
 [`self.device = Spectrometer.from_serial_number(self.serial_number)`](#__codelineno-3-17)
@@ -104,7 +105,7 @@ measured data using events:
 ```
 
 Data may also be polled by the client repeatedly but events save network time or allow sending data which cannot be timed,
-like alarm messages. Arbitrary payloads are supported, as long as the data is serializable. One can also specify the payload structure using
+like alarm messages. Arbitrary payloads are supported, as long as the data is serializable and one can also specify the payload structure using
 [pydantic or JSON schema](events.md#payload-schema).
 
 To start the `capture` method defined above, to receive the events, one may thread it as follows to send it to the background:
