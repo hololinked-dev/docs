@@ -10,7 +10,7 @@ in these states:
 
 ```py title="Definition" linenums="1"
 --8<-- "docs/beginners-guide/code/fsm/def.py:1:1"
---8<-- "docs/beginners-guide/code/fsm/def.py:14:15"
+--8<-- "docs/beginners-guide/code/fsm/def.py:13:15"
 --8<-- "docs/beginners-guide/code/fsm/def.py:30:33"
 --8<-- "docs/beginners-guide/code/fsm/def.py:37:38"
 ```
