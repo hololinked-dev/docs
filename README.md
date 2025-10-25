@@ -10,8 +10,10 @@ source .venv/bin/activate # or venv\Scripts\activate on Windows
 uv sync --no-install-project
 mkdocs build
 ```
-or 
-```bash	
+
+or
+
+```bash
 mkdocs serve
 ```
 
@@ -25,12 +27,16 @@ To develop the documentation with skaffold within a kubernetes cluster, create a
 SKAFFOLD_DEFAULT_REPO=docker.io/<your-docker-username>
 ```
 
-You need to sparse checkout the [vps-kubernetes-cluster repository](https://github.com/hololinked-dev/vps-kubernetes-cluster), which will be already available as a submodule in this repo in the `deployment\vps-kubernetes-cluster` directory. Instructions are available in the shell script `deployment/sparse-checkout.sh`. Sparse checkout is optional but the submodule must be available locally for the skaffold to work.
-
-Once the ingress and apps helm chart is available locally, run:
+Please get in touch with me [by email](mailto:info@hololinked.dev) or on [discord](https://discord.com/invite/kEz87zqQXh) for cluster credentials.
 
 ```bash
 skaffold dev --module dev-python-docs
+```
+
+Or use your own cluster if you have one set up. To test if the image is building
+
+```bash
+skaffold build --module dev-python-docs
 ```
 
 ### Docker
