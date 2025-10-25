@@ -5,20 +5,20 @@ metadata:
   name: dev-python-docs
 build:
   artifacts:
-  - image: hololinked_docs_dev
-    context: .
-    docker:
-      dockerfile: Dockerfile
-      target: dev
-    # mkdocs reloading not working
-    sync:
-      manual:
-      - src: "docs/**/*"
-        dest: "/app"
-      - src: "mkdocs.yml"
-        dest: "/app"
-      - src: "main.py"
-        dest: "/app"
+    - image: hololinked_docs_dev
+      context: .
+      docker:
+        dockerfile: Dockerfile
+        target: dev
+      # mkdocs reloading not working
+      sync:
+        manual:
+          - src: "docs/**/*"
+            dest: "/app"
+          - src: "mkdocs.yml"
+            dest: "/app"
+          - src: "main.py"
+            dest: "/app"
   tagPolicy:
     envTemplate:
       template: dev
@@ -27,28 +27,27 @@ build:
 deploy:
   helm:
     releases:
-    - name: dev-python-docs
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/apps
-      namespace: development
-      createNamespace: true
-      setValues:
-        nameOverride: dev-python-docs
-        image.ports.containerPort: 8000
-      setValueTemplates:
-        image:
-          repository: "{{ .IMAGE_REPO_hololinked_docs_dev }}"
-          tag: "{{ .IMAGE_TAG_hololinked_docs_dev }}@{{ .IMAGE_DIGEST_hololinked_docs_dev }}"
+      - name: dev-python-docs
+        chartPath: deployment/helm/container-helm-chart
+        namespace: development
+        createNamespace: true
+        setValues:
+          nameOverride: dev-python-docs
+          image.ports.containerPort: 8000
+        setValueTemplates:
+          image:
+            repository: "{{ .IMAGE_REPO_hololinked_docs_dev }}"
+            tag: "{{ .IMAGE_TAG_hololinked_docs_dev }}@{{ .IMAGE_DIGEST_hololinked_docs_dev }}"
 
-    - name: dev-python-docs-ingress
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
-      namespace: development
-      createNamespace: true
-      valuesFiles:
-        - deployment/vps-maintenance/cluster/manifests/helm/ingress/values.yaml
-        - deployment/ingress-values.yaml
-      setValues:
-        nameOverride: dev-python-docs-ingress
-
+      - name: dev-python-docs-ingress
+        chartPath: deployment/helm/ingress-helm-chart
+        namespace: development
+        createNamespace: true
+        valuesFiles:
+          - deployment/helm/ingress-helm-chart/values.yaml
+          - deployment/ingress-values.yaml
+        setValues:
+          nameOverride: dev-python-docs-ingress
 
 ---
 # staging a production version of the Python docs
@@ -58,11 +57,11 @@ metadata:
   name: staging-python-docs
 build:
   artifacts:
-  - image: hololinked_docs_staging
-    context: .
-    docker:
-      dockerfile: Dockerfile
-      target: prod
+    - image: hololinked_docs_staging
+      context: .
+      docker:
+        dockerfile: Dockerfile
+        target: prod
   tagPolicy:
     envTemplate:
       template: staging
@@ -71,34 +70,33 @@ build:
 deploy:
   helm:
     releases:
-    - name: staging-python-docs
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/apps
-      namespace: staging
-      createNamespace: true
-      setValues:
-        nameOverride: staging-python-docs
-        image.ports.containerPort: 80
-      setValueTemplates:
-        image:
-          repository: "{{ .IMAGE_REPO_hololinked_docs_staging }}"
-          tag: "{{ .IMAGE_TAG_hololinked_docs_staging }}@{{ .IMAGE_DIGEST_hololinked_docs_staging }}"
+      - name: staging-python-docs
+        chartPath: deployment/helm/container-helm-chart
+        namespace: staging
+        createNamespace: true
+        setValues:
+          nameOverride: staging-python-docs
+          image.ports.containerPort: 80
+        setValueTemplates:
+          image:
+            repository: "{{ .IMAGE_REPO_hololinked_docs_staging }}"
+            tag: "{{ .IMAGE_TAG_hololinked_docs_staging }}@{{ .IMAGE_DIGEST_hololinked_docs_staging }}"
 
-    - name: staging-python-docs-ingress
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
-      namespace: staging
-      createNamespace: true
-      valuesFiles:
-        - deployment/vps-maintenance/cluster/manifests/helm/ingress/values.yaml
-        - deployment/ingress-values.yaml
-      setValues:
-        nameOverride: staging-python-docs-ingress
-        rules[0].host: docs.staging.hololinked.dev
-        rules[0].http.paths[0].backend.service.name: staging-python-docs
-        tls[0].hosts[0]: docs.staging.hololinked.dev
-        tls[0].secretName: docs-staging-hololinked-dev-tls
-        annotations:
-          cert-manager\.io/cluster-issuer: letsencrypt-prod
-        
+      - name: staging-python-docs-ingress
+        chartPath: deployment/helm/ingress-helm-chart
+        namespace: staging
+        createNamespace: true
+        valuesFiles:
+          - deployment/helm/ingress-helm-chart/values.yaml
+          - deployment/ingress-values.yaml
+        setValues:
+          nameOverride: staging-python-docs-ingress
+          rules[0].host: docs.staging.hololinked.dev
+          rules[0].http.paths[0].backend.service.name: staging-python-docs
+          tls[0].hosts[0]: docs.staging.hololinked.dev
+          tls[0].secretName: docs-staging-hololinked-dev-tls
+          annotations:
+            cert-manager\.io/cluster-issuer: letsencrypt-prod
 
 ---
 # production version of the Python docs
@@ -108,11 +106,11 @@ metadata:
   name: hololinked-python-docs
 build:
   artifacts:
-  - image: hololinked_docs
-    context: .
-    docker:
-      dockerfile: Dockerfile
-      target: prod
+    - image: hololinked_docs
+      context: .
+      docker:
+        dockerfile: Dockerfile
+        target: prod
   tagPolicy:
     envTemplate:
       template: prod
@@ -121,34 +119,30 @@ build:
 deploy:
   helm:
     releases:
-    - name: hololinked-python-docs
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/apps
-      namespace: docs
-      createNamespace: true
-      setValues:
-        nameOverride: hololinked-python-docs
-        image.ports.containerPort: 80
-      setValueTemplates:
-        image:
-          repository: "{{ .IMAGE_REPO_hololinked_docs }}"
-          tag: "{{ .IMAGE_TAG_hololinked_docs }}@{{ .IMAGE_DIGEST_hololinked_docs }}"
-    
-    - name: hololinked-python-docs-ingress
-      chartPath: deployment/vps-maintenance/cluster/manifests/helm/ingress
-      namespace: docs
-      createNamespace: true
-      valuesFiles:
-        - deployment/vps-maintenance/cluster/manifests/helm/ingress/values.yaml
-        - deployment/ingress-values.yaml
-      setValues:
-        nameOverride: hololinked-python-docs-ingress
-        rules[0].host: docs.hololinked.dev
-        rules[0].http.paths[0].backend.service.name: hololinked-python-docs
-        tls[0].hosts[0]: docs.hololinked.dev
-        tls[0].secretName: docs-hololinked-dev-tls
-        annotations:
-          cert-manager\.io/cluster-issuer: letsencrypt-prod
+      - name: hololinked-python-docs
+        chartPath: deployment/helm/container-helm-chart
+        namespace: docs
+        createNamespace: true
+        setValues:
+          nameOverride: hololinked-python-docs
+          image.ports.containerPort: 80
+        setValueTemplates:
+          image:
+            repository: "{{ .IMAGE_REPO_hololinked_docs }}"
+            tag: "{{ .IMAGE_TAG_hololinked_docs }}@{{ .IMAGE_DIGEST_hololinked_docs }}"
 
-
-
-    
+      - name: hololinked-python-docs-ingress
+        chartPath: deployment/helm/ingress-helm-chart
+        namespace: docs
+        createNamespace: true
+        valuesFiles:
+          - deployment/helm/ingress-helm-chart/values.yaml
+          - deployment/ingress-values.yaml
+        setValues:
+          nameOverride: hololinked-python-docs-ingress
+          rules[0].host: docs.hololinked.dev
+          rules[0].http.paths[0].backend.service.name: hololinked-python-docs
+          tls[0].hosts[0]: docs.hololinked.dev
+          tls[0].secretName: docs-hololinked-dev-tls
+          annotations:
+            cert-manager\.io/cluster-issuer: letsencrypt-prod
