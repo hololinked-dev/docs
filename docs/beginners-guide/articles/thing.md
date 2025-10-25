@@ -51,11 +51,11 @@ Endpoint | Description
 ### Meta
 
 To be updated with use cases of modifying Thing metaclass, in the meanwhile there is decent documentation in
-the developer notes: [Thing MetaClass](../../../design/metaclasses.md#metaclasses).
+the developer notes: [Thing MetaClass](../../design/metaclasses.md#metaclasses).
 
 ### Post Init
 
-To be updated, please refer to the developer notes in the meantime: [Thing Post Init](../../../design/metaclasses.md#__post_init__-method).
+To be updated, please refer to the developer notes in the meantime: [Thing Post Init](../../design/metaclasses.md#__post_init__-method).
 
 <!-- `Thing` classes define a `__post_init__` method which is invoked after loading properties from a database.
 All initialization logic which depend on database loaded properties can placed in this method:
