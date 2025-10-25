@@ -1,3 +1,9 @@
-[submodule "deployment/vps-maintenance"]
-	path = deployment/vps-maintenance
-	url = https://github.com/hololinked-dev/vps-maintenance.git
+[submodule "deployment/helm/cert-issuer-helm-chart"]
+	path = deployment/helm/cert-issuer-helm-chart
+	url = https://gitlab.com/hololinked/kubernetes/helm-charts/cert-issuer-helm-chart.git
+[submodule "deployment/helm/container-helm-chart"]
+	path = deployment/helm/container-helm-chart
+	url = https://gitlab.com/hololinked/kubernetes/helm-charts/container-helm-chart.git
+[submodule "deployment/helm/ingress-helm-chart"]
+	path = deployment/helm/ingress-helm-chart
+	url = https://gitlab.com/hololinked/kubernetes/helm-charts/ingress-helm-chart.git
