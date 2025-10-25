@@ -21,7 +21,7 @@ nav:
       - Using Actions: beginners-guide/articles/actions.md
       - Using Events: beginners-guide/articles/events.md
       - Using State Machine: beginners-guide/articles/state-machine.md
-      - Configuring Thing Class: beginners-guide/articles/thing/index.md
+      - Configuring Thing Class: beginners-guide/articles/thing.md
       - Serialization: beginners-guide/articles/serialization.md
       - Security: beginners-guide/articles/security.md
   - API Reference:
