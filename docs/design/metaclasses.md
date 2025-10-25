@@ -12,15 +12,15 @@ Subclassing metaclasses can implement:
 - mandate existence of certain properties, actions, or events according to the hardware type; also constrain the type of the properties, payload schema of actions, or events
 - default code to run when a `Thing` class is created
 
-
 ## Enforce Existence of Properties, Actions, and Events according to Hardware Type
 
-
-For example, lets say you have 3 different cameras, all of which need to have an image property of a specific custom implemented `Image` type, 
+For example, lets say you have 3 different cameras, all of which need to have an image property of a specific custom implemented `Image` type and
 an image capture event. In the metaclass, one can assert this:
 
 ```python
-class CameraMeta(type):
+from hololinked.core.meta import ThingMeta
+
+class CameraMeta(ThingMeta):
 
     def __call__(mcls, *args, **kwargs):
         cls = super().__call__(*args, **kwargs)
@@ -29,9 +29,9 @@ class CameraMeta(type):
         return cls
 
     def validate_interactions(mcls, cls):
-        if 'image' not in cls.properties and not isinstance(cls.image, Image):
+        if 'image' not in cls.properties or not isinstance(cls.image, Image):
             raise TypeError("Camera must have an 'image' property of type 'Image'")
-        if 'image_captured_event' not in cls.events and \
+        if 'image_captured_event' not in cls.events or \
             not isinstance(cls.image_captured_event, Event):
             raise TypeError("Camera must have an 'image_captured_event' of type 'Event'")
 
@@ -41,22 +41,22 @@ class CameraMeta(type):
 
 class Image(Property):
 
-    def __init__(self, 
-                compression_ratio: int = 1, 
-                transpose: bool = False, 
-                flip_horizontal: bool = False, 
+    def __init__(self,
+                compression_ratio: int = 1,
+                transpose: bool = False,
+                flip_horizontal: bool = False,
                 flip_vertical: bool = False,
                 observable: bool = False,
             ) -> None:
         ...
 
 class RPiCamera(Thing, metaclass=CameraMeta):
-    # raises TypeError
-    image = String(observable=True, doc="Captured image from the camera")
-    
-class BaslerCamera(Thing, metaclass=CameraMeta):
     # OK
     image = Image(observable=True, doc="Captured image from the camera")
+
+class BaslerCamera(Thing, metaclass=CameraMeta):
+    # raises TypeError
+    image = String(observable=True, doc="Captured image from the camera")
 
 class IDSCamera(Thing, metaclass=CameraMeta):
     # OK
@@ -77,7 +77,7 @@ class Camera(Thing):
 
     def __post_init__(self):
         """
-        This method is called after properties are initialized 
+        This method is called after properties are initialized
         from a database or configuration file.
         """
         self.setup_image_processing()
@@ -90,7 +90,7 @@ flowchart TD
     A[Instance is created, <br/> __init__ is called] --> B[Device is connected by the user]
     B --> C[Configuration properties are loaded from file or database]
     C --> D[Properties are applied onto the connected device]
-    D --> E[__post_init__ is called to run additional setup code]
+    D --> E[__post_init__ is called to run additional setup code <br/>which are dependent on the loaded properties]
 ```
 
-Of course, the `__post_init__` method can be used for any other purpose.
+Of course, the `__post_init__` method can be used for any other purpose. The `__post_init__` is auto-invoked by the [`ThingMeta`](../api-reference/thing/thing-meta.md).

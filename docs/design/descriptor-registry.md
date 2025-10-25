@@ -1,12 +1,11 @@
 # Descriptor Registries for Interaction Affordances
 
-Descriptor Registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection with the `Thing`'s capabilities. 
+Descriptor Registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection with the `Thing`'s capabilities.
 The purpose can be summarized as:
 
 - add and remove affordances in runtime
-- find by name or check their existence
-- iterate and introspect affordances
-- implement group operations on affordances (`readMultipleProperties`, `writeMultipleProperties`, `readAllProperties`, `writeAllProperties`)
+- find by name, check existence, iterate and introspect affordances
+- implement group operations on affordances (`readmultipleproperties`, `writemultipleproperties`, `readallproperties`, `writeallproperties`)
 
 [Current Implementations](../UML/PDF/DescriptorRegistry.pdf) are:
 
@@ -18,7 +17,7 @@ The purpose can be summarized as:
 
 Lets say a serial device supports an optional list of supported commands. The presence or absence of this property could indicate whether such a list is available or not.
 
-```python
+```python linenums="1"
 class SerialUtility(Thing):
 
     @action()
@@ -40,32 +39,33 @@ class SerialUtility(Thing):
                 'instructions',
                 List(default=None, item_type=str, doc="List of supported commands")
             )
+            self.instructions = []
         self.properties['instructions'].append(command)
         # or self.instructions.append(command)
 ```
 
-Of course, one could use an empty list instead of having a dynamic property. 
-This is a contrived example, but the affordance registry can be used to check for the existence of a property or action.
+Of course, one could use an empty list instead of having a dynamic property.
+This is a contrived example.
 
 ### Iterate and Introspect Affordances
 
 Lets say you have overloaded a getter of a composite property that returns a group of properties' values:
 
-```python
+```python linenums="1"
 class Spectrometer(Thing):
 
-    settings = Property(
+    measurement_settings = Property(
         default=None,
         readonly=True,
         model=..., # please use a decent JSON schema or pydantic model here
         doc="Settings of the spectrometer, including integration time, trigger mode etc."
     )
-    
-    @settings.getter
+
+    @measurement_settings.getter
     def read_settings(self, **kwargs) -> None:
         setting_props = dict()
         for name in [
-            "integration_time", "trigger_mode", "pixel_count", 
+            "integration_time", "trigger_mode", "pixel_count",
             "nonlinearity_correction", "background_subtraction"
         ]:
             if name in self.properties:
@@ -76,18 +76,19 @@ class Spectrometer(Thing):
         return setting_props
 ```
 
-One could also alter the metadata of interaction affordances as an administrative task. For example, one could make an action inaccessible or make a property read-only 
-even if the setter is defined. 
+One could also alter the metadata of interaction affordances as an administrative task. For example, one could make an action inaccessible or make a property read-only
+even if the setter is defined.
 
-```python
+```python linenums="1"
 class Spectrometer(Thing):
 
     @action()
-    def freeze_important_settings(self) -> None:
-        """Calibrate the spectrometer at a specific wavelength."""
+    def freeze_measurement_settings(self) -> None:
+        """freeze important measurement settings to prevent accidental changes"""
         self.properties['background_correction'].readonly = True
         self.properties['nonlinearity_correction'].readonly = True
         self.properties['trigger_mode'].readonly = True
+        self.properties['integration_time'].readonly = True
         self._inaccessible_actions["send_raw_command"] = self.actions.pop("send_raw_command")
         # remove from descriptor registry to make actions inaccessible
 
@@ -96,22 +97,25 @@ class Spectrometer(Thing):
     # can be set to readonly even if not originally defined as such
 
     trigger_mode = Selector(objects=[0, 1, 2, 3, 4], default=0, observable=True,
-                        doc="""0 = normal/free running, 1 = Software trigger, 
-                        2 = Ext. Trigger Level, 3 = Ext. Trigger Synchro/ Shutter mode, 
+                        doc="""0 = normal/free running, 1 = Software trigger,
+                        2 = Ext. Trigger Level, 3 = Ext. Trigger Synchro/ Shutter mode,
                         4 = Ext. Trigger Edge""") # type: int
-    
-    @trigger_mode.setter 
+
+    @trigger_mode.setter
     def apply_trigger_mode(self, value : int):
         self.device.trigger_mode(value)
-        
-    @trigger_mode.getter 
+
+    @trigger_mode.getter
     def get_trigger_mode(self):
-        return self.device.trigger_mode()
         # can be set to readonly even if the setter is defined
+        return self.device.trigger_mode()
 
     @action()
-    def unfreeze_important_settings(self) -> None:
-        """Unfreeze the important settings."""
+    def unfreeze_measurement_settings(self) -> None:
+        """
+        unfreeze measurement settings to allow changes
+        again after measurement is complete
+        """
         ...
 ```
 
@@ -121,15 +125,15 @@ Of course, such administrative tasks needs to be wrapped in a security definitio
 
 One could iterate through all the available interactions to perform group operations. WoT operations on multiple properties are implemented as follows:
 
-=== "`readMultipleProperties`/`readAllProperties`"
+=== "`readmultipleProperties`/`readallproperties`"
 
-    ```python
+    ```python linenums="1"
     class PropertyRegistry(DescriptorRegistry):
-        
+
         def get(self, **kwargs: typing.Dict[str, typing.Any]) -> typing.Dict[str, typing.Any]:
             """
             read properties from the object, implements WoT operations `readAllProperties` and `readMultipleProperties`
-            
+
             Parameters
             ----------
             **kwargs: typing.Dict[str, typing.Any]
@@ -151,7 +155,7 @@ One could iterate through all the available interactions to perform group operat
                 # read multiple properties whose names are specified
                 names = kwargs.get('names')
                 if not isinstance(names, (list, tuple, str)):
-                    raise TypeError("Specify properties to be fetched as a list, tuple or comma separated names. " + 
+                    raise TypeError("Specify properties to be fetched as a list, tuple or comma separated names. " +
                                     f"Given type {type(names)}")
                 if isinstance(names, str):
                     names = names.split(',')
@@ -168,31 +172,31 @@ One could iterate through all the available interactions to perform group operat
                 prop = self.descriptors[requested_prop]
                 if self.owner_inst is None and not prop.class_member:
                     continue
-                data[rename] = prop.__get__(self.owner_inst, self.owner_cls)                   
-            return data 
+                data[rename] = prop.__get__(self.owner_inst, self.owner_cls)
+            return data
     ```
 
-=== "`writeMultipleProperties`/`writeAllProperties`"
+=== "`writemultipleProperties`/`writeallproperties`"
 
-    ```python
+    ```python linenums="1"
     class PropertyRegistry(DescriptorRegistry):
-        
+
         def set(self, **values : typing.Dict[str, typing.Any]) -> None:
-            """ 
+            """
             set properties whose name is specified by keys of a dictionary; implements WoT operations `writeMultipleProperties`
-            or `writeAllProperties`. 
-            
+            or `writeAllProperties`.
+
             Parameters
             ----------
             values: typing.Dict[str, typing.Any]
                 dictionary of property names and its new values
-            
+
             Raises
             ------
             AttributeError
                 if property does not exist or is not remote accessible
             RuntimeError
-                if some properties could not be set due to errors, 
+                if some properties could not be set due to errors,
                 check exception notes or server logs for more information
             """
             errors = ''
@@ -209,12 +213,8 @@ One could iterate through all the available interactions to perform group operat
                 except Exception as ex:
                     errors += f'{name}: {str(ex)}\n'
             if errors:
-                ex = RuntimeError("Some properties could not be set due to errors. " + 
+                ex = RuntimeError("Some properties could not be set due to errors. " +
                                 "Check exception notes or server logs for more information.")
                 ex.__notes__ = errors
                 raise ex from None
     ```
-
-
-
-

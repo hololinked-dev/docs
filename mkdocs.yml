@@ -21,10 +21,11 @@ nav:
       - Using Actions: beginners-guide/articles/actions.md
       - Using Events: beginners-guide/articles/events.md
       - Using State Machine: beginners-guide/articles/state-machine.md
-      # - Configuring Thing Class: beginners-guide/articles/thing/index.md
+      - Configuring Thing Class: beginners-guide/articles/thing/index.md
       - Serialization: beginners-guide/articles/serialization.md
       - Security: beginners-guide/articles/security.md
   - API Reference:
+      - Namespaces: api-reference/namespaces.md
       - Thing:
           - Thing: api-reference/thing/index.md
           - Log Handlers: api-reference/thing/logger.md
@@ -106,7 +107,7 @@ nav:
   #     - ADC in Raspberry Pi: examples/adc.md
   # - Blog:
   #   - blog/index.md
-  - Design Considerations:
+  - Developer Notes/Design Considerations:
       - Descriptors: design/descriptors.md
       - Property Descriptors: design/property-descriptors.md
       - Action Descriptors: design/action-descriptors.md

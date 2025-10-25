@@ -1,12 +1,12 @@
 # Event Descriptors
 
-The main purpose of event descriptors is to return a pub-sub object that can be used to publish events. This ensures event delivery that is controlled by the server side. The event payload is defined by a schema, 
+The main purpose of event descriptors is to return a pub-sub object that can be used to publish events. This ensures event delivery that is controlled by the server side. The event payload is defined by a schema,
 which can be either a JSON schema or a Pydantic model.
 
-```python
+```python linenums="1"
 class Energy(BaseModel):
-    """A history of energy data points along with the timsestamp of measurement""" 
-    timestamp: float 
+    """A history of energy data points along with the timsestamp of measurement"""
+    timestamp: float
     energy: float
 
 class Statistics(BaseModel):
@@ -19,14 +19,14 @@ class Statistics(BaseModel):
 class GentecMaestroEnergyMeter(Maestro):
     """
     Simple example to implement acquisition loops and events
-    to push the captured data. Customize it for your application or 
+    to push the captured data. Customize it for your application or
     implement your own.
     """
 
     data_point_event = Event(data_schema=Energy.model_json_schema(),
                             doc='Event raised when a new data point is available',
                             label='Data Point Event')
-    
+
     statistics_event = Event(data_schema=Statistics.model_json_schema(),
                             doc='Event raised when a new statistics is available',
                             label='Statistics Event')
@@ -48,5 +48,3 @@ class GentecMaestroEnergyMeter(Maestro):
             # which has been done in the dataclass
             time.sleep(self.measurement_gap)
 ```
-
-

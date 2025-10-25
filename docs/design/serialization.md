@@ -7,18 +7,10 @@ Serialization customization is available on a per-interaction-affordance basis. 
 - to allow non-JSON serialization only for the specific interaction affordances that require it
 - register and use arbitrary serialization protocols
 
-Every serializer must define a 
+Every serializer must define a
 
 - `dumps`
 - `loads`
 - `content_type` property
 
 The `content_type` is set as the `contentType` field in the Thing Description.
-
-Even the JSON serializer is a faster implementation called `msgspec`.
-
-
-
-
-
-
