@@ -7,7 +7,7 @@ Only methods decorated with `action()` are exposed to clients.
 ```py title="Actions" linenums="1" hl_lines="5 10 15 16 21 25"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:195:198"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:448:462"
---8<-- "docs/beginners-guide/code/thing_example_2.py:683:685"
+--8<-- "docs/beginners-guide/code/thing_example_2.py:682:685"
 --8<-- "docs/beginners-guide/code/thing_example_2.py:563:567"
 ```
 
@@ -403,7 +403,8 @@ client side, there is no difference between invoking a normal action and an acti
 
 ## Threaded & Async Actions
 
-Actions can be made asynchronous or threaded by setting the `synchronous` flag to `False`. For methods that are **not** `async`:
+Actions can be made asynchronous or threaded by setting the `synchronous` flag to `False`. For methods that are **not** `async`,
+they will run in a separate thread:
 
 ```py title="Threaded Actions" linenums="3"
 class ServoMotor(Thing):
@@ -426,6 +427,7 @@ The return value is fetched and returned to the client. One could also start lon
 class DCPowerSupply(Thing):
     """A DC Power Supply from 0-30V"""
 
+    # The suitability of this example in a realistic use case is untested
     @action(threaded=True)
     def monitor_over_voltage(self, period: float = 5):
         """background voltage monitor loop"""
@@ -440,16 +442,15 @@ class DCPowerSupply(Thing):
                     )
                 )
             time.sleep(period)
-    # The suitability of this example in a realistic use case is untested
 ```
 
-For `async` actions:
+For `async` actions, they are scheduled in the running event loop as a task:
 
 ```py title="Async Actions" linenums="3"
 class DCPowerSupply(Thing):
 
-    @action(create_task=True)
-    # @action(synchronous=False) # exactly the same effect for async methods
+    @action(synchronous=False)
+    # @action(create_task=True) # exactly the same effect for async methods
     async def monitor_over_voltage(self, period: float = 5):
         """background monitor loop"""
         while True:

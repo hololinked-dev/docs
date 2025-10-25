@@ -1,11 +1,11 @@
 [API Reference](../../api-reference/state-machine/state-machine.md)
 
 Often, certain operations are not allowed during certain conditions, for example,
-one cannot turn ON a motor twice in a row, or a measurement device cannot modify a setting change if a measurement is ongoing.
+one cannot turn ON a motor twice in a row, or a measurement device cannot modify a setting if a measurement is ongoing.
 
 To implement these contraints, a state machine may be used to prevent property writes or
-action invokations in certain states (events are not supported). A `StateMachine` is a class-level
-attribute which accepts a finite list of states and the allowed properties and actions
+action invokations when a `Thing` is said to be in a certain state (events are not supported).
+A `StateMachine` is a class-level attribute which accepts a finite list of states and the allowed properties and actions
 in these states:
 
 ```py title="Definition" linenums="1"
@@ -59,8 +59,6 @@ def state_change_cb(event):
 
 client.observe_property(name="state", callbacks=state_change_cb)
 ```
-
-> One can supply multiple callbacks which may called in series or concurrently - see [Events](events.md#subscription).
 
 ## State Change Callbacks
 

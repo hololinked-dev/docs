@@ -10,6 +10,8 @@ Events are pushed to the client through a publish-subscribe mechanism through al
 
 ## Subscription
 
+[API Reference](../../api-reference/clients/object-proxy.md#hololinked.client.proxy.ObjectProxy.subscribe_event)
+
 One can subscribe to the event using the attribute name:
 
 === "threaded"
@@ -48,7 +50,9 @@ One can subscribe to the event using the attribute name:
     )
     ```
 
-The callback function(s) must accept a single argument which is the event data payload, an instance of `SSE` object. The payload can be accessed as using the `data` attribute:
+---
+
+The callback function(s) must accept a single argument - an instance of `SSE` object. The payload can be accessed as using the `data` attribute:
 
 ```py title="Event Data" linenums="1" hl_lines="9"
 def event_cb(event):
@@ -57,7 +61,9 @@ def event_cb(event):
 
 > The `SSE` object also contains metadata like `id`, `event` name and `retry` interval, but these are currently not well supported. Improvements in the future are expected.
 
-Each subscription creates a new event stream. One can also supply multiple callbacks which may called in series or concurrently:
+---
+
+Each subscription creates a new event stream. One can also supply multiple callbacks which may be called in series or concurrently:
 
 === "sequential"
 
@@ -130,7 +136,7 @@ All subscriptions to the same event are removed.
 
 ## Payload Schema
 
-Schema may be supplied for the validation of the event data on the client using pydantic or JSON schema:
+Schema for the payload may be supplied using pydantic or JSON schema:
 
 ```py title="Payload Schema" linenums="1" hl_lines="13"
 class GentecMaestroEnergyMeter(Thing):
@@ -150,8 +156,6 @@ class GentecMaestroEnergyMeter(Thing):
         schema=data_point_event_schema,
     )
 ```
-
-There is no separate validation on the server side.
 
 > There is no validation on the client side currently implemented in `hololinked.client`. This will be added in future releases.
 

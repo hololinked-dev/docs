@@ -9,7 +9,7 @@ and large nested objects.
 Based on application requirements, it is possible to change the serialization format on an individual basis by using the `Serializers` singleton.
 Set the desired serialization on the specific property, action or event on the `Thing` subclass:
 
-```python
+```py linenums="1"
 from hololinked.serializers import Serializers
 
 # Using a pickle serializer for a list property
@@ -31,9 +31,9 @@ OceanOpticsSpectrometer(id="spectro1").run_with_http_server()
 
 Other properties, actions or events will still use the default JSON serialization.
 
-To overload the content type per thing instance:
+To overload the content type for an object per thing instance:
 
-```python
+```py linenums="1"
 from hololinked.serializers import Serializers
 
 spectrometer = OceanOpticsSpectrometer(id='spectro1')
@@ -56,7 +56,7 @@ spectrometer.run(...)
 
 To overload the default serializer for a `Thing` **instance**:
 
-```python
+```py linenums="1"
 from hololinked.serializers import Serializers
 
 spectrometer = OceanOpticsSpectrometer(id='spectro1')
@@ -77,7 +77,8 @@ Serializers.register_for_object_per_thing_instance(
 spectrometer.run(...)
 ```
 
-per-instance overloads have higher priority than the per-thing-object registrations.
+per-instance overloads have higher priority than the per-thing-object registrations. The singleton behaviour of `Serializers`
+ensures that all registrations are available across all protocol servers within the same process.
 
 ### Built-in Serializers
 
@@ -90,7 +91,7 @@ The following serializers are supported out of the box:
 
 ### Custom Serializers
 
-One can create custom serializers by subclassing the `BaseSerializer` class and implementing `dumps`, `loads`, and `content_type` methods.
+One can create custom serializers by subclassing the `BaseSerializer` and implementing `dumps`, `loads`, and `content_type` methods.
 Then, register the custom serializer for a specific property, action or event using the `Serializers` singleton as shown above.
 
 ```python

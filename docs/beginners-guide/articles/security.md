@@ -1,6 +1,6 @@
 # Authentication Schemes
 
-Security schemes restrict access to the Thing instance, and are currently available only for HTTP.
+Security schemes are currently available only for HTTP.
 
 ### Basic Security Scheme
 
@@ -27,11 +27,14 @@ HTTP Basic authentication with username and password is supported with bcrypt an
 
     ```py title="Usage" linenums="1"
     import requests
+    from base64 import b64encode
     from requests.auth import HTTPBasicAuth
 
     response = requests.get(
-        "http://localhost:9000/properties/some_property",
-        auth=HTTPBasicAuth("admin", "adminpass")
+        "http://localhost:9000/secure-thing/some-property",
+        headers=dict(
+            Authorization=f"Basic {b64encode(b'someuser:somepassword').decode('utf-8')}"
+        ),
     )
     print(response.json())
     ```
@@ -43,7 +46,7 @@ HTTP Basic authentication with username and password is supported with bcrypt an
     from hololinked.client.security import HTTPBasicSecurityScheme
 
     client = ClientFactory.http(
-        "http://localhost:9000/my-thing/resources/wot-td",
+        url="http://localhost:9000/my-thing/resources/wot-td",
         security_scheme=HTTPBasicSecurityScheme(
             username="admin",
             password="adminpass",

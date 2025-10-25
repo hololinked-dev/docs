@@ -20,7 +20,11 @@ thing = Thing(id="test-thing", logger=logger)
 thing.run_with_http_server(port=9000)
 ```
 
-<!-- #### Remote Access to Logger
+#### Remote Access to Logger
+
+To be updated after integration with opentelemetry & EFK stack. See [issues](https://github.com/hololinked-dev/hololinked/issues?q=is%3Aissue%20state%3Aopen%20milestone%3A%22logging%2C%20metrics%20and%20traces%22).
+
+<!--
 
 To stream the logs remotely, specify `remote_access_handler=True` while instantiating the `Thing`.
 
@@ -58,8 +62,10 @@ class MyThing(Thing):
         self.logger.info("Thing initialized with properties from DB")
 ```
 
-### Schema Validator
-
 ### Meta
 
+To be updated with use cases of modifying Thing metaclass.
+
 ### Composition
+
+To be updated with using sub-things within a Thing.
