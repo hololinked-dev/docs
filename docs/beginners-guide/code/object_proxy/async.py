@@ -14,14 +14,17 @@ spectrometer.disconnect()
 # async calls example
 import asyncio
 
-spectrometer = ObjectProxy(
-    server_id="spectrometer", thing_id="spectrometer", access_point="IPC"
+spectrometer1 = ObjectProxy.zmq(
+    server_id="spectrometer", thing_id="spectrometer1", access_point="IPC"
+)
+spectrometer2 = ObjectProxy.http(
+    url="http://localhost:8000/spectrometer2/resources/wot-td"
 )
 
 
-async def setup_spectrometer():
+async def setup_spectrometer(spectrometer: ObjectProxy, serial_number: str):
     # write a property
-    await spectrometer.async_write_property("serial_number", "USB2+H15897")
+    await spectrometer.async_write_property("serial_number", serial_number)
     # invoke action
     await spectrometer.async_invoke_action(
         "connect", trigger_mode=2, integration_time=1000
@@ -33,7 +36,12 @@ async def setup_spectrometer():
     await spectrometer.async_invoke_action("start_acquisition")
 
 
-asyncio.run(setup_spectrometer())
+asyncio.run(
+    asyncio.gather(
+        setup_spectrometer(spectrometer1, "USB2+H15897"),
+        setup_spectrometer(spectrometer2, "USB2+H15898"),
+    )
+)
 
 
 # ----------------------------

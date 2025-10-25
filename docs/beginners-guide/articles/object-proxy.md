@@ -9,54 +9,70 @@ a property, action or event can be abstracted as operations like:
 - Invoke Action
 - Subscribe/Unsubscribe Event
 
+Further, one would require a [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td) to construct the client.
+The `Thing Description` contains the metadata of the `Thing` like available properties, actions and events, their data types,
+forms (protocols and endpoints) etc. which can be used to create the `ObjectProxy`. In `hololinked`, the `Thing Description` is
+automatically generated and served by the server protocols, and there is lesser requirement for manual intervention.
+
 To instantiate an `ObjectProxy`, use the `ClientFactory`:
 
 === "HTTP"
 
-    ```py title="HTTP Client" linenums="1" hl_lines="7-10"
+    ```py title="HTTP Client" linenums="1"
     from hololinked.client import ClientFactory
 
     thing = ClientFactory.http(url="http://localhost:8000/my-thing/resources/wot-td")
     ```
-
-    One needs to append `/resources/wot-td` to the URL to load a [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td)
-    of the `Thing`. The `Thing Description` contains the metadata of the `Thing` like available properties, actions and events,
-    their data types, forms (protocols and endpoints) etc. which can be used to create the `ObjectProxy`.
+    One needs to append `/resources/wot-td` to the URL to load a `Thing Description`, the reason being that if one
+    stores pregenerated Thing Descriptions in a different location, one can still load them.
 
 === "ZMQ"
 
-    ```py title="ZMQ Client" linenums="1" hl_lines="7-10"
+    For `TCP`:
+
+    ```py title="ZMQ Client TCP" linenums="1"
     from hololinked.client import ClientFactory
 
-    thing = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="tcp://localhost:5555")
+    thing = ClientFactory.zmq(
+        server_id="test-server",
+        thing_id="my-thing",
+        access_point="tcp://localhost:5555"
+    )
     ```
 
     For `IPC`:
 
-    ```py title="ZMQ Client IPC" linenums="1" hl_lines="7-10"
-    thing = ClientFactory.zmq(server_id="test-server", thing_id="my-thing", access_point="IPC")
+    ```py title="ZMQ Client IPC" linenums="1"
+    thing = ClientFactory.zmq(
+        server_id="test-server",
+        thing_id="my-thing",
+        access_point="IPC"
+    )
     ```
 
     When using ZMQ-TCP, on the server side one may specify the address as `access_point="tcp://*:5555"`.
-    On the client side, however, one must use the explicit address, like `access_point="tcp://my-pc:5555"` or
+    On the client side, however, one must use the explicit address, like `access_point="tcp://my-raspberry-pi:5555"` or
     `access_point="tcp://localhost:5555"`.
 
-    The [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td) is fetched automatically
-    from the server for ZMQ transport.
+    The `Thing Description` is fetched automatically from the server for ZMQ transport.
 
 === "MQTT"
 
-    ```py title="MQTT Consumer" linenums="1" hl_lines="7-10"
+    ```py title="MQTT Consumer" linenums="1"
     from hololinked.client import ClientFactory
 
-    thing = ClientFactory.mqtt(url="mqtt://localhost:1883", thing_id="my-thing",
-                            username=os.getenv("USERNAME"), password=os.getenv("PASSWORD"))
+    thing = ClientFactory.mqtt(
+        hostname="mqtt://my-mqtt-broker.com",
+        thing_id="my-thing",
+        username=os.getenv("USERNAME"),
+        password=os.getenv("PASSWORD")
+    )
     ```
 
-    MQTT supports only pub-sub or event based interactions (currently). Therefore, only event subscriptions
+    MQTT usually supports only pub-sub or event based interactions. Therefore, only event subscriptions
     are supported on the `ObjectProxy` and properties and actions raise `AttributeError`.
-    On subscription, the broker should publish a [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td)
-    to the topic `<thing_id>/thing-description` so that the client can find other available events.
+    On subscription, the broker should publish a `Thing Description` to the topic `<thing_id>/thing-description`
+    so that the client can find other available events.
 
 !!! Note
 
@@ -134,7 +150,7 @@ All operations on the `ObjectProxy` can also be invoked in an asynchronous manne
 Simply prefix `async_` to the method name, like `async_read_property`, `async_write_property`, `async_invoke_action` etc.:
 
 ```py title="asyncio" linenums="1"
---8<-- "docs/beginners-guide/code/object_proxy/async.py:15:36"
+--8<-- "docs/beginners-guide/code/object_proxy/async.py:15:44"
 ```
 
 There is no support for dot operator based access for asyncio. One may also note that `async` operations  
@@ -163,7 +179,7 @@ def update_plot(event: SSE):
 spectrometer.subscribe_event("intensity_measurement_event", callbacks=update_plot)
 ```
 
-To unsubscribe from an event, use `unsubscribe_event` method:
+It is possible to also use bound methods as callbacks. To unsubscribe from an event, use `unsubscribe_event` method:
 
 ```py title="unsubscribe_event()" linenums="1"
 spectrometer.unsubscribe_event("intensity_measurement_event")
@@ -175,6 +191,25 @@ One can also supply multiple callbacks to be executed in series or concurrently,
 
 Observing properties work similar to event subcriptions, provided the property was specified as [`observable`](properties/arguments.md#observable) on the server side.
 
+To observe a property:
+
+```py title="observe_property()" linenums="1"
+def update_plot(event: SSE):
+    plt.clf()  # Clear the current figure
+    plt.plot(x_axis, event.data, color='red', linewidth=2)
+    plt.title(f'Live Spectrum - last updated {datetime.now().isoformat()}')
+
+spectrometer.observe_property("last_intensity", callback=update_plot)
+```
+
+To unobserve a property:
+
+```py title="unobserve_property()" linenums="1"
+spectrometer.unobserve_property("last_intensity")
+```
+
+Once again, to customize callback scheduling, see [events section](./events.md#subscription) for further details.
+
 ### customizations
 
 ##### foreign attributes on client
@@ -185,13 +220,13 @@ property must raise an `AttributeError` when not found on the server, instead of
 said property on the client object itself:
 
 ```py title="foreign attributes raise AttributeError" linenums="1"
---8<-- "docs/beginners-guide/code/object_proxy/customizations.py:3:5"
+--8<-- "docs/beginners-guide/code/object_proxy/customizations.py:3:7"
 ```
 
 One can overcome this by setting `allow_foreign_attributes` to `True`:
 
 ```py title="foreign attributes allowed" linenums="1"
---8<-- "docs/beginners-guide/code/object_proxy/customizations.py:7:12"
+--8<-- "docs/beginners-guide/code/object_proxy/customizations.py:9:16"
 ```
 
 ##### controlling timeouts for non-responsive server
@@ -204,7 +239,7 @@ For invoking any operation (say property read/write & action call), two types of
 When the `invokation_timeout` expires, the operation is guaranteed to be never scheduled. When the `execution_timeout` expires, the operation is scheduled but returns without the expected response. In both cases, a `TimeoutError` is raised on the client side specifying the timeout type. If an operation is scheduled but not completed within the `execution_timeout`, the server may still complete the operation and there can be unknown side effects or client does not know about it.
 
 ```py title="timeout specification" linenums="1"
---8<-- "docs/beginners-guide/code/object_proxy/customizations.py:20:27"
+--8<-- "docs/beginners-guide/code/object_proxy/customizations.py:29:36"
 ```
 
 !!! Note

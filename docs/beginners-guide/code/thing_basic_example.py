@@ -12,7 +12,7 @@ class OceanOpticsSpectrometer(Thing):
 
     serial_number = String(
         default=None, allow_None=True, doc="serial number of the spectrometer"
-    )  # type: str
+    )  # type: str, optional native type annotation
 
     def __init__(self, id, serial_number, autoconnect, **kwargs):
         super().__init__(id=id, serial_number=serial_number, **kwargs)

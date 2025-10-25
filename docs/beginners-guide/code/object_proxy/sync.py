@@ -19,7 +19,7 @@ spectrometer = ClientFactory.http(
 )
 # setting property by name
 spectrometer.write_property("serial_number", "USB2+H15897")
-# setting property by accessing property with dot operator leads to the same effect
+# setting property with dot operator leads to the same effect
 spectrometer.serial_number = "USB2+H15897"
 
 # similar API for reading property
@@ -63,7 +63,7 @@ print(
 )
 spectrometer.write_multiple_properties(
     integration_time=100, nonlinearity_correction=False
-)
+)  # pass properties as keyword arguments
 print(
     spectrometer.read_multiple_properties(
         names=[
@@ -118,24 +118,24 @@ reply_ids = []
 
 for client in [spectrometer1_proxy, spectrometer2_proxy]:
     reply_id = client.write_property(
-        "serial_number", "USB2+H15897", noblock=True
+        "background_correction", "AUTO", noblock=True
     )
     reply_ids.append(reply_id)
 
-# no return value expected
+# no return value expected, exceptions will be raised on read_reply and will not be None
 assert all(client.read_reply(reply_id) is None for reply_id in reply_ids)
 reply_ids = []
 
 for client in [spectrometer1_proxy, spectrometer2_proxy]:
     reply_id = client.invoke_action(
-        "connect",
+        "start_acquisition",
         trigger_mode=2,
         integration_time=1000,
         noblock=True,
     )
     reply_ids.append(reply_id)
 
-# no return value expected
+# no return value expected, exceptions will be raised on read_reply and will not be None
 assert all(client.read_reply(reply_id) is None for reply_id in reply_ids)
 
 reply_id3 = spectrometer1_proxy.invoke_action("disconnect")
