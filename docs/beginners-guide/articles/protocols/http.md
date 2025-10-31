@@ -29,13 +29,28 @@ Oscilloscope(
 
 The default routes are created as follows:
 
-| Resource          | Path                           | Description                  |
-| ----------------- | ------------------------------ | ---------------------------- |
-| Property          | `/<thing-id>/<foo-bar>`        | for property `foo_bar`       |
-| Action            | `/<thing-id>/<foo-bar>`        | for action `foo_bar`         |
-| Event             | `/<thing-id>/<foo-bar>`        | for event `foo_bar`          |
-| Thing Model       | `/<thing-id>/resources/wot-tm` | to get the Thing Model       |
-| Thing Description | `/<thing-id>/resources/wot-td` | to get the Thing Description |
+| Resource          | Path                           | Description                  | Handler                   | Default Method                                                 |
+| ----------------- | ------------------------------ | ---------------------------- | ------------------------- | -------------------------------------------------------------- |
+| Property          | `/<thing-id>/<foo-bar>`        | for property `foo_bar`       | `PropertyHandler`         | `GET` for read <br/> `PUT` for write <br/> `DELETE` for delete |
+| Action            | `/<thing-id>/<foo-bar>`        | for action `foo_bar`         | `ActionHandler`           | `POST`                                                         |
+| Event             | `/<thing-id>/<foo-bar>`        | for event `foo_bar`          | `EventHandler`            | `GET`                                                          |
+| Thing Model       | `/<thing-id>/resources/wot-tm` | to get the Thing Model       | - acts as property -      | `GET`                                                          |
+| Thing Description | `/<thing-id>/resources/wot-td` | to get the Thing Description | `ThingDescriptionHandler` | `GET`                                                          |
+
+All underscores are converted to hyphens in the URL paths for every resource, and the Thing ID is a global prefix.
+
+One can register custom routes and methods as follows:
+
+```python linenums="1" title="Custom Routes"
+from hololinked.server import HTTPServer
+
+server = HTTPServer(port=8090)
+
+server.add_property('/channels/data/A', Oscilloscope.channel_A)
+server.add_event('/channels/data/A/stream', Oscilloscope.channel_A_data_event)
+
+Oscilloscope(id='oscilloscope').run(servers=[server])
+```
 
 ## Allow CORS
 
@@ -62,9 +77,9 @@ If one wishes to remotely stop the HTTP server, one needs to exit both the serve
 ```python linenums="1" title="Remotely Stop HTTP Server"
 import requests
 
-response = requests.post('https://my-pc:8090/my-thing-id/exit')
+response = requests.post('https://my-pc:9090/my-thing-id/exit')
 assert response.status_code == 204
-response = requests.post('https://my-pc:8090/stop')
+response = requests.post('https://my-pc:9090/stop')
 assert response.status_code == 204
 ```
 
