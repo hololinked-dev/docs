@@ -9,7 +9,7 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI or run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
-If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP & ZMQ are supported.
+If you are a web developer or an industry professional looking for a web standards compatible (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP, MQTT & ZMQ are supported.
 
 This implementation is based on RPC, built ground-up in python keeping both the latest web technologies and python principles in mind.
 
@@ -18,6 +18,10 @@ This implementation is based on RPC, built ground-up in python keeping both the 
 <a href="https://github.com/hololinked-dev/docs">
     <img src="https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Docs" alt="Documentation Status">
 </a>
+<a href="https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml">
+    <img src="https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml/badge.svg" alt="CI Pipeline Status">
+</a>
+<img src="https://img.shields.io/badge/linter-ruff-blue?logo=ruff&logoColor=white" alt="Ruff Linter">
 <a href="https://pypi.org/project/hololinked/">
     <img src="https://img.shields.io/pypi/v/hololinked?label=pypi%20package" alt="PyPI">
 </a>
@@ -41,6 +45,9 @@ This implementation is based on RPC, built ground-up in python keeping both the 
 </a>
 <a href="mailto:info@hololinked.dev">
     <img src="https://img.shields.io/badge/email-brown" alt="email">
+</a>
+<a href="https://forms.gle/FB4XwkUDt1wV4GGPA">
+    <img src="https://img.shields.io/badge/feedback%20form-brown" alt="feedback">
 </a>
 
 </div>
