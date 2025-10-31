@@ -24,6 +24,8 @@ nav:
       - Using State Machine: beginners-guide/articles/state-machine.md
       - Configuring Thing Class: beginners-guide/articles/thing.md
       - Serialization: beginners-guide/articles/serialization.md
+      - Protocols:
+          - HTTP: beginners-guide/articles/protocols/http.md
       - Security: beginners-guide/articles/security.md
   - API Reference:
       - Namespaces: api-reference/namespaces.md
