@@ -13,14 +13,14 @@ ssl_context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS_SERVER)
 ssl_context.load_cert_chain(cert_file, keyfile=key_file)
 ssl_context.minimum_version = ssl.TLSVersion.TLSv1_3
 
-http_server = HTTPServer(port=8090, ssl_context=ssl_context)
+http_server = HTTPServer(port=9000, ssl_context=ssl_context)
 
 Oscilloscope(id='oscilloscope').run(servers=[http_server])
 # OR
 Oscilloscope(
     id='oscilloscope',
 ).run_with_http_server(
-    port=8090,
+    port=9000,
     ssl_context=ssl_context,
 )
 ```
@@ -44,7 +44,7 @@ One can register custom routes and methods as follows:
 ```python linenums="1" title="Custom Routes"
 from hololinked.server import HTTPServer
 
-server = HTTPServer(port=8090)
+server = HTTPServer(port=9000)
 
 server.add_property('/channels/data/A', Oscilloscope.channel_A)
 server.add_event('/channels/data/A/stream', Oscilloscope.channel_A_data_event)
@@ -57,13 +57,13 @@ Oscilloscope(id='oscilloscope').run(servers=[server])
 On the web browser, one may want to access the HTTP server from a different domain name, especially during development or in private networks. In such cases, one needs to enable CORS headers:
 
 ```python linenums="1" title="Enable CORS"
-http_server = HTTPServer(port=8090, config=dict(cors=True))
+http_server = HTTPServer(port=9000, config=dict(cors=True))
 Oscilloscope(id='oscilloscope').run(servers=[http_server])
 # OR
 Oscilloscope(
     id='oscilloscope',
 ).run_with_http_server(
-    port=8090,
+    port=9000,
     config=dict(cors=True),
 )
 ```

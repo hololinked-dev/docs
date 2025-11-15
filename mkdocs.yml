@@ -25,7 +25,9 @@ nav:
       - Configuring Thing Class: beginners-guide/articles/thing.md
       - Serialization: beginners-guide/articles/serialization.md
       - Protocols:
+          - General: beginners-guide/articles/protocols/general.md
           - HTTP: beginners-guide/articles/protocols/http.md
+          - MQTT: beginners-guide/articles/protocols/mqtt.md
       - Security: beginners-guide/articles/security.md
   - API Reference:
       - Namespaces: api-reference/namespaces.md
