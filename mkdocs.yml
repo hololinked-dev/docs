@@ -12,7 +12,7 @@ nav:
       - Contributing: introduction/contributing.md
       - License: introduction/license.md
       - Protocol Use Cases: introduction/use-cases.md
-      - Security Overview: introduction/scanning.md
+      - Security Overview: introduction/security-scanning.md
   - Handbook:
       - Expose Python Objects: beginners-guide/articles/servers.md
       - Using Clients: beginners-guide/articles/object-proxy.md
