@@ -66,3 +66,21 @@ In windows:
 ```bash
 python -m unittest
 ```
+
+## Pre-commit Hooks
+
+You can use pre-commit hooks to ensure code quality before committing changes, and be sure that certain pipeline checks will pass.
+
+```bash
+python -m pip install pre-commit
+pre-commit install
+pre-commit run --all-files
+```
+
+Currently ruff, bandit and gitleaks are configured to run as pre-commit hooks.
+
+To skip pre-commit hooks use:
+
+```bash
+git commit --no-verify -m "Your commit message"
+```
