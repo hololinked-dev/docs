@@ -1,0 +1,1 @@
+::: hololinked.config.Configuration

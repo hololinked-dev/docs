@@ -5,3 +5,4 @@
         members:
         - zmq
         - http
+        - mqtt

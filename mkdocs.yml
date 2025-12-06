@@ -89,9 +89,11 @@ nav:
       - Servers:
           - HTTP: api-reference/protocols/http/index.md
           - ZMQ: api-reference/protocols/zmq/index.md
+          - MQTT: api-reference/protocols/mqtt/index.md
           - Security:
               - Bcrypt: api-reference/protocols/security/bcrypt.md
               - Argon2: api-reference/protocols/security/argon2.md
+      - Configuration: api-reference/global-config.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
       - Thing Descriptions:
