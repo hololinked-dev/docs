@@ -20,6 +20,7 @@ RUN uv sync --no-install-project --no-default-groups
 
 # Copy documentation source files
 COPY . .
+
 # above resets the cache, always clone the latest version of the project
 RUN . .venv/bin/activate && git clone https://github.com/hololinked-dev/hololinked.git && \
     cd hololinked && pip install -e . && cd .. 
