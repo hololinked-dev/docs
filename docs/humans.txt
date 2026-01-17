@@ -1,0 +1,21 @@
+/* TEAM */
+	Developer & Maintainer: Vignesh Venkatasubramanian Vaidyanathan
+	Contact: info [at] hololinked.dev
+	LinkedIn: https://www.linkedin.com/in/v-vignesh-venkata-subramanian-7a53a3108/
+	From: Chennai, India
+
+/* SITE */
+    Last update: 2025/12/30
+	Language: English
+	Doctype: HTML5
+	IDE: VS Code
+    
+/* THANKS */
+    Thanks to all our contributors and supporters.
+
+	Developer: Pereowei Daniel
+	GitHub: https://github.com/dpereowei
+
+/* CONTACT */
+    Email: info@hololinked.dev
+ 
