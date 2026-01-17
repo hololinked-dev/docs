@@ -115,7 +115,7 @@ nav:
   #     - ADC in Raspberry Pi: examples/adc.md
   # - Blog:
   #   - blog/index.md
-  - Developer Notes/Design Considerations:
+  - Developer Notes:
       - Descriptors: design/descriptors.md
       - Property Descriptors: design/property-descriptors.md
       - Action Descriptors: design/action-descriptors.md
@@ -123,8 +123,9 @@ nav:
       - Descriptor Registry: design/descriptor-registry.md
       - Metaclasses: design/metaclasses.md
       - State Machine: design/state-machine.md
-      - ZMQ RPC Layer: design/zmq.md
       - Serialization: design/serialization.md
+      - ZMQ RPC Layer: design/zmq.md
+      - Hexagonal Architecture: design/hexagonal-architecture.md
 
 theme:
   name: material
@@ -177,7 +178,7 @@ theme:
     - navigation.top
 
   font:
-    text: Work Sans
+    text: IBM Plex Sans
     heading: Lexend
     code: Roboto Mono
     # Other useful fonts that we may use:
@@ -283,6 +284,7 @@ extra:
   #     make our documentation better.
 
 extra_css:
+  - https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap
   - stylesheets/extra.css
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
 

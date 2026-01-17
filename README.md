@@ -19,6 +19,9 @@ mkdocs serve
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Website)
 
+> This project is always looking for contributors to improve the documentation. Hop into our [Discord](https://discord.com/invite/kEz87zqQXh) to discuss upfront if needed
+> and make a PR with your changes.
+
 ### skaffold
 
 To develop the documentation with skaffold within a kubernetes cluster, create a `skaffold.env` file specifying the docker registry. For example, if you are using Docker Hub, it should look like this:
