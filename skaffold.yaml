@@ -103,7 +103,7 @@ deploy:
 apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: hololinked-python-docs
+  name: docs
 build:
   artifacts:
     - image: hololinked_docs
