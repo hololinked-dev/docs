@@ -1,5 +1,4 @@
 **/.venv
-**/.env
 **/.vscode
 **/.cache
 **/__pycache__
@@ -7,3 +6,8 @@
 **/node_modules
 **/dist
 **/.cache
+**/*.pyc
+**/.git
+**/.DS_Store
+**/logs
+**/*.env
