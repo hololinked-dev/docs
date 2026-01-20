@@ -2,7 +2,7 @@
 apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: dev-python-docs
+  name: dev-docs
 build:
   artifacts:
     - image: hololinked_docs_dev
@@ -54,7 +54,7 @@ deploy:
 apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: staging-python-docs
+  name: staging-docs
 build:
   artifacts:
     - image: hololinked_docs_staging
