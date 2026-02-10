@@ -7,7 +7,6 @@
 **/dist
 **/.cache
 **/*.pyc
-**/.git
 **/.DS_Store
 **/logs
 **/*.env
