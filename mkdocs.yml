@@ -272,7 +272,7 @@ extra:
 
 copyright: >
   © BSD-3-Clause license, hololinked contributors <br/>
-  This website uses privacy friendly GDPR compliant cookie-less analytics, anonymously.
+  This website uses anonymized privacy friendly GDPR compliant cookie-less analytics.
 
 extra_css:
   - stylesheets/extra.css
