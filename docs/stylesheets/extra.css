@@ -127,3 +127,11 @@
 /* Optional polish */
 .md-nav__link--active { font-weight: 700; }  /* make current item pop */
 .md-nav__link code { font-family: inherit; } /* keep code fragments consistent in TOCs */
+
+/* Compact footer navigation (prev/next links) */
+.md-footer__inner {
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  max-height: 60px;
+}
+
