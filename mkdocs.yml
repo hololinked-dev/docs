@@ -271,11 +271,12 @@ extra:
       name: sponsor
 
 copyright: >
-  © BSD-3-Clause license, hololinked contributors. This website was written by humans, except API reference <br />
-  which can contain automated content. Leave us a star on 
+  <div style="font-size: 0.9em; margin-top: 1em; max-width: 800px;">
+  © BSD-3-Clause license, hololinked contributors. This website was written by humans. Leave us a star on 
   <a href="https://github.com/hololinked-dev/hololinked" style="color: orange; text-decoration: underline;">GitHub</a> 
   if you find this project useful! <br/>
   This website uses anonymized privacy friendly GDPR compliant cookie-less analytics.
+  </div>
 
 extra_css:
   - stylesheets/extra.css
