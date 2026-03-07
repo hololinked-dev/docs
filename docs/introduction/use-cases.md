@@ -3,6 +3,7 @@
     <th>Protocol</th>
     <th>Plausible Use Cases</th>
     <th>Operations</th>
+    <th>Underlying Implementation</th>
     <th>Security</th>
   </tr>
   <tr>
@@ -23,15 +24,19 @@
       properties and actions can be operated in a oneway and no-block manner (issue and query later format) as well
     </td>
     <td>
+      [tornado]()
+    </td>
+    <td>
       username-password, <br/>
       device API key, <br/>
       IP filter, <br/>
-      OAuth2 OIDC (experimental)
+      OAuth2 OIDC
     </td>
   </tr>
   <tr>
     <td>ZMQ TCP</td>
     <td>Networked Control Systems, subnet protected containerized apps like in Kubernetes</td>
+    <td rowspan="3">[pyzmq]()</td>
     <td>
       username-password planned, <br/>
       device API key planned
@@ -65,6 +70,9 @@
       <code>subscribeevent</code>, <br/>
       <code>unsubscribeevent</code>
     </td>
+    <td rowspan="2">
+      [aiomqtt]()
+    </td>
     <td>
       username-password, <br/>
       TLS with client certificates (you set this up in the broker anyway)
@@ -84,6 +92,21 @@
     <td>
       username-password, <br/>
       TLS with client certificates (you set this up in the broker anyway)
+    </td>
+  </tr>
+  <tr>
+    <td>CoAP</td>
+    <td>
+      Planned, April 2026.
+    </td>
+    <td>
+      Will be updated 
+    </td>
+    <td>
+      [aiocoap]()
+    </td>
+    <td>
+      Will be updated
     </td>
   </tr>
 </table>

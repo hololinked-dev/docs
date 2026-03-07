@@ -118,4 +118,24 @@ thing.run_with_http_server(
 
 ### OIDC Security Scheme
 
-Coming soon. See issue [#87](https://github.com/hololinked-dev/hololinked/issues/87) 
+For frontend web applications that can support an authorization flow where a user in involved, one can use OIDC or OAuth2 flows to authenticate with the server. In this case, the `Thing` server is only a resource server and not an authorization server, which must be separately taken care by an authentication provider, like Keycloak or Google.
+
+Insantiate the `OIDCSecurityScheme` and supply your authorization server configuration:
+
+```
+oidc_security = OIDCSecurityScheme(
+    issuer=https://example.com,
+    audience='device-server'
+)
+thing = Thing(id="secure-thing")
+thing.run_with_http_server(
+    port=9000,
+    security_scheme=oidc_security
+)
+```
+
+The security scheme is called OIDC security scheme as it only validates logged in sessions and roles/scopes of the token issued. 
+
+Implement the login flow on the client and supply the JWT bearer token in the Authorization header.
+
+

@@ -8,10 +8,10 @@ nav:
   - Home:
       - Introduction: index.md
       - Installation: introduction/installation.md
+      - Protocol Use Cases: introduction/use-cases.md
       - Resources: introduction/resources.md
       - Contributing: introduction/contributing.md
       - License: introduction/license.md
-      - Protocol Use Cases: introduction/use-cases.md
       - Security Scan Overview: introduction/security-scanning.md
   - Handbook:
       - Expose Python Objects: beginners-guide/articles/servers.md

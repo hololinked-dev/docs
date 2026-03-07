@@ -25,22 +25,22 @@ For good first issues, visit repository wise:
 - [control panel](https://github.com/hololinked-dev/thing-control-panel/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - [documentation](https://github.com/hololinked-dev/docs-v2/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - [additional/new projects](https://github.com/hololinked-dev/.github/issues)
-- [website](https://github.com/hololinked-dev/website/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
-- [kubernetes](https://github.com/hololinked-dev/vps-kubernetes-cluster/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 
 Our [contribution guidelines](https://github.com/hololinked-dev/hololinked/blob/main/CONTRIBUTING.md) may also help. There are also [weekly office hours](https://github.com/hololinked-dev#monthly-meetings) & [discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).
+
+> Please do note that we are only looking for code contributions that can enfore code ownership and integrating contributors that can understand the codebase, not AI automated PRs. All solutions anybody can automate can also be automated by us, so, this is not the purpose of accepting contributions. 
 
 ## Setup Development Environment
 
 <a name="development-with-uv"></a>
 One can setup a development environment with [uv](https://docs.astral.sh/uv/) as follows:
 
-1. Install uv if you don't have it already: https://docs.astral.sh/uv/getting-started/installation/
+1. Install uv if you don't have it already: [uv docs](https://docs.astral.sh/uv/getting-started/installation/)
 2. Create and activate a virtual environment:
 
 ```bash
-uv venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 3. Install the package in development mode with all dependencies:
@@ -52,24 +52,15 @@ uv pip install -e ".[dev,test]"
 
 ## Running Tests
 
-To run the tests with uv:
-
-In linux:
+To run unit and integration tests:
 
 ```bash
-uv run --active coverage run -m unittest discover -s tests -p 'test_*.py'
-uv run --active coverage report -m
-```
-
-In windows:
-
-```bash
-python -m unittest
+pytest -s -v tests
 ```
 
 ## Pre-commit Hooks
 
-You can use pre-commit hooks to ensure code quality before committing changes, and be sure that certain pipeline checks will pass.
+You can use pre-commit hooks to ensure code quality before committing changes, and be ensured that certain pipeline checks will pass.
 
 ```bash
 python -m pip install pre-commit
@@ -79,7 +70,7 @@ pre-commit run --all-files
 
 Currently ruff, bandit and gitleaks are configured to run as pre-commit hooks.
 
-To skip pre-commit hooks use:
+Precommit hooks are optional. To skip them, use:
 
 ```bash
 git commit --no-verify -m "Your commit message"

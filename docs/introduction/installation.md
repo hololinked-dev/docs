@@ -2,16 +2,21 @@
 
 From pip:
 
-    pip install hololinked
+```sh
+pip install hololinked
+```
 
 From conda:
 
-    conda install -c conda-forge hololinked
+```sh
+conda install -c conda-forge hololinked
+```
 
 One may also clone it from github & install directly (in develop mode):
 
 ```sh
-git clone https://github.com/hololinked-dev/hololinked.git
+git clone --no-recurse-submodules https://github.com/hololinked-dev/hololinked.git
+# the submodules can be quite hefty and are not necessary
 cd hololinked
 pip install -e .
 ```
