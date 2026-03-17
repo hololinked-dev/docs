@@ -24,7 +24,7 @@ pip install -e .
 With `uv`:
 
 ```sh
-git clone https://github.com/hololinked-dev/hololinked.git
+git clone --no-recurse-submodules https://github.com/hololinked-dev/hololinked.git
 cd hololinked
 uv venv
 source .venv/bin/activate # for Linux/Mac

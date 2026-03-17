@@ -5,7 +5,7 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 # hololinked - Pythonic Object-Oriented Supervisory Control & Data Acquisition / Internet of Things
 
-`hololinked` is a beginner-friendly pythonic suited for instrumentation control and data acquisition over network (IoT & SCADA).
+`hololinked` is a beginner-friendly, extensible pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
 
 As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI or run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
@@ -67,7 +67,7 @@ Each device, or **Thing**, is modeled in software with:
 - **Actions**: Methods that command the hardware to perform operations.
 
     - _Oscilloscope_ - connect/disconnect hardware
-    - _Camera_ - start/stop measurement or video capture
+    - _Camera_ - snap image or start/stop video capture
     - _DC Power Supply_ - execute control routines (e.g., closed-loop control)
 
 - **Events**: Asynchronous messages or data streams to clients (e.g., alarms, measured values)
@@ -82,7 +82,9 @@ This separation is independent of:
 - data serialization or binary representation (JSON, MessagePack, Pickle etc.)
 - security or access control mechanisms (JWT, Basic Auth, OAuth etc.)
 
-The `Thing` object represents the physical device and is modeled as a class, encapsulating its properties, actions, and events as its attributes & methods. Additionally, **state machines** can constrain property and action execution:
+The `Thing` object (as in OOP) represents the physical device and is modeled as a class, encapsulating its properties, actions, and events as its attributes & methods. 
+
+Additionally, **state machines** can constrain property and action execution:
 
 - _Oscilloscope_ - Cannot start a new measurement while one is ongoing
 - _Camera_ - Cannot change exposure time while capturing video
@@ -90,4 +92,5 @@ The `Thing` object represents the physical device and is modeled as a class, enc
 ---
 
 > **Ready to get started?**  
-> See the [Handbook](beginners-guide/articles/servers) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations.
+> See the [Handbook](beginners-guide/articles/servers) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations. There are some online (live) examples available listed on the [project website](https://hololinked.dev).
+

@@ -89,7 +89,7 @@ There are specific headers that are respected by the server:
 
 On the web browser, one may want to access the HTTP server from a different domain name, especially during development with `localhost` or in private networks. In such cases, one needs to enable CORS headers:
 
-```python linenums="1" title="Enable CORS"
+```python linenums="1" title="Enable CORS" hl_lines="8"
 http_server = HTTPServer(port=9000, config=dict(cors=True))
 Oscilloscope(id='oscilloscope').run(servers=[http_server])
 # OR
@@ -106,7 +106,7 @@ CORS headers are set only for authenticated clients.
 > Note that for localhost, each port is considered a different domain. A web application and a server running on different ports on same machine will not be recognised to be in the same domain.
 
 !!! warning
-    CORS does not prevent execution of an operation on the server. It only prevents web browsers from reading the response of an HTTP request and is not a security mechanism in itself that can protect a HTTP server.
+    CORS does not prevent execution of an operation on the server. It only prevents web browsers from reading the response of an HTTP request and is not a security mechanism in itself that can protect a HTTP server. Use [security schemes](../../security) to protect your server instead.
 
 ## Remotely Stop
 

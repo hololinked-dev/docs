@@ -79,7 +79,6 @@ nav:
       - Clients:
           - ClientFactory: api-reference/clients/base.md
           - ObjectProxy: api-reference/clients/object-proxy.md
-          # Security
           - Abstractions:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
               - ConsumedThingProperty: api-reference/clients/bases/ctp.md

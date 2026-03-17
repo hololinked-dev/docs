@@ -2,7 +2,7 @@
 
 There are multiple ways to start serving one's `Thing` instance based on the application requirements:
 
-- One needs to run one `Thing` instance in multiple protocols
+- One needs to run one `Thing` instance in one or multiple protocols
 - One needs to run multiple `Thing` instances in one protocol
 - One needs to run multiple `Thing`s instances in multiple protocols
 
@@ -16,7 +16,7 @@ from hololinked.server import HTTPServer, MQTTPublisher, ZMQServer
 
 http_server = HTTPServer(port=9000)
 mqtt_server = MQTTPublisher(host='mqtt.example.com')
-zmq_server = ZMQServer(access_points=['IPC', 'tcp://*:9001'])
+zmq_server = ZMQServer(id='oscilloscope-server', access_points=['IPC', 'tcp://*:9001'])
 
 Oscilloscope(id='oscilloscope').run(servers=[http_server, mqtt_server, zmq_server])
 ```
@@ -48,7 +48,7 @@ Oscilloscope(id='oscilloscope').run_with_http_server(port=9000, ssl_context=ssl_
 All protocols support an `add_thing()` method that accepts a `Thing` instance
 and a `run()` and `stop()` method that control their boot up & shutdown: 
 
-```python linenums="1"
+```python linenums="1" title="add Things to protocol server"
 from hololinked.server import HTTPServer
 
 server = HTTPServer(port=9000)
@@ -62,7 +62,7 @@ server.run()
 
 Use the global `run()` method along with `server.add_thing()` to start any number of `Thing` instances in any number of protocols:
 
-```python linenums="1"
+```python linenums="1" title="Run Multiple Things in Multiple Protocols"
 from hololinked.server import HTTPServer, MQTTPublisher, run
 
 http_server = HTTPServer(port=9000)

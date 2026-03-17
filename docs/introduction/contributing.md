@@ -37,26 +37,27 @@ One can setup a development environment with [uv](https://docs.astral.sh/uv/) as
 
 1. Install uv if you don't have it already: [uv docs](https://docs.astral.sh/uv/getting-started/installation/)
 2. Create and activate a virtual environment:
-
 ```bash
 uv venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
 3. Install the package in development mode with all dependencies:
-
 ```bash
-uv pip install -e .
+uv sync
+# or
+uv sync --no-install-project
 uv pip install -e ".[dev,test]"
 ```
 
 ## Running Tests
 
 To run unit and integration tests:
-
 ```bash
 pytest -s -v tests
 ```
+
+You might need docker daemon for running some tests (currently `test_16_protocols_mqtt`).
 
 ## Pre-commit Hooks
 
@@ -68,7 +69,7 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-Currently ruff, bandit and gitleaks are configured to run as pre-commit hooks.
+Currently `ruff`, `bandit` and `gitleaks` are configured to run as pre-commit hooks.
 
 Precommit hooks are optional. To skip them, use:
 

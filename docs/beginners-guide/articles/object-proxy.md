@@ -2,19 +2,28 @@
 
 [API Reference](../../api-reference/clients/object-proxy.md)
 
-`Thing` objects can be consumed using an `ObjectProxy` instance, per protocol, where the interactions with
-a property, action or event can be abstracted as operations like:
+`ObjectProxy` is a procedural client meant to consume a `Thing` instance where the interactions with a property, action or event can be abstracted as operations like:
 
 - Read/Write/Observe Property
 - Invoke Action
 - Subscribe/Unsubscribe Event
 
-Further, one would require a [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td) to construct the client.
-The `Thing Description` contains the metadata of the `Thing` like available properties, actions and events, their data types,
-forms (protocols and endpoints) etc. which can be used to create the `ObjectProxy`. In `hololinked`, the `Thing Description` is
-automatically generated and served by the server protocols, and there is lesser requirement for manual intervention.
+One would require a [Thing Description](https://www.w3.org/TR/wot-thing-description11/#introduction-td) to construct the client. The `ThingDescription` contains the metadata of the `Thing` like available properties, actions and events, their data types, their protocols and endpoints (called `forms`), among other metadata, in JSON format. 
 
-To instantiate an `ObjectProxy`, use the `ClientFactory`:
+!!! Info
+
+    See some online hosted examples at the [examples website](https://examples.hololinked.dev) - 
+    [Camera](https://examples.hololinked.dev/simulations/camera/resources/wot-td?ignore_errors=true) | 
+    [Spectrometer](https://examples.hololinked.dev/simulations/spectrometer/resources/wot-td) | 
+    [Oscilloscope](https://examples.hololinked.dev/simulations/oscilloscope/resources/wot-td) <br/>
+
+This metadata is used to create the `ObjectProxy`, and in `hololinked`, this JSON document is automatically generated and served by the server protocols. There is lesser requirement for manually creating said `ThingDescription`, unless one wants to highly customize it. The purpose of this JSON metadata is to provide both a human and machine readable description of the `Thing` and its capabilities, so that clients can automatically discover and interact with it without prior knowledge. Sounds like something useful for AI applications right?
+
+To instantiate an `ObjectProxy`, use the `ClientFactory` for one protocol at a time:
+
+!!! Note
+
+    Only one protocol is allowed per `ObjectProxy` client. You can always create multiple clients if you need multiple protocols. 
 
 === "HTTP"
 
@@ -23,8 +32,8 @@ To instantiate an `ObjectProxy`, use the `ClientFactory`:
 
     thing = ClientFactory.http(url="http://localhost:8000/my-thing/resources/wot-td")
     ```
-    One needs to append `/resources/wot-td` to the URL to load a `Thing Description`, the reason being that if one
-    stores pregenerated Thing Descriptions in a different location, one can still load them.
+    For HTTP, one needs to append `/resources/wot-td` to the URL to load an automatically generated `Thing Description` 
+    from the HTTP server serving the `Thing`.
 
 === "ZMQ"
 
@@ -50,11 +59,11 @@ To instantiate an `ObjectProxy`, use the `ClientFactory`:
     )
     ```
 
-    When using ZMQ-TCP, on the server side one may specify the address as `access_point="tcp://*:5555"`.
-    On the client side, however, one must use the explicit address, like `access_point="tcp://my-raspberry-pi:5555"` or
-    `access_point="tcp://localhost:5555"`.
+    For ZMQ, one needs to specify the `server_id`, `thing_id` and the `access_point` (say, `TCP` or `IPC`) where the server is accessible. These values are customizable while instantiating an instance of the [`ZMQServer`](../articles/protocols/general.md). If the `run()` method on the `Thing` instance was used, the `server_id` defaults to `thing_id`.    
+ 
+    When using ZMQ-TCP, on the server side one may specify the address as `access_point="tcp://*:5555"` to bind on all interfaces. On the client side, however, one must use the explicit address containing the machine hostname, like `access_point="tcp://my-raspberry-pi:5555"` or `access_point="tcp://localhost:5555"`.
 
-    The `Thing Description` is fetched automatically from the server for ZMQ transport.
+    The `Thing Description` is fetched automatically from the server while mediating the connection.
 
 === "MQTT"
 
@@ -69,14 +78,10 @@ To instantiate an `ObjectProxy`, use the `ClientFactory`:
     )
     ```
 
-    MQTT usually supports only pub-sub or event based interactions. Therefore, only event subscriptions
-    are supported on the `ObjectProxy` and properties and actions raise `AttributeError`.
-    On subscription, the broker should publish a `Thing Description` to the topic `<thing_id>/thing-description`
-    so that the client can find other available events.
+    The `Thing Description` is published to the MQTT Broker under the topic `<thing_id>/thing-description` by the server, 
+    and the `ClientFactory` subsribes to the `Thing Description` and constructs the `ObjectProxy`.
 
-!!! Note
-
-    Only one protocol is allowed per client.
+    MQTT currently supports only events and properties that publish change events.
 
 ### read and write properties
 
@@ -108,10 +113,7 @@ One can also use `invoke_action` to invoke an action by name
 
 ### oneway scheduling
 
-`oneway` scheduling do not fetch return value and exceptions that might occur while executing a property or an action.
-The server schedules the operation and returns an empty response to the client, allowing it to process further logic.
-It is possible to set a property, set multiple or all properties or invoke an action in
-oneway. Other operations are not supported.
+`oneway` scheduling do not fetch return value and exceptions that might occur while executing a property or an action. The server schedules the operation and returns an empty response to the client, allowing it to process further logic. It is possible to set a property, set multiple or all properties or invoke an action in oneway. Other operations are not supported.
 
 ```py title="oneway=True" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:79:103"
@@ -119,12 +121,11 @@ oneway. Other operations are not supported.
 
 Simply provide the keyword argument `oneway=True` to the operation method.
 
-Importantly, one cannot have an action argument or a property on the server named `oneway` as it is a
-reserved keyword argument to such methods on the client. At least they become inaccessible on the `ObjectProxy`.
+`oneway` must be always specified as a keyword argument. Due to this reason, one cannot have an action argument or a property on the server named `oneway` as it is a reserved keyword argument to such methods on the client. At least they become inaccessible on the `ObjectProxy`.
 
 ### no-block scheduling
 
-`noblock` allows scheduling a property or action but collecting the reply later:
+`noblock` allows scheduling a property or action and collecting the reply later:
 
 ```py title="noblock=True" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:107:139"
@@ -156,7 +157,7 @@ Simply prefix `async_` to the method name, like `async_read_property`, `async_wr
 There is no support for dot operator based access for asyncio. One may also note that `async` operations  
 do not change the nature of the execution on the server side.
 `asyncio` on `ObjectProxy` is purely a client-side non-blocking network call, so that one can
-simultaneously perform other async operations while the client is waiting for the network operation to complete.
+simultaneously perform other async operations while the client is waiting for said network operation to complete.
 
 !!! Note
 
@@ -214,14 +215,13 @@ Once again, to customize callback scheduling, see [events section](./events.md#s
 
 ##### foreign attributes on client
 
-Normally, there cannot be user defined attributes on the `ObjectProxy` as the attributes on the client
-must mimic the available properties, actions and events on the server. An accidental setting of an unknown
-property must raise an `AttributeError` when not found on the server, instead of silently going through and setting
-said property on the client object itself:
+Normally, there cannot be user defined attributes on the `ObjectProxy` as the attributes on the client must mimic the available properties, actions and events on the server. An accidental setting of an unknown property must raise an `AttributeError`, when not found on the server, instead of silently setting said property on the client itself:
 
 ```py title="foreign attributes raise AttributeError" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/customizations.py:3:7"
 ```
+
+The requirement for this behaviour is due to python's duck typing. If one intends to set a property named `foo`, and instead types it as `fooo` (misspelt), it is better to raise an error instead of silently setting a new attribute `fooo` on the client. 
 
 One can overcome this by setting `allow_foreign_attributes` to `True`:
 
@@ -236,15 +236,13 @@ For invoking any operation (say property read/write & action call), two types of
 - `invokation_timeout` - the amount of time the server has to wait for an operation to be scheduled
 - `execution_timeout` - the amount of time the server has to complete the operation once scheduled
 
-When the `invokation_timeout` expires, the operation is guaranteed to be never scheduled. When the `execution_timeout` expires, the operation is scheduled but returns without the expected response. In both cases, a `TimeoutError` is raised on the client side specifying the timeout type. If an operation is scheduled but not completed within the `execution_timeout`, the server may still complete the operation and there can be unknown side effects or client does not know about it.
+When the `invokation_timeout` expires, the operation is guaranteed to be never executed. When the `execution_timeout` expires, the operation is scheduled but returns without the expected response. In both cases, a `TimeoutError` is raised on the client specifying the timeout type. If an operation is scheduled but not completed within the `execution_timeout`, the server may still complete the operation but client does not know about it.
 
 ```py title="timeout specification" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/customizations.py:29:36"
 ```
 
-!!! Note
-
-    Currently only a global specification is supported. In future, one may be able to specify timeouts per operation.
+> Currently only a global customization of these values are supported. In future, one may be able to specify timeouts per operation.
 
 <!-- #### change handshake timeout
 
