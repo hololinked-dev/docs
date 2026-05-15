@@ -9,6 +9,7 @@ pip install hololinked
 From conda:
 
 ```sh
+pip install aiomqtt
 conda install -c conda-forge hololinked
 ```
 

@@ -91,6 +91,18 @@ Additionally, **state machines** can constrain property and action execution:
 
 ---
 
-> **Ready to get started?**  
-> See the [Handbook](beginners-guide/articles/servers) section for concepts and code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations. There are some online (live) examples available listed on the [project website](https://hololinked.dev).
+!!! tip "Ready to get started?"
+    Please see:
+
+    - [Handbook](beginners-guide/articles/servers) section for concepts
+    - Code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations
+    - Online (live) examples listed on the [project website](https://hololinked.dev)
+
+    Office hours are available on request for any formal or informal discussions, help with implementation or just to say hi:
+
+    - Every Wednesday 4-6PM CET/CEST
+    - Every Friday 9-10AM CET/CEST, 4-5PM CET/CEST
+
+    Please email to <a href="mailto:info@hololinked.dev">info@hololinked.dev</a>. You can also ask questions in the [discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).
+
 

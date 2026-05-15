@@ -17,7 +17,7 @@ One would require a [Thing Description](https://www.w3.org/TR/wot-thing-descript
     [Spectrometer](https://examples.hololinked.dev/simulations/spectrometer/resources/wot-td) | 
     [Oscilloscope](https://examples.hololinked.dev/simulations/oscilloscope/resources/wot-td) <br/>
 
-This metadata is used to create the `ObjectProxy`, and in `hololinked`, this JSON document is automatically generated and served by the server protocols. There is lesser requirement for manually creating said `ThingDescription`, unless one wants to highly customize it. The purpose of this JSON metadata is to provide both a human and machine readable description of the `Thing` and its capabilities, so that clients can automatically discover and interact with it without prior knowledge. Sounds like something useful for AI applications right?
+The purpose of this JSON metadata is to provide both a human and machine readable description of the `Thing` and its capabilities, so that clients can automatically discover and interact with it without prior knowledge. In `hololinked`, this JSON document is automatically generated and served by the server protocols. There is lesser requirement for manually creating said `ThingDescription`, unless one wants to highly customize it.
 
 To instantiate an `ObjectProxy`, use the `ClientFactory` for one protocol at a time:
 

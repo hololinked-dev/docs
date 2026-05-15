@@ -85,6 +85,10 @@ nav:
               - ConsumedThingEvent: api-reference/clients/bases/cte.md
               - SSE: api-reference/clients/bases/sse.md
               - Utils: api-reference/clients/bases/utils.md
+          - Security:
+              - Basic: api-reference/clients/security/basic.md
+              - API Key: api-reference/clients/security/apikey.md
+              - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
       - Servers:
           - HTTP: api-reference/protocols/http/index.md
           - ZMQ: api-reference/protocols/zmq/index.md
@@ -103,6 +107,9 @@ nav:
               - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
           - DataSchema: api-reference/td/data_schema.md
           - Thing Model: api-reference/td/tm.md
+          - Form: api-reference/td/form.md
+          - Metadata: api-reference/td/metadata.md
+          - Security Definitions: api-reference/td/security.md
           - Bases:
               - Schema: api-reference/td/bases/schema.md
   # Examples
@@ -271,7 +278,7 @@ extra:
 
 copyright: >
   <div style="font-size: 0.9em; margin-top: 1em; max-width: 800px;">
-  © BSD-3-Clause license, hololinked contributors. This website was written by humans. Leave us a star on 
+  © BSD-3-Clause license, hololinked contributors. Leave us a star on 
   <a href="https://github.com/hololinked-dev/hololinked" style="color: orange; text-decoration: underline;">GitHub</a> 
   if you find this project useful! <br/>
   This website uses anonymized privacy friendly GDPR compliant cookie-less analytics.

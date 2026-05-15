@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td>ZMQ TCP</td>
-    <td>Networked Control Systems, subnet protected containerized apps like in Kubernetes</td>
+    <td>Networked Control Systems, devices in protected networks, containerized apps like in Kubernetes</td>
     <td rowspan="3">
       Properties, <br/> Actions, <br/> Events
     </td>
@@ -35,7 +35,7 @@
   </tr>
   <tr>
     <td>ZMQ IPC</td>
-    <td>Desktop Applications, Python Dashboards without exposing device API directly on network</td>
+    <td>Desktop Applications, Python Dashboards without exposing device API directly on network  (streamlit, dash, panel etc.)</td>
   </tr>
   <tr>
     <td>ZMQ INPROC</td>
@@ -69,7 +69,11 @@
     </td>
   </tr>
   <tr>
-    <td>CoAP</td>
+    <td>
+      CoAP <br/>
+      CoAP Websockets <br/>
+      CoAP UDP
+    </td>
     <td>
       Planned, April 2026.
     </td>

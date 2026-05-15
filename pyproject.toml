@@ -36,4 +36,4 @@ repo = [
 ]
 
 [tool.uv.sources]
-hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main" }
+hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "mypy" }
