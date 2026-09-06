@@ -1,6 +1,6 @@
 
 
-::: hololinked.td.interaction_affordance.InteractionAffordance
+::: hololinked.metadata.td.interaction_affordance.InteractionAffordance
     options:
         members:
             - what

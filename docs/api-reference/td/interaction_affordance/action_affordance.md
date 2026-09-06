@@ -1,6 +1,6 @@
 
 
-::: hololinked.td.interaction_affordance.ActionAffordance
+::: hololinked.metadata.td.interaction_affordance.ActionAffordance
 
 | field        | supported | meaning                       | default usage                  |
 |--------------|-----------|-------------------------------|--------------------------------|

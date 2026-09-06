@@ -1,5 +1,5 @@
-
-::: hololinked.td.data_schema.DataSchema
+<!-- 
+::: hololinked.metadata.td.data_schema.DataSchema
 
 ## TD Supported Fields
 
@@ -18,4 +18,4 @@
 | type         | ✔️ | Provides a type for the property | typed inferred from specific subclass of `Property`, pydantic models are considered as an `object` currently even when having only one field or a root model (will be fixed in a future release |
 | oneOf        | ✔️ | Provides a list of possible values | Usually for properties with `allow_None` apart from its own `type` |
 
-See subclasses for more specific fields under same topic.
+See subclasses for more specific fields under same topic. -->

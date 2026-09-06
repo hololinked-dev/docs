@@ -1,5 +1,5 @@
 
 
-::: hololinked.td.metadata.Link
+::: hololinked.metadata.td.metadata.Link
 
-::: hololinked.td.metadata.VersionInfo
+::: hololinked.metadata.td.metadata.VersionInfo
