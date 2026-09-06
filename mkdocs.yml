@@ -99,19 +99,19 @@ nav:
       - Configuration: api-reference/global-config.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
-      - Thing Descriptions:
-          - Interaction Affordances:
-              - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
-              - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
-              - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
-              - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
-          - DataSchema: api-reference/td/data_schema.md
-          - Thing Model: api-reference/td/tm.md
-          - Form: api-reference/td/form.md
-          - Metadata: api-reference/td/metadata.md
-          - Security Definitions: api-reference/td/security.md
-          - Bases:
-              - Schema: api-reference/td/bases/schema.md
+      # - Thing Descriptions:
+      #     - Interaction Affordances:
+      #         - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
+      #         - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
+      #         - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
+      #         - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
+      #     - DataSchema: api-reference/td/data_schema.md
+      #     - Thing Model: api-reference/td/tm.md
+      #     - Form: api-reference/td/form.md
+      #     - Metadata: api-reference/td/metadata.md
+      #     - Security Definitions: api-reference/td/security.md
+      #     - Bases:
+      #         - Schema: api-reference/td/bases/schema.md
   # Examples
   # - Examples:
   #     - Energy Meter: examples/energy-meter.md
