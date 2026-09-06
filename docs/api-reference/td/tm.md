@@ -1,1 +1,1 @@
-::: hololinked.td.tm.ThingModel
+::: hololinked.metadata.td.tm.ThingModel

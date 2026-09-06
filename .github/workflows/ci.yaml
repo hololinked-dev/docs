@@ -2,8 +2,8 @@ name: deploy-docs
 
 on:
   workflow_dispatch:
-  repository_dispatch:
-    types: [trigger-downstream]
+  # repository_dispatch:
+  #   types: [trigger-downstream]
 
 env:
   REGISTRY: ghcr.io

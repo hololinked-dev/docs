@@ -1,3 +1,3 @@
 
 
-::: hololinked.td.base.Schema
+::: hololinked.metadata.td.base.Schema

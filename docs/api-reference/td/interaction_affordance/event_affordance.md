@@ -1,6 +1,6 @@
 
 
-::: hololinked.td.interaction_affordance.EventAffordance
+::: hololinked.metadata.td.interaction_affordance.EventAffordance
    
 | field        | supported | meaning                       | default usage                  |
 |--------------|-----------|-------------------------------|--------------------------------|

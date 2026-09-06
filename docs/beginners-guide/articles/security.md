@@ -1,14 +1,14 @@
 # Authentication Schemes
 
-Security schemes are currently available only for HTTP.
+Sophisticated security schemes are currently available only for HTTP. MQTT supports username-password and TLS client certificate authentication. More protocols will be supported in the future. This documentation currently discusses only HTTP security schemes, please check MQTT API reference and MQTT broker provider documentation for MQTT authentication. 
 
 ### Basic Security Scheme
 
-HTTP Basic authentication with username and password is supported with bcrypt and argon2 hashing schemes. To enable basic authentication, one needs to set the `security_scheme` attribute of the (HTTP-)server:
+HTTP Basic authentication with username and password is supported with bcrypt and argon2 hashing schemes. Import the specific flavour and provide the instantiated scheme to the HTTP server:
 
 === "Server"
 
-    ```py title="Definition" linenums="1"
+    ```py title="Basic Security" linenums="1" hl_lines="4 5 11"
     from hololinked.server.security import BcryptSecurityScheme, Argon2SecurityScheme
 
     security = BcryptSecurityScheme(
@@ -23,7 +23,7 @@ HTTP Basic authentication with username and password is supported with bcrypt an
     )
     ```
 
-=== "3rd Party Clients"
+=== "Authenticating with 3rd Party Clients"
 
     ```py title="Usage" linenums="1"
     import requests
@@ -39,15 +39,15 @@ HTTP Basic authentication with username and password is supported with bcrypt an
     print(response.json())
     ```
 
-=== "ObjectProxy"
+=== "Authenticating with ObjectProxy"
 
     ```py title="Usage" linenums="1"
     from hololinked.client import ClientFactory
-    from hololinked.client.security import HTTPBasicSecurityScheme
+    from hololinked.client.security import BasicSecurity
 
     client = ClientFactory.http(
         url="http://localhost:9000/my-thing/resources/wot-td",
-        security_scheme=HTTPBasicSecurityScheme(
+        security=BasicSecurity(
             username=os.getenv("USERNAME", "admin"),
             password=os.getenv("PASSWORD", "adminpass"),
             base64_encoding=True
@@ -57,9 +57,7 @@ HTTP Basic authentication with username and password is supported with bcrypt an
 
 ### API Key Security Scheme
 
-Use API keys when there is a requirement to keep track of different 
-clients and expire their access after a definite period. API keys are not tied to any user database or authorizations, 
-currently, unlike those used in a platform like github or gitlab. They perform only authentication. 
+Use API keys when there is a requirement to keep track of different clients and expire their access after a definite period. API keys are not tied to any user databases or a fine grained authorization system currently, unlike those used in a platform like github or gitlab. They perform only authentication and are locally stored in your machine in your home folder. 
 
 Before your application uses an API key security, one needs to create it, mostly outside the scope of the server code.
 
@@ -71,14 +69,15 @@ apikey_security.create(print_value=True)
 ```
 
 ```
-API key created and saved successfully, your key is: wotdat-<id>.<value>, please store it securely as it cannot be retrieved later.
+API key created and saved successfully, your key is: wotdat-<id>.<value>, 
+please store it securely as it cannot be retrieved later.
 # wotdat is a prefix to mean "web of things device access token"
 ```
 
-Once created, store this key securely as you will not be able to see it again once the terminal session ends. Start the 
+Once created, store this key securely and provide it to your client application, as you will not be able to see it again once the terminal session ends. Start the 
 server with the API key security scheme, using the same name used during creation:
 
-```py title="API Key Server" linenums="1"
+```py title="API Key Server" linenums="1" hl_lines="4 8"
 from hololinked.server.security import APIKeySecurity
 from hololinked.core import Thing
 
@@ -90,7 +89,7 @@ thing.run_with_http_server(
 )
 ```
 
-=== "3rd Party Clients"
+=== "Authenticating with 3rd Party Clients"
 
     To use the API key in a HTTP request, pass it in the `x-api-key` header:
 
@@ -104,9 +103,9 @@ thing.run_with_http_server(
     print(response.json())
     ```
 
-=== "ObjectProxy"
+=== "Authenticating with ObjectProxy"
 
-    ```py title="Usage" linenums="1"
+    ```py title="Usage" linenums="1" hl_lines="6"
     from hololinked.client import ClientFactory
     from hololinked.client.security import APIKeySecurity
 
@@ -118,4 +117,24 @@ thing.run_with_http_server(
 
 ### OIDC Security Scheme
 
-Coming soon. See issue [#87](https://github.com/hololinked-dev/hololinked/issues/87) 
+For frontend web applications that can support an authorization flow where a user in involved, one can use OIDC or OAuth2 flows to authenticate with the server. In this case, the HTTP server provided by `hololinked` is only a resource server and not an authorization server. The authorization server must be separately taken care by an authentication provider, like Keycloak or Google.
+
+Insantiate the `OIDCSecurityScheme` and supply your authorization server configuration:
+
+```python title="OIDC Security Scheme" linenums="1" hl_lines="1-4 8"
+oidc_security = OIDCSecurityScheme(
+    issuer=https://example.com,
+    audience='device-server'
+)
+thing = Thing(id="secure-thing")
+thing.run_with_http_server(
+    port=9000,
+    security_scheme=oidc_security
+)
+```
+
+The security scheme is called OIDC security scheme as it only validates logged in user sessions, the roles/scopes of the token issued and optionally, the audience. It might be erroneous to call it an OAuth flow as the token is not used to fetch information from a third party application about the user. 
+
+Implement the login flow on the client and supply the JWT bearer token in the Authorization header. There are no full fledged OIDC token mediation implemented within `hololinked` as the user must be involved in some form or other. 
+
+

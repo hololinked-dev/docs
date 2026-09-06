@@ -1,6 +1,6 @@
 
 
-::: hololinked.td.interaction_affordance.PropertyAffordance
+::: hololinked.metadata.td.interaction_affordance.PropertyAffordance
 
 ## TD Supported Fields
 

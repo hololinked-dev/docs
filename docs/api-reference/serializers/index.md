@@ -1,6 +1,6 @@
 
 
-::: hololinked.serializers.serializers.Serializers
+::: hololinked.Serializers
     options:
         members:
             - for_object

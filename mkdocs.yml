@@ -8,10 +8,10 @@ nav:
   - Home:
       - Introduction: index.md
       - Installation: introduction/installation.md
+      - Protocol Use Cases: introduction/use-cases.md
       - Resources: introduction/resources.md
       - Contributing: introduction/contributing.md
       - License: introduction/license.md
-      - Protocol Use Cases: introduction/use-cases.md
       - Security Scan Overview: introduction/security-scanning.md
   - Handbook:
       - Expose Python Objects: beginners-guide/articles/servers.md
@@ -79,13 +79,16 @@ nav:
       - Clients:
           - ClientFactory: api-reference/clients/base.md
           - ObjectProxy: api-reference/clients/object-proxy.md
-          # Security
           - Abstractions:
               - ConsumedThingAction: api-reference/clients/bases/cta.md
               - ConsumedThingProperty: api-reference/clients/bases/ctp.md
               - ConsumedThingEvent: api-reference/clients/bases/cte.md
               - SSE: api-reference/clients/bases/sse.md
               - Utils: api-reference/clients/bases/utils.md
+          - Security:
+              - Basic: api-reference/clients/security/basic.md
+              - API Key: api-reference/clients/security/apikey.md
+              - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
       - Servers:
           - HTTP: api-reference/protocols/http/index.md
           - ZMQ: api-reference/protocols/zmq/index.md
@@ -96,16 +99,19 @@ nav:
       - Configuration: api-reference/global-config.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
-      - Thing Descriptions:
-          - Interaction Affordances:
-              - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
-              - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
-              - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
-              - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
-          - DataSchema: api-reference/td/data_schema.md
-          - Thing Model: api-reference/td/tm.md
-          - Bases:
-              - Schema: api-reference/td/bases/schema.md
+      # - Thing Descriptions:
+      #     - Interaction Affordances:
+      #         - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
+      #         - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
+      #         - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
+      #         - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
+      #     - DataSchema: api-reference/td/data_schema.md
+      #     - Thing Model: api-reference/td/tm.md
+      #     - Form: api-reference/td/form.md
+      #     - Metadata: api-reference/td/metadata.md
+      #     - Security Definitions: api-reference/td/security.md
+      #     - Bases:
+      #         - Schema: api-reference/td/bases/schema.md
   # Examples
   # - Examples:
   #     - Energy Meter: examples/energy-meter.md
@@ -271,11 +277,12 @@ extra:
       name: sponsor
 
 copyright: >
-  © BSD-3-Clause license, hololinked contributors. This website was written by humans, except API reference <br />
-  which can contain automated content. Leave us a star on 
+  <div style="font-size: 0.9em; margin-top: 1em; max-width: 800px;">
+  © BSD-3-Clause license, hololinked contributors. Leave us a star on 
   <a href="https://github.com/hololinked-dev/hololinked" style="color: orange; text-decoration: underline;">GitHub</a> 
   if you find this project useful! <br/>
   This website uses anonymized privacy friendly GDPR compliant cookie-less analytics.
+  </div>
 
 extra_css:
   - stylesheets/extra.css

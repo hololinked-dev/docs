@@ -2,7 +2,10 @@
 
 ### Logger
 
-A default logger with IO stream handler is configured for each `Thing` instance. One can override the logger by passing a custom logger instance to the `Thing` constructor:
+Logging is handled by `structlog` and requires a global replacement for customization. This section will be updated with more details.
+In the meantime, refer to [this code snippet](https://github.com/hololinked-dev/hololinked/blob/f69c4a72b2cc713114ec029f80eaf3010bec8464/hololinked/logger.py#L30) and monkey patch it directly to return a `structlog.BoundLogger` instance. 
+
+<!-- A default logger with IO stream handler is configured for each `Thing` instance. One can override the logger by passing a custom logger instance to the `Thing` constructor:
 
 ```py title="Custom Logger" linenums="1" hl_lines="12"
 class WarningsToFileHandler(logging.FileHandler):
@@ -18,7 +21,7 @@ warn_file.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(messag
 
 thing = Thing(id="test-thing", logger=logger)
 thing.run_with_http_server(port=9000)
-```
+``` -->
 
 #### Remote Access to Logger
 

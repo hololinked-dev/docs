@@ -121,28 +121,12 @@ deploy:
     releases:
       - name: hololinked-python-docs
         chartPath: deployment/helm/container-helm-chart
-        namespace: docs
+        namespace: website
         createNamespace: true
         setValues:
           nameOverride: hololinked-python-docs
           image.ports.containerPort: 80
         setValueTemplates:
           image:
-            repository: "{{ .IMAGE_REPO_hololinked_docs }}"
-            tag: "{{ .IMAGE_TAG_hololinked_docs }}@{{ .IMAGE_DIGEST_hololinked_docs }}"
-
-      - name: hololinked-python-docs-ingress
-        chartPath: deployment/helm/ingress-helm-chart
-        namespace: docs
-        createNamespace: true
-        valuesFiles:
-          - deployment/helm/ingress-helm-chart/values.yaml
-          - deployment/ingress-values.yaml
-        setValues:
-          nameOverride: hololinked-python-docs-ingress
-          rules[0].host: docs.hololinked.dev
-          rules[0].http.paths[0].backend.service.name: hololinked-python-docs
-          tls[0].hosts[0]: docs.hololinked.dev
-          tls[0].secretName: docs-hololinked-dev-tls
-          annotations:
-            cert-manager\.io/cluster-issuer: letsencrypt-prod
+            repository: docker.io/vigneshvsv/hololinked_docs
+            tag: prod
