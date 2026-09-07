@@ -116,6 +116,10 @@ nav:
           - SchemaValidators: api-reference/injection/schema-validators.md
           - StorageBackends: api-reference/injection/storage-backends.md
           - MetadataFormats: api-reference/injection/metadata-formats.md
+      - Schema Validators:
+          - JSONSchemaValidator: api-reference/schema-validators/json-schema.md
+          - FastJSONSchemaValidator: api-reference/schema-validators/fast-json-schema.md
+          - PydanticSchemaValidator: api-reference/schema-validators/pydantic.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
           - JSON: api-reference/serializers/json.md
