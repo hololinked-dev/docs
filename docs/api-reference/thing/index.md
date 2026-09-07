@@ -48,4 +48,26 @@ other `Thing`'s that are composed within this `Thing`.
 `logging.Logger` <br />
 {{ thing_logger_doc() }}
 
+### `state_machine`
+`StateMachine | None` <br />
+`class-attribute`, `writable` <br />
+the `StateMachine`, `None` when the `Thing` has none. Accessed on an instance it returns a [`BoundFSM`](../state-machine/bound-fsm.md).
+
+### `state_change_event`
+`Event` <br />
+`class-attribute`, `read-only` <br />
+change event pushed whenever `state` changes. Generated automatically because `state` is an
+observable `Property`.
+
+### `event_bus`
+`EventBus` <br />
+`instance-attribute`, `read-only` <br />
+the bus this object's events are published through, owned by the
+[`EventLoop`](../eventloop/eventloop.md).
+
+### `thing_model`
+`ThingModel` <br />
+`instance-attribute`, `read-only` <br />
+the Thing Model of this object, equivalent to calling `get_thing_model()` with default arguments.
+
 
