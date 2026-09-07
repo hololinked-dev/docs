@@ -10,4 +10,5 @@
 **/.DS_Store
 **/logs
 **/*.env
-**/hololinked
+# only a stray root-level checkout; the submodule at repo/hololinked must reach the build
+hololinked
