@@ -2,18 +2,22 @@
 
 ::: hololinked.metadata.td.interaction_affordance.InteractionAffordance
     options:
+        inherited_members: true
         members:
             - what
             - name
             - objekt
             - owner
+            - owner_cls
             - thing_cls
             - thing_id
-            - generate
             - build
-            - build_forms
+            - from_descriptor
+            - to_descriptor
+            - from_metadata
             - from_TD
             - retrieve_form
+            - pop_form
             - register_descriptor
 
 ## TD Supported Fields

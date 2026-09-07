@@ -1,28 +1,25 @@
 
 
-::: hololinked.Serializers
+::: hololinked.injection.Serializers
     options:
         members:
+            - default
+            - json
+            - msgpack
+            - pickle
+            - text
+            - default_content_type
+            - content_types
+            - allowed_content_types
             - for_object
             - register
-            - register_content_type_for_object
-            - register_content_type_for_object_by_name
             - register_for_object
-  
-## Attributes
-
-### `json`: `JSONSerializer`
-`class-attribute`, `writable` <br />
-The default serializer for all properties, actions and events (`msgspec` based C++ implementation)
-
-### `pickle`: `PickleSerializer`
-`class-attribute`, `writable` <br />
-pickle serializer, unsafe without encryption but useful for faster & flexible serialization of python specific types
-
-### `msgpack`: `MsgPackSerializer`
-`class-attribute`, `writable` <br />
-MessagePack serializer, efficient binary format that is both fast & interoperable between languages but not human readable
-
-### `default`: `BaseSerializer`
-`class-attribute`, `writable` <br />
-`JSONSerializer`, set it to use something else          
+            - register_for_thing_instance
+            - register_for_object_per_thing_instance
+            - register_content_type_for_object
+            - register_content_type_for_thing_instance
+            - register_content_type_for_object_per_thing_instance
+            - get_content_type_for_object
+            - get_content_types
+            - get_allowed_content_types
+            - reset

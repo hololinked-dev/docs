@@ -4,7 +4,7 @@
         members:
             - __init__
             - comparator
-            - to_affordance
+            - to_metadata
             - push_change_event
             - external_set
             - validate_and_adapt
