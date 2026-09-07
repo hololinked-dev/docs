@@ -1,4 +1,4 @@
-::: hololinked.core.zmq.brokers.BaseEventConsumer
+::: hololinked.server.zmq.brokers.BaseEventConsumer
     options:
         show_root_heading: true
         heading_level: 2
@@ -8,7 +8,7 @@
             - stop_polling
             - interrupt_message
 
-::: hololinked.core.zmq.brokers.EventConsumer
+::: hololinked.server.zmq.brokers.EventConsumer
     options:
         show_root_heading: true
         heading_level: 2
@@ -16,7 +16,7 @@
             - receive
             - interrupt
 
-::: hololinked.core.zmq.brokers.AsyncEventConsumer
+::: hololinked.server.zmq.brokers.AsyncEventConsumer
     options:
         show_root_heading: true
         heading_level: 2

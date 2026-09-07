@@ -1,4 +1,4 @@
-::: hololinked.core.zmq.brokers.MessageMappedZMQClientPool
+::: hololinked.server.zmq.brokers.MessageMappedZMQClientPool
     options:
         members:
             - __init__

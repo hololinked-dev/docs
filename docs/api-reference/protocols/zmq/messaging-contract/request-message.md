@@ -1,4 +1,4 @@
-::: hololinked.core.zmq.message.ResponseMessage
+::: hololinked.server.zmq.message.RequestMessage
     options:
         members:
             - __init__
@@ -7,6 +7,7 @@
             - thing_id
             - byte_array
             - craft_from_arguments
-            - craft_reply_from_request
+            - craft_with_message_type
             - parse_header
             - parse_body
+        
