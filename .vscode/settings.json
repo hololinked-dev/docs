@@ -8,5 +8,12 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true,
         "prettier.tabWidth": 2
-    }
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+    "python.analysis.extraPaths": [
+        "repo/hololinked"
+    ],
+    "python.autoComplete.extraPaths": [
+        "repo/hololinked"
+    ]
 }

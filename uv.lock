@@ -572,29 +572,114 @@ wheels = [
 
 [[package]]
 name = "hololinked"
-version = "0.3.11"
-source = { git = "https://github.com/hololinked-dev/hololinked.git?branch=main#7b8c98dea1bfe82eb6402e37aabd177863f22029" }
+version = "0.4.0"
+source = { editable = "repo/hololinked" }
 dependencies = [
     { name = "aiomqtt" },
     { name = "argon2-cffi" },
     { name = "bcrypt" },
     { name = "cryptography" },
-    { name = "fastjsonschema" },
     { name = "httpx" },
     { name = "ifaddr" },
-    { name = "jsonschema" },
     { name = "msgspec" },
-    { name = "psycopg2-binary" },
     { name = "pydantic" },
     { name = "pyjwt" },
+    { name = "sniffio" },
+    { name = "structlog" },
+    { name = "tornado" },
+]
+
+[package.optional-dependencies]
+all = [
+    { name = "fastjsonschema" },
+    { name = "jsonschema" },
+    { name = "psycopg2-binary" },
     { name = "pymongo" },
     { name = "pyzmq" },
     { name = "serpent" },
-    { name = "sniffio" },
     { name = "sqlalchemy" },
-    { name = "sqlalchemy-utils" },
-    { name = "structlog" },
-    { name = "tornado" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiomqtt", specifier = ">=2.4.0" },
+    { name = "argon2-cffi", specifier = ">=23.1.0" },
+    { name = "bcrypt", specifier = "==4.3.0" },
+    { name = "cryptography", specifier = ">=46.0.5" },
+    { name = "fastjsonschema", marker = "extra == 'validators'", specifier = "==2.20.0" },
+    { name = "hololinked", extras = ["sqlalchemy"], marker = "extra == 'postgresql'" },
+    { name = "hololinked", extras = ["sqlalchemy", "postgresql", "mongo"], marker = "extra == 'storage'" },
+    { name = "hololinked", extras = ["zmq", "validators", "serializers", "storage"], marker = "extra == 'all'" },
+    { name = "httpx", specifier = ">=0.28.1,<29.0" },
+    { name = "ifaddr", specifier = ">=0.2.0,<0.3" },
+    { name = "jsonschema", marker = "extra == 'validators'", specifier = ">=4.22.0,<5.0" },
+    { name = "msgspec", specifier = ">=0.18.6" },
+    { name = "psycopg2-binary", marker = "extra == 'postgresql'", specifier = ">=2.9.11" },
+    { name = "pydantic", specifier = ">=2.8.0,<3.0.0" },
+    { name = "pyjwt", specifier = ">=2.11.0" },
+    { name = "pymongo", marker = "extra == 'mongo'", specifier = ">=4.15.2" },
+    { name = "pyzmq", marker = "extra == 'zmq'", specifier = ">=25.1.0,<26.2" },
+    { name = "serpent", marker = "extra == 'serializers'", specifier = ">=1.41,<2.0" },
+    { name = "sniffio", specifier = ">=1.3.1,<2.0" },
+    { name = "sqlalchemy", marker = "extra == 'sqlalchemy'", specifier = ">2.0.21" },
+    { name = "structlog", specifier = ">=25.5.0" },
+    { name = "tornado", specifier = ">=6.3.3" },
+]
+provides-extras = ["zmq", "validators", "serializers", "sqlalchemy", "postgresql", "mongo", "storage", "all"]
+
+[package.metadata.requires-dev]
+all = [
+    { name = "bandit", specifier = ">=1.9.1" },
+    { name = "faker", specifier = "==37.5.0" },
+    { name = "fastjsonschema", specifier = "==2.20.0" },
+    { name = "ipython", specifier = "==8.12.3" },
+    { name = "jsonschema", specifier = ">=4.22.0,<5.0" },
+    { name = "jupyter", specifier = ">=1.1.1" },
+    { name = "numpy", specifier = ">=2.0.0" },
+    { name = "pandas", specifier = "==2.2.3" },
+    { name = "pip", specifier = ">=25.2" },
+    { name = "pre-commit", specifier = ">=4.5.0" },
+    { name = "psycopg2-binary", specifier = ">=2.9.11" },
+    { name = "pymongo", specifier = ">=4.15.2" },
+    { name = "pytest", specifier = ">=8.0.0" },
+    { name = "pytest-asyncio", specifier = ">=1.3.0" },
+    { name = "pytest-cov", specifier = ">=4.0.0" },
+    { name = "pytest-order", specifier = ">=1.0.0" },
+    { name = "pyzmq", specifier = ">=25.1.0,<26.2" },
+    { name = "requests", specifier = "==2.32.3" },
+    { name = "ruff", specifier = ">=0.12.10" },
+    { name = "serpent", specifier = ">=1.41,<2.0" },
+    { name = "sqlalchemy", specifier = ">2.0.21" },
+    { name = "testcontainers", specifier = ">=4.14.1" },
+    { name = "ty", specifier = ">=0.0.24" },
+]
+dev = [
+    { name = "ipython", specifier = "==8.12.3" },
+    { name = "jupyter", specifier = ">=1.1.1" },
+    { name = "numpy", specifier = ">=2.0.0" },
+    { name = "pandas", specifier = "==2.2.3" },
+    { name = "pip", specifier = ">=25.2" },
+    { name = "pre-commit", specifier = ">=4.5.0" },
+    { name = "ruff", specifier = ">=0.12.10" },
+    { name = "ty", specifier = ">=0.0.24" },
+]
+scanning = [{ name = "bandit", specifier = ">=1.9.1" }]
+test = [
+    { name = "faker", specifier = "==37.5.0" },
+    { name = "fastjsonschema", specifier = "==2.20.0" },
+    { name = "jsonschema", specifier = ">=4.22.0,<5.0" },
+    { name = "numpy", specifier = ">=2.0.0" },
+    { name = "psycopg2-binary", specifier = ">=2.9.11" },
+    { name = "pymongo", specifier = ">=4.15.2" },
+    { name = "pytest", specifier = ">=8.0.0" },
+    { name = "pytest-asyncio", specifier = ">=1.3.0" },
+    { name = "pytest-cov", specifier = ">=4.0.0" },
+    { name = "pytest-order", specifier = ">=1.0.0" },
+    { name = "pyzmq", specifier = ">=25.1.0,<26.2" },
+    { name = "requests", specifier = "==2.32.3" },
+    { name = "serpent", specifier = ">=1.41,<2.0" },
+    { name = "sqlalchemy", specifier = ">2.0.21" },
+    { name = "testcontainers", specifier = ">=4.14.1" },
 ]
 
 [[package]]
@@ -629,7 +714,7 @@ dev = [
     { name = "serpent" },
 ]
 repo = [
-    { name = "hololinked" },
+    { name = "hololinked", extra = ["all"] },
 ]
 
 [package.metadata]
@@ -660,7 +745,7 @@ dev = [
     { name = "ruff", specifier = ">=0.12.10" },
     { name = "serpent", specifier = "==1.41" },
 ]
-repo = [{ name = "hololinked", git = "https://github.com/hololinked-dev/hololinked.git?branch=main" }]
+repo = [{ name = "hololinked", extras = ["all"], editable = "repo/hololinked" }]
 
 [[package]]
 name = "httpcore"
@@ -2159,18 +2244,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/fa/2e/677c17c5d6a004c3c45334ab1dbe7b7deb834430b282b8a0f75ae220c8eb/sqlalchemy-2.0.41-cp313-cp313-win32.whl", hash = "sha256:bfc9064f6658a3d1cadeaa0ba07570b83ce6801a1314985bf98ec9b95d74e15f", size = 2082420 },
     { url = "https://files.pythonhosted.org/packages/e9/61/e8c1b9b6307c57157d328dd8b8348ddc4c47ffdf1279365a13b2b98b8049/sqlalchemy-2.0.41-cp313-cp313-win_amd64.whl", hash = "sha256:82ca366a844eb551daff9d2e6e7a9e5e76d2612c8564f58db6c19a726869c1df", size = 2108329 },
     { url = "https://files.pythonhosted.org/packages/1c/fc/9ba22f01b5cdacc8f5ed0d22304718d2c758fce3fd49a5372b886a86f37c/sqlalchemy-2.0.41-py3-none-any.whl", hash = "sha256:57df5dc6fdb5ed1a88a1ed2195fd31927e705cad62dedd86b46972752a80f576", size = 1911224 },
-]
-
-[[package]]
-name = "sqlalchemy-utils"
-version = "0.41.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "sqlalchemy" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a3/e0/6906a8a9b8e9deb82923e02e2c1f750c567d69a34f6e1fe566792494a682/SQLAlchemy-Utils-0.41.1.tar.gz", hash = "sha256:a2181bff01eeb84479e38571d2c0718eb52042f9afd8c194d0d02877e84b7d74", size = 136579 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/73/d8/3863fdfe6b27f6c0dffc650aaa2929f313b33aea615b102279fd46ab550b/SQLAlchemy_Utils-0.41.1-py3-none-any.whl", hash = "sha256:6c96b0768ea3f15c0dc56b363d386138c562752b84f647fb8d31a2223aaab801", size = 92612 },
 ]
 
 [[package]]

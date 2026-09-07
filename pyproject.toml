@@ -32,8 +32,8 @@ dev = [
     "imageio",
 ]
 repo = [
-    "hololinked"
+    "hololinked[all]"
 ]
 
 [tool.uv.sources]
-hololinked = { git = "https://github.com/hololinked-dev/hololinked.git", branch = "main" }
+hololinked = { path = "repo/hololinked", editable = true }

@@ -1,3 +1,6 @@
 [submodule "deployment/helm/container-helm-chart"]
 	path = deployment/helm/container-helm-chart
 	url = https://gitlab.com/hololinked/kubernetes/helm-charts/container-helm-chart.git
+[submodule "hololinked"]
+	path = repo/hololinked
+	url = https://github.com/hololinked-dev/hololinked.git
