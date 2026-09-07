@@ -6,7 +6,18 @@ required to do this is defined here.
 
 A specific metadata format is a bundle of five classes: one per core component - Property, Action, Event and a common base class for common metadata among them, and a class that puts them together.
 
-See code of `hololinked.core.metadata.td` for a reference implementation for the W3C Web of Things. 
+The W3C Web of Things bundle in `hololinked.metadata.td` is the reference implementation, and maps
+onto the five slots as:
+
+| slot | W3C WoT class |
+| --- | --- |
+| `thing` | [`ThingModel`](../td/tm.md) |
+| `property` | [`PropertyAffordance`](../td/interaction_affordance/property_affordance.md) |
+| `action` | [`ActionAffordance`](../td/interaction_affordance/action_affordance.md) |
+| `event` | [`EventAffordance`](../td/interaction_affordance/event_affordance.md) |
+| `interaction` | [`InteractionAffordance`](../td/interaction_affordance/interaction_affordance.md) |
+
+Have a look at their code by using the links above.
 
 ::: hololinked.core.interfaces.metadata.MetadataFormat
     options:

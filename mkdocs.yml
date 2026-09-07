@@ -55,27 +55,21 @@ nav:
       - StateMachine:
           - StateMachine: api-reference/state-machine/state-machine.md
           - BoundFSM: api-reference/state-machine/bound-fsm.md
-      - RPC Server:
-          - RPCServer: api-reference/rpc-server/rpc-server.md
-          - Messaging Contracts:
-              - RequestMessage: api-reference/rpc-server/messaging-contract/request-message.md
-              - ResponseMessage: api-reference/rpc-server/messaging-contract/response-message.md
-              - EventMessage: api-reference/rpc-server/messaging-contract/event-message.md
-              - Headers: api-reference/rpc-server/messaging-contract/headers.md
-              - Contexts: api-reference/rpc-server/messaging-contract/contexts.md
-          - Brokers:
-              - BaseZMQ: api-reference/rpc-server/brokers/base-zmq.md
-              - AsyncZMQServer: api-reference/rpc-server/brokers/async-zmq-server.md
-              - SyncZMQClient: api-reference/rpc-server/brokers/sync-zmq-client.md
-              - AsyncZMQClient: api-reference/rpc-server/brokers/async-zmq-client.md
-              - MessageMappedClientPool: api-reference/rpc-server/brokers/message-mapped-zmq-client-pool.md
-              - EventPublisher: api-reference/rpc-server/brokers/event-publisher.md
-              - EventConsumer: api-reference/rpc-server/brokers/event-consumer.md
-          # - Schedulers:
-          #     - Scheduler: api-reference/rpc-server/schedulers/scheduler.md
-          #     - QueuedScheduler: api-reference/rpc-server/schedulers/queued-scheduler.md
-          #     - ThreadedScheduler: api-reference/rpc-server/schedulers/threaded-scheduler.md
-          #     - AsyncScheduler: api-reference/rpc-server/schedulers/async-scheduler.md
+      - Event Loop:
+          - EventLoop: api-reference/eventloop/eventloop.md
+          - Operation Model:
+              - Operation: api-reference/eventloop/operation.md
+              - Job: api-reference/eventloop/job.md
+              - Reply: api-reference/eventloop/reply.md
+              - PendingOperations: api-reference/eventloop/pending-operations.md
+              - Payloads: api-reference/eventloop/payloads.md
+          - Publish-Subscribe: api-reference/eventloop/pubsub.md
+          - Execution Contexts: api-reference/eventloop/contexts.md
+          - Schedulers:
+              - Scheduler: api-reference/eventloop/schedulers/scheduler.md
+              - QueuedScheduler: api-reference/eventloop/schedulers/queued-scheduler.md
+              - ThreadedScheduler: api-reference/eventloop/schedulers/threaded-scheduler.md
+              - AsyncScheduler: api-reference/eventloop/schedulers/async-scheduler.md
       - Clients:
           - ClientFactory: api-reference/clients/base.md
           - ObjectProxy: api-reference/clients/object-proxy.md
@@ -91,14 +85,44 @@ nav:
               - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
       - Servers:
           - HTTP: api-reference/protocols/http/index.md
-          - ZMQ: api-reference/protocols/zmq/index.md
+          - ZMQ:
+              - ZMQServer: api-reference/protocols/zmq/index.md
+              - Messaging Contracts:
+                  - RequestMessage: api-reference/protocols/zmq/messaging-contract/request-message.md
+                  - ResponseMessage: api-reference/protocols/zmq/messaging-contract/response-message.md
+                  - EventMessage: api-reference/protocols/zmq/messaging-contract/event-message.md
+                  - Headers: api-reference/protocols/zmq/messaging-contract/headers.md
+              - Brokers:
+                  - BaseZMQ: api-reference/protocols/zmq/brokers/base-zmq.md
+                  - AsyncZMQServer: api-reference/protocols/zmq/brokers/async-zmq-server.md
+                  - SyncZMQClient: api-reference/protocols/zmq/brokers/sync-zmq-client.md
+                  - AsyncZMQClient: api-reference/protocols/zmq/brokers/async-zmq-client.md
+                  - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
+                  - EventPublisher: api-reference/protocols/zmq/brokers/event-publisher.md
+                  - EventConsumer: api-reference/protocols/zmq/brokers/event-consumer.md
           - MQTT: api-reference/protocols/mqtt/index.md
           - Security:
               - Bcrypt: api-reference/protocols/security/bcrypt.md
               - Argon2: api-reference/protocols/security/argon2.md
       - Configuration: api-reference/global-config.md
+      - Interfaces:
+          - Ports: api-reference/interfaces/index.md
+          - BaseSerializer: api-reference/interfaces/serializer.md
+          - BaseSchemaValidator: api-reference/interfaces/schema-validator.md
+          - BaseConfigurationRepository: api-reference/interfaces/configuration-repository.md
+          - Metadata: api-reference/interfaces/metadata.md
+      - Dependency Injection:
+          - Adapter Registries: api-reference/injection/index.md
+          - SchemaValidators: api-reference/injection/schema-validators.md
+          - StorageBackends: api-reference/injection/storage-backends.md
+          - MetadataFormats: api-reference/injection/metadata-formats.md
       - Serializers:
           - Serializers: api-reference/serializers/index.md
+          - JSON: api-reference/serializers/json.md
+          - MessagePack: api-reference/serializers/msgpack.md
+          - Pickle: api-reference/serializers/pickle.md
+          - Serpent: api-reference/serializers/serpent.md
+          - Text: api-reference/serializers/text.md
       # - Thing Descriptions:
       #     - Interaction Affordances:
       #         - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
