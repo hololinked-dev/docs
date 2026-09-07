@@ -11,7 +11,6 @@ As a novice, you have a requirement to control and capture data from your hardwa
 
 If you are a web developer or an industry professional looking for a web standards compatible, interoperable (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP, MQTT & ZMQ are supported.
 
-This implementation is based on RPC, built ground-up in python keeping both the latest web technologies and python principles in mind.
 
 <div align="left">
 
@@ -52,6 +51,8 @@ This implementation is based on RPC, built ground-up in python keeping both the 
 
 </div>
 
+<img src="https://hololinked-project-website.s3.fr-par.scw.cloud/demo-v1.gif" alt="hololinked demo: a Thing controlled from a browser dashboard" width="2546" height="1366">
+
 ---
 
 ## High Level Overview
@@ -89,6 +90,15 @@ Additionally, **state machines** can constrain property and action execution:
 - _Oscilloscope_ - Cannot start a new measurement while one is ongoing
 - _Camera_ - Cannot change exposure time while capturing video
 
+#### Benefits you get when you use hololinked:
+
+- technology independent and technology extensible architecture -> handles technology changes. 
+- its not a solution that uses "different set of technologies to solve the same problem". It solves a problem irrespective of the underlying technologies. AI included. You chose the tech stack or extend it with your stack (PRs welcome for new tech adapters and new features).  
+- simple to understand and simplifies contradicting viewpoints
+- scalable, performant, interoperable and can be used in different domains (IoT, microservices, networked control systems, web, RPCs etc.)
+- metadata rich - use AI agents, API tools, whatever.
+- security built in
+
 ---
 
 !!! tip "Ready to get started?"
@@ -104,5 +114,3 @@ Additionally, **state machines** can constrain property and action execution:
     - Every Friday 9-10AM CET/CEST, 4-5PM CET/CEST
 
     Please email to <a href="mailto:info@hololinked.dev">info@hololinked.dev</a>. You can also ask questions in the [discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).
-
-

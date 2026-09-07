@@ -128,5 +128,5 @@ deploy:
           image.ports.containerPort: 80
         setValueTemplates:
           image:
-            repository: docker.io/vigneshvsv/hololinked_docs
-            tag: prod
+            repository: "{{ .IMAGE_REPO_hololinked_docs }}"
+            tag: "{{ .IMAGE_TAG_hololinked_docs }}@{{ .IMAGE_DIGEST_hololinked_docs }}"
