@@ -51,7 +51,7 @@ If you are a web developer or an industry professional looking for a web standar
 
 </div>
 
-<img src="https://hololinked-project-website.s3.fr-par.scw.cloud/demo-v1.gif" alt="hololinked demo: a Thing controlled from a browser dashboard" width="2546" height="1366">
+<img src="https://hololinked-project-website.s3.fr-par.scw.cloud/demo-v2.gif" alt="hololinked demo: a Thing controlled from a browser dashboard" width="2546" height="1366">
 
 ---
 

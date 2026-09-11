@@ -127,6 +127,14 @@ nav:
           - Pickle: api-reference/serializers/pickle.md
           - Serpent: api-reference/serializers/serpent.md
           - Text: api-reference/serializers/text.md
+      - Storage:
+          - Storage Backends: api-reference/storage/index.md
+          - JSONFileStorage: api-reference/storage/json-file.md
+          - SQLAlchemyDB: api-reference/storage/sqlalchemy.md
+          - MongoDB: api-reference/storage/mongodb.md
+          - BaseDB: api-reference/storage/bases.md
+          - Configuration: api-reference/storage/config.md
+          - Models: api-reference/storage/models.md
       # - Thing Descriptions:
       #     - Interaction Affordances:
       #         - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
