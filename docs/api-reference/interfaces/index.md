@@ -14,5 +14,6 @@ own tech stack. If one needs a totally new feature, a base class needs to be def
 | [`BaseSchemaValidator`](schema-validator.md) | [`SchemaValidators`](../injection/schema-validators.md) | `hololinked.schema_validators` |
 | [`BaseConfigurationRepository`](configuration-repository.md) | [`StorageBackends`](../injection/storage-backends.md) | `hololinked.storage` |
 | [`MetadataFormat`](metadata.md) | [`MetadataFormats`](../injection/metadata-formats.md) | `hololinked.metadata` |
+| [`BaseProtocolServer`](protocol-server.md) | [`ProtocolServers`](../injection/protocol-servers.md) | `hololinked.server` |
 
 See [Hexagonal Architecture](../../design/hexagonal-architecture.md) for the reasoning behind the split.

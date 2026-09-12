@@ -13,9 +13,10 @@ Each registry below resolves an implementation **by name, on first use**.
 | [`SchemaValidators`](schema-validators.md) | schema validators | `hololinked.schema_validators` |
 | [`StorageBackends`](storage-backends.md) | storage backends | `hololinked.storage` |
 | [`MetadataFormats`](metadata-formats.md) | device description languages | `hololinked.metadata` |
+| [`ProtocolServers`](protocol-servers.md) | protocol servers | `hololinked.server` |
 
 The implementation is either already available in the package or can be supplied by the end user.
-All four classes above are singletons, so anything set on them applies process-wide.
+All classes above are singletons, so anything set on them applies process-wide.
 
 ::: hololinked.injection.AdapterRegistry
     options:
