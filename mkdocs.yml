@@ -84,7 +84,16 @@ nav:
               - API Key: api-reference/clients/security/apikey.md
               - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
       - Servers:
-          - HTTP: api-reference/protocols/http/index.md
+          - HTTP:
+              - HTTPServer: api-reference/protocols/http/index.md
+              - Runtime Configuration: api-reference/protocols/http/config.md
+              - Thing Description Service: api-reference/protocols/http/services.md
+              - Request Handlers:
+                  - Overview: api-reference/protocols/http/handlers/index.md
+                  - BaseHandler: api-reference/protocols/http/handlers/base.md
+                  - RPCHandler: api-reference/protocols/http/handlers/rpc.md
+                  - EventHandler: api-reference/protocols/http/handlers/event.md
+                  - Probes and Control: api-reference/protocols/http/handlers/probes.md
           - ZMQ:
               - ZMQServer: api-reference/protocols/zmq/index.md
               - Messaging Contracts:
