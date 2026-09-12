@@ -109,7 +109,11 @@ nav:
                   - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
                   - EventPublisher: api-reference/protocols/zmq/brokers/event-publisher.md
                   - EventConsumer: api-reference/protocols/zmq/brokers/event-consumer.md
-          - MQTT: api-reference/protocols/mqtt/index.md
+          - MQTT:
+              - MQTTPublisher: api-reference/protocols/mqtt/index.md
+              - Runtime Configuration: api-reference/protocols/mqtt/config.md
+              - Topic Publishers: api-reference/protocols/mqtt/handlers.md
+              - Thing Description Service: api-reference/protocols/mqtt/services.md
           - Security:
               - Bcrypt: api-reference/protocols/security/bcrypt.md
               - Argon2: api-reference/protocols/security/argon2.md
