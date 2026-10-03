@@ -4,7 +4,7 @@
         heading_level: 2
         members:
             - __init__
-            - to_affordance
+            - to_metadata
            
 
 ::: hololinked.core.actions.BoundAction

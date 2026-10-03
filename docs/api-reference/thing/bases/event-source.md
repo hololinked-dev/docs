@@ -4,4 +4,5 @@
     options:
         members:
             - create_events_registry
-            - event_publisher
+            - events
+            - event_bus

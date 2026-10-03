@@ -1,0 +1,43 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: docs-dev
+  annotations:
+    external-dns.alpha.kubernetes.io/enabled: "true"
+    external-dns.alpha.kubernetes.io/ttl: "3600"
+spec:
+  parentRefs:
+    - name: gateway
+      namespace: development
+      sectionName: https-docs-dev-hololinked-net
+  hostnames:
+    - docs.dev.hololinked.net
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: dev-python-docs
+          port: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: docs-dev-redirect
+  annotations:
+    external-dns.alpha.kubernetes.io/enabled: "true"
+    external-dns.alpha.kubernetes.io/ttl: "3600"
+spec:
+  parentRefs:
+    - name: gateway
+      namespace: development
+      sectionName: http-docs-dev-hololinked-net
+  hostnames:
+    - docs.dev.hololinked.net
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301

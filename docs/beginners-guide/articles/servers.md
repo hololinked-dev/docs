@@ -57,7 +57,7 @@ The exposed properties, actions and events (events are discussed [below](#publis
 --8<-- "docs/beginners-guide/code/thing_basic_example.py:146:155"
 ```
 
-See the [protocols](protocols/index.md) section for more options to serve the `Thing`.
+See the [protocols](protocols/general.md) section for more options to serve the `Thing`.
 
 All requests to properties and actions are generally queued as the domain of operation under the hood is remote procedure calls (RPC) mediated completely by ZMQ. Therefore, only one request is executed at a time as it is assumed that the hardware normally responds to only one (physical-)operation at a time.
 

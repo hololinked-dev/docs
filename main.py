@@ -12,7 +12,7 @@ def define_env(env):
         return hololinked.core.Thing.id.doc
 
     @env.macro
-    def sub_things_docstring(): # does not work, dont know why
+    def sub_things_docstring():
         return inspect.getdoc(hololinked.core.thing.Thing.sub_things)
     
     @env.macro
