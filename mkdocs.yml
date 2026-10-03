@@ -96,6 +96,8 @@ nav:
                   - Probes and Control: api-reference/protocols/http/handlers/probes.md
           - ZMQ:
               - ZMQServer: api-reference/protocols/zmq/index.md
+              - Runtime Configuration: api-reference/protocols/zmq/config.md
+              - Thing Description Service: api-reference/protocols/zmq/services.md
               - Messaging Contracts:
                   - RequestMessage: api-reference/protocols/zmq/messaging-contract/request-message.md
                   - ResponseMessage: api-reference/protocols/zmq/messaging-contract/response-message.md
@@ -109,6 +111,7 @@ nav:
                   - MessageMappedClientPool: api-reference/protocols/zmq/brokers/message-mapped-zmq-client-pool.md
                   - EventPublisher: api-reference/protocols/zmq/brokers/event-publisher.md
                   - EventConsumer: api-reference/protocols/zmq/brokers/event-consumer.md
+                  - ZMQServerPool: api-reference/protocols/zmq/brokers/zmq-server-pool.md
           - MQTT:
               - MQTTPublisher: api-reference/protocols/mqtt/index.md
               - Runtime Configuration: api-reference/protocols/mqtt/config.md
