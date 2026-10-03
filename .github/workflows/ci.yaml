@@ -26,7 +26,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
+
+      - name: Check out the repo submodule
+        run: git submodule update --init --depth 1 repo/hololinked
 
       - name: Install cosign
         if: github.event_name != 'pull_request'
@@ -100,7 +103,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
 
       - name: Install Skaffold
         run: |
