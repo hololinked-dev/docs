@@ -186,7 +186,7 @@ nav:
       - Metaclasses: design/metaclasses.md
       - State Machine: design/state-machine.md
       - Serialization: design/serialization.md
-      - ZMQ RPC Layer: design/zmq.md
+      - Event Loop: design/eventloop.md
       - Hexagonal Architecture: design/hexagonal-architecture.md
 
 theme:

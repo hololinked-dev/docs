@@ -15,3 +15,5 @@ These are the important namespaces in the repository.
 | `hololinked.schema_validators` | Validators that check property, action and event payloads against a schema (JSON Schema, fastjsonschema, pydantic). |
 
 A [hexagonal architecture](../design/hexagonal-architecture.md) is followed with `hololinked.core` being the important part of the repository.
+
+<img src="../../assets/hexagonal-architecture.drawio.svg" alt="Hexagonal architecture diagram" style="width: 100%; height: auto;" />
