@@ -70,20 +70,15 @@ nav:
               - QueuedScheduler: api-reference/eventloop/schedulers/queued-scheduler.md
               - ThreadedScheduler: api-reference/eventloop/schedulers/threaded-scheduler.md
               - AsyncScheduler: api-reference/eventloop/schedulers/async-scheduler.md
-      - Clients:
-          - ClientFactory: api-reference/clients/base.md
-          - ObjectProxy: api-reference/clients/object-proxy.md
-          - Abstractions:
-              - ConsumedThingAction: api-reference/clients/bases/cta.md
-              - ConsumedThingProperty: api-reference/clients/bases/ctp.md
-              - ConsumedThingEvent: api-reference/clients/bases/cte.md
-              - SSE: api-reference/clients/bases/sse.md
-              - Utils: api-reference/clients/bases/utils.md
-          - Security:
-              - Basic: api-reference/clients/security/basic.md
-              - API Key: api-reference/clients/security/apikey.md
-              - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
+      - Interfaces:
+          - Ports: api-reference/interfaces/index.md
+          - BaseSerializer: api-reference/interfaces/serializer.md
+          - BaseSchemaValidator: api-reference/interfaces/schema-validator.md
+          - BaseConfigurationRepository: api-reference/interfaces/configuration-repository.md
+          - Metadata: api-reference/interfaces/metadata.md
+          - BaseProtocolServer: api-reference/interfaces/protocol-server.md
       - Servers:
+          - run: api-reference/server/index.md
           - HTTP:
               - HTTPServer: api-reference/protocols/http/index.md
               - Runtime Configuration: api-reference/protocols/http/config.md
@@ -120,21 +115,19 @@ nav:
           - Security:
               - Bcrypt: api-reference/protocols/security/bcrypt.md
               - Argon2: api-reference/protocols/security/argon2.md
-      - Server: api-reference/server/index.md
-      - Configuration: api-reference/global-config.md
-      - Interfaces:
-          - Ports: api-reference/interfaces/index.md
-          - BaseSerializer: api-reference/interfaces/serializer.md
-          - BaseSchemaValidator: api-reference/interfaces/schema-validator.md
-          - BaseConfigurationRepository: api-reference/interfaces/configuration-repository.md
-          - Metadata: api-reference/interfaces/metadata.md
-          - BaseProtocolServer: api-reference/interfaces/protocol-server.md
-      - Dependency Injection:
-          - Adapter Registries: api-reference/injection/index.md
-          - SchemaValidators: api-reference/injection/schema-validators.md
-          - StorageBackends: api-reference/injection/storage-backends.md
-          - MetadataFormats: api-reference/injection/metadata-formats.md
-          - ProtocolServers: api-reference/injection/protocol-servers.md
+      - Clients:
+          - ClientFactory: api-reference/clients/base.md
+          - ObjectProxy: api-reference/clients/object-proxy.md
+          - Abstractions:
+              - ConsumedThingAction: api-reference/clients/bases/cta.md
+              - ConsumedThingProperty: api-reference/clients/bases/ctp.md
+              - ConsumedThingEvent: api-reference/clients/bases/cte.md
+              - SSE: api-reference/clients/bases/sse.md
+              - Utils: api-reference/clients/bases/utils.md
+          - Security:
+              - Basic: api-reference/clients/security/basic.md
+              - API Key: api-reference/clients/security/apikey.md
+              - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
       - Schema Validators:
           - JSONSchemaValidator: api-reference/schema-validators/json-schema.md
           - FastJSONSchemaValidator: api-reference/schema-validators/fast-json-schema.md
@@ -154,19 +147,27 @@ nav:
           - BaseDB: api-reference/storage/bases.md
           - Configuration: api-reference/storage/config.md
           - Models: api-reference/storage/models.md
-      # - Thing Descriptions:
-      #     - Interaction Affordances:
-      #         - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
-      #         - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
-      #         - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
-      #         - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
-      #     - DataSchema: api-reference/td/data_schema.md
-      #     - Thing Model: api-reference/td/tm.md
-      #     - Form: api-reference/td/form.md
-      #     - Metadata: api-reference/td/metadata.md
-      #     - Security Definitions: api-reference/td/security.md
-      #     - Bases:
-      #         - Schema: api-reference/td/bases/schema.md
+      - Metadata/API Formats:
+          - Thing Descriptions:
+              - Interaction Affordances:
+                  - InteractionAffordance: api-reference/td/interaction_affordance/interaction_affordance.md
+                  - PropertyAffordance: api-reference/td/interaction_affordance/property_affordance.md
+                  - ActionAffordance: api-reference/td/interaction_affordance/action_affordance.md
+                  - EventAffordance: api-reference/td/interaction_affordance/event_affordance.md
+              - DataSchema: api-reference/td/data_schema.md
+              - Thing Model: api-reference/td/tm.md
+              - Form: api-reference/td/form.md
+              - Metadata: api-reference/td/metadata.md
+              - Security Definitions: api-reference/td/security.md
+              - Bases:
+                  - Schema: api-reference/td/bases/schema.md
+      - Configuration: api-reference/global-config.md
+      - Dependency Injection:
+          - Adapter Registries: api-reference/injection/index.md
+          - SchemaValidators: api-reference/injection/schema-validators.md
+          - StorageBackends: api-reference/injection/storage-backends.md
+          - MetadataFormats: api-reference/injection/metadata-formats.md
+          - ProtocolServers: api-reference/injection/protocol-servers.md
   # Examples
   # - Examples:
   #     - Energy Meter: examples/energy-meter.md
@@ -185,7 +186,7 @@ nav:
       - Metaclasses: design/metaclasses.md
       - State Machine: design/state-machine.md
       - Serialization: design/serialization.md
-      - ZMQ RPC Layer: design/zmq.md
+      - Event Loop: design/eventloop.md
       - Hexagonal Architecture: design/hexagonal-architecture.md
 
 theme:

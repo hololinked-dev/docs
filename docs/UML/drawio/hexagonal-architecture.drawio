@@ -1,10 +1,10 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.3.0 Chrome/140.0.7339.249 Electron/38.7.2 Safari/537.36" version="29.3.0">
   <diagram name="Page-1" id="DFCrOaSrRtZvU-2D4lRB">
-    <mxGraphModel dx="1072" dy="647" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1554" dy="938" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="IdZxaUeP-qgIX7MlmHNZ-1" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" value="&lt;font style=&quot;font-size: 18px;&quot; face=&quot;Lucida Console&quot;&gt;hololinked.core&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Thing&lt;/div&gt;&lt;div&gt;Property, Action, Event&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;RPCServer, EventPublisher&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="IdZxaUeP-qgIX7MlmHNZ-1" parent="1" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;strokeWidth=2;" value="&lt;font style=&quot;font-size: 18px;&quot; face=&quot;Lucida Console&quot;&gt;&lt;b&gt;hololinked.core&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;Thing&lt;/div&gt;&lt;div&gt;Property, Action, Event&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;EventLoop, EventPublisher&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="200" x="310" y="440" as="geometry" />
         </mxCell>
         <mxCell id="IdZxaUeP-qgIX7MlmHNZ-3" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;" value="">
@@ -117,6 +117,24 @@
         </mxCell>
         <mxCell id="IFCsPYImHeIqqcxwqQ8c-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=2;" value="Payload Validators&lt;div&gt;(Schema based)&lt;/div&gt;" vertex="1">
           <mxGeometry height="50" width="120" x="670.0000000000001" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;BaseSchemaValidator&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;interface&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="140" x="455" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;BaseConfigurationRepository&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;interface&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="140" x="544" y="556" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;Metadata&lt;/font&gt;&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;interface&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="61" x="544" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;font color=&quot;#ff1715&quot;&gt;&lt;b&gt;BaseSerializer&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;b&gt;&lt;font style=&quot;color: rgb(255, 23, 21); font-size: 9px;&quot;&gt;interface&lt;/font&gt;&lt;/b&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="68" x="580" y="395" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font color=&quot;#ff1715&quot; size=&quot;1&quot;&gt;&lt;b&gt;Request-Reply (EventLoop)&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="80" x="170" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="4ZsR0iUJvaOZTn2S6U-_-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font color=&quot;#ff1715&quot; size=&quot;1&quot;&gt;&lt;b&gt;PubSub&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#ff1715&quot; size=&quot;1&quot;&gt;&lt;b&gt;(EventPublisher)&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="30" width="80" x="170" y="420.35" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
