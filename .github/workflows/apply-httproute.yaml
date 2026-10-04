@@ -1,0 +1,38 @@
+name: apply-httproute
+
+on:
+  workflow_dispatch:
+
+jobs:
+  httproute:
+    name: apply httproute
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure kubeconfig
+        env:
+          KUBECONFIG_B64: ${{ secrets.KUBECONFIG_B64 }}
+        run: |
+          mkdir -p ~/.kube
+          echo "${KUBECONFIG_B64}" | base64 -d > ~/.kube/config
+
+      - name: Apply HTTPRoute
+        run: |
+          set -euo pipefail
+          kubectl apply --dry-run=server -f deployment/httproute.yaml -n website
+          kubectl apply -f deployment/httproute.yaml -n website
+
+      - name: Wait for route to be accepted
+        run: |
+          set -euo pipefail
+          for route in docs docs-redirect; do
+            for cond in Accepted ResolvedRefs; do
+              kubectl wait --timeout=60s -n website "httproute/$route" \
+                --for=jsonpath="{.status.parents[0].conditions[?(@.type==\"$cond\")].status}"=True
+            done
+          done

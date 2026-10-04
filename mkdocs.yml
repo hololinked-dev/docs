@@ -128,13 +128,6 @@ nav:
               - Basic: api-reference/clients/security/basic.md
               - API Key: api-reference/clients/security/apikey.md
               - OIDC Direct Access Grant: api-reference/clients/security/oidc.md
-      - Configuration: api-reference/global-config.md
-      - Dependency Injection:
-          - Adapter Registries: api-reference/injection/index.md
-          - SchemaValidators: api-reference/injection/schema-validators.md
-          - StorageBackends: api-reference/injection/storage-backends.md
-          - MetadataFormats: api-reference/injection/metadata-formats.md
-          - ProtocolServers: api-reference/injection/protocol-servers.md
       - Schema Validators:
           - JSONSchemaValidator: api-reference/schema-validators/json-schema.md
           - FastJSONSchemaValidator: api-reference/schema-validators/fast-json-schema.md
@@ -168,6 +161,13 @@ nav:
               - Security Definitions: api-reference/td/security.md
               - Bases:
                   - Schema: api-reference/td/bases/schema.md
+      - Configuration: api-reference/global-config.md
+      - Dependency Injection:
+          - Adapter Registries: api-reference/injection/index.md
+          - SchemaValidators: api-reference/injection/schema-validators.md
+          - StorageBackends: api-reference/injection/storage-backends.md
+          - MetadataFormats: api-reference/injection/metadata-formats.md
+          - ProtocolServers: api-reference/injection/protocol-servers.md
   # Examples
   # - Examples:
   #     - Energy Meter: examples/energy-meter.md
