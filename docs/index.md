@@ -90,7 +90,7 @@ Additionally, **state machines** can constrain property and action execution:
 - _Oscilloscope_ - Cannot start a new measurement while one is ongoing
 - _Camera_ - Cannot change exposure time while capturing video
 
-#### Benefits you get when you use hololinked:
+## Benefits you get when you use hololinked
 
 - technology independent and technology extensible architecture -> handles technology changes. 
 - its not a solution that uses "different set of technologies to solve the same problem". It solves a problem irrespective of the underlying technologies. AI included. You chose the tech stack or extend it with your stack (PRs welcome for new tech adapters and new features).  

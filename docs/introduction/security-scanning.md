@@ -1,6 +1,6 @@
 # Scanning
 
-## Bandit
+## bandit
 
 You can always access the latest security scan results from the Bandit SAST tool in the CI pipeline job of the [main branch](https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml?query=branch%3Amain).
 

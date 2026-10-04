@@ -20,7 +20,7 @@
             - thing_description_service
 
 Pass these as a plain dictionary to the `config` argument of
-[`HTTPServer`](index.md) — not as a `RuntimeConfig` instance:
+[`HTTPServer`](index.md), not as a `RuntimeConfig` instance:
 
 ```python
 HTTPServer(config=dict(cors=True, property_handler=MyPropertyHandler))
