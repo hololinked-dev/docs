@@ -112,6 +112,6 @@ flowchart TD
     Z --> Q[End]
 ```
 
-This scheduling control may need to be implemented in a separate RPC layer or similar. See the [ZMQ RPC layer](zmq.md) for more details.
+This scheduling control may need to be implemented in a separate RPC layer or similar. See the [event loop](eventloop.md) for more details.
 The payload validation step comes after the scheduling decision, as schedulers have higher precedence in the RPC call stack, although
 the logic is common. 
