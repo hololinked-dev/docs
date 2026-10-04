@@ -1,3 +1,3 @@
 
 
-::: hololinked.core.thing.RemoteInvokable
+::: hololinked.core.meta.RemoteInvokable

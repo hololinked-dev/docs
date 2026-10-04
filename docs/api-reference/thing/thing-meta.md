@@ -1,3 +1,3 @@
 
 
-::: hololinked.core.thing.ThingMeta
+::: hololinked.core.meta.ThingMeta
