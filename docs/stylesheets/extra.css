@@ -4,12 +4,13 @@
     text-align: justify;
 }
 
-.md-main[data-md-color-scheme="light"] {
-    background-color: antiquewhite;
+/* Reading area background. */
+[data-md-color-scheme="default"] .md-main {
+    background-color: #f9f9f9;
 }
 
-.md-main[data-md-color-scheme="dark"] {
-    background-color: #1e1e1e;
+[data-md-color-scheme="slate"] .md-main {
+    background-color: #011627;
 }
 
 .hidden-heading {
@@ -127,3 +128,24 @@
 /* Optional polish */
 .md-nav__link--active { font-weight: 700; }  /* make current item pop */
 .md-nav__link code { font-family: inherit; } /* keep code fragments consistent in TOCs */
+
+[data-md-color-scheme="default"] .md-header,
+[data-md-color-scheme="default"] .md-tabs {
+    background-color: #ffec3d;
+    color: #000000de;
+}
+
+[data-md-color-scheme="slate"] .md-header,
+[data-md-color-scheme="slate"] .md-tabs {
+    background-color: #795548;
+    color: #ffffff;
+}
+
+/* Darker bottom edge on the app bar. */
+[data-md-color-scheme="default"] .md-tabs {
+    box-shadow: 0 -0.05rem 0 inset rgba(0, 0, 0, 0.32);
+}
+
+[data-md-color-scheme="slate"] .md-tabs {
+    box-shadow: 0 -0.05rem 0 inset rgba(0, 0, 0, 0.45);
+}

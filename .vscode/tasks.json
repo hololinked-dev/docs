@@ -25,7 +25,7 @@
         {
             "label": "serve with dirty reload",
             "type": "shell",
-            "command": "mkdocs serve --dirtyreload",
+            "command": "zensical serve",
             "options": {
                 "cwd": "${workspaceFolder}"
             }

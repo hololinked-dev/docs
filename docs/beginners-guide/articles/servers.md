@@ -61,7 +61,7 @@ See the [protocols](protocols/general.md) section for more options to serve the 
 
 All requests to properties and actions are generally queued as the domain of operation under the hood is remote procedure calls (RPC) mediated completely by ZMQ. Therefore, only one request is executed at a time as it is assumed that the hardware normally responds to only one (physical-)operation at a time.
 
-This is **only an assumption** to simplify the programming model, given multiple protocols and to avoid unintended race conditions, both logical and in the physical world. One could override them explicitly using [threaded or async methods](actions.md#threaded--async-actions).
+This is **only an assumption** to simplify the programming model, given multiple protocols and to avoid unintended race conditions, both logical and in the physical world. One could override them explicitly using [threaded or async methods](actions.md#threaded-async-actions).
 
 It is also expected that the internal state of the python object is not inadvertently affected by running multiple requests at once to different properties or actions. If a single request or operation takes 5-10ms, one can still run 100s of operations per second. More often than not, the requirement of parallel operations is never the bottleneck in hardware control.
 
