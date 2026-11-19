@@ -1,0 +1,420 @@
+/* Muted gold is also the fallback when JavaScript or storage is unavailable. */
+:root {
+    --docs-light-bar: #f4e6bc;
+    --docs-light-bar-text: #45351b;
+    --docs-light-page: #faf6ea;
+    --docs-dark-bar: #443a2a;
+    --docs-dark-bar-text: #fff3d6;
+    --docs-dark-page: #211e17;
+}
+
+:root[data-docs-theme="mist-blue"] {
+    --docs-light-bar: #e2edf6;
+    --docs-light-bar-text: #17344c;
+    --docs-light-page: #f3f7fc;
+    --docs-dark-bar: #17354d;
+    --docs-dark-bar-text: #f2f7fc;
+    --docs-dark-page: #0b1d2c;
+}
+
+:root[data-docs-theme="glacier"] {
+    --docs-light-bar: #d8eaf1;
+    --docs-light-bar-text: #18394a;
+    --docs-light-page: #f1f7f9;
+    --docs-dark-bar: #245063;
+    --docs-dark-bar-text: #edf8fc;
+    --docs-dark-page: #102730;
+}
+
+:root[data-docs-theme="ocean"] {
+    --docs-light-bar: #c5e2ef;
+    --docs-light-bar-text: #123547;
+    --docs-light-page: #edf6fa;
+    --docs-dark-bar: #10506b;
+    --docs-dark-bar-text: #f0faff;
+    --docs-dark-page: #092632;
+}
+
+:root[data-docs-theme="cobalt"] {
+    --docs-light-bar: #3157a8;
+    --docs-light-bar-text: #ffffff;
+    --docs-light-page: #eff3fc;
+    --docs-dark-bar: #2f4c92;
+    --docs-dark-bar-text: #f0f4ff;
+    --docs-dark-page: #141d36;
+}
+
+:root[data-docs-theme="soft-teal"] {
+    --docs-light-bar: #d9efeb;
+    --docs-light-bar-text: #143e3c;
+    --docs-light-page: #f1f8f6;
+    --docs-dark-bar: #164343;
+    --docs-dark-bar-text: #edfaf8;
+    --docs-dark-page: #0b2121;
+}
+
+:root[data-docs-theme="sage"] {
+    --docs-light-bar: #dee9d8;
+    --docs-light-bar-text: #263c2d;
+    --docs-light-page: #f1f6ee;
+    --docs-dark-bar: #3a4c3f;
+    --docs-dark-bar-text: #f1faf1;
+    --docs-dark-page: #1a251d;
+}
+
+:root[data-docs-theme="olive"] {
+    --docs-light-bar: #e3e8cc;
+    --docs-light-bar-text: #333b1f;
+    --docs-light-page: #f4f6e9;
+    --docs-dark-bar: #464d2d;
+    --docs-dark-bar-text: #f5f8e7;
+    --docs-dark-page: #222716;
+}
+
+:root[data-docs-theme="slate"] {
+    --docs-light-bar: #e9edf2;
+    --docs-light-bar-text: #273445;
+    --docs-light-page: #f3f5f8;
+    --docs-dark-bar: #2a3648;
+    --docs-dark-bar-text: #f1f5fa;
+    --docs-dark-page: #151d29;
+}
+
+:root[data-docs-theme="porcelain"] {
+    --docs-light-bar: #fbfcfd;
+    --docs-light-bar-text: #243147;
+    --docs-light-page: #ecf0f4;
+    --docs-dark-bar: #26313e;
+    --docs-dark-bar-text: #f4f7fb;
+    --docs-dark-page: #141b23;
+}
+
+:root[data-docs-theme="fog-gray"] {
+    --docs-light-bar: #e1e5e8;
+    --docs-light-bar-text: #263039;
+    --docs-light-page: #f1f3f4;
+    --docs-dark-bar: #343b44;
+    --docs-dark-bar-text: #f2f5f8;
+    --docs-dark-page: #1b2026;
+}
+
+:root[data-docs-theme="graphite"] {
+    --docs-light-bar: #303845;
+    --docs-light-bar-text: #f5f7fb;
+    --docs-light-page: #eef1f5;
+    --docs-dark-bar: #303b49;
+    --docs-dark-bar-text: #f4f7fb;
+    --docs-dark-page: #111720;
+}
+
+:root[data-docs-theme="sandstone"] {
+    --docs-light-bar: #ede1d4;
+    --docs-light-bar-text: #493929;
+    --docs-light-page: #f8f2eb;
+    --docs-dark-bar: #4b4137;
+    --docs-dark-bar-text: #faf2ea;
+    --docs-dark-page: #25201b;
+}
+
+:root[data-docs-theme="terracotta"] {
+    --docs-light-bar: #f0d3c4;
+    --docs-light-bar-text: #532f25;
+    --docs-light-page: #fcf0ea;
+    --docs-dark-bar: #613f35;
+    --docs-dark-bar-text: #fff2ec;
+    --docs-dark-page: #2e211d;
+}
+
+:root[data-docs-theme="plum"] {
+    --docs-light-bar: #eadceb;
+    --docs-light-bar-text: #492d4d;
+    --docs-light-page: #f8f0f8;
+    --docs-dark-bar: #503754;
+    --docs-dark-bar-text: #fbf0fc;
+    --docs-dark-page: #281b2b;
+}
+
+:root[data-docs-theme="dusty-rose"] {
+    --docs-light-bar: #f0dee4;
+    --docs-light-bar-text: #502c3c;
+    --docs-light-page: #fbf2f5;
+    --docs-dark-bar: #5b3947;
+    --docs-dark-bar-text: #fff2f6;
+    --docs-dark-page: #2c1b23;
+}
+
+body[data-md-color-scheme] {
+    --docs-bar: var(--docs-light-bar);
+    --docs-bar-text: var(--docs-light-bar-text);
+    --docs-page: var(--docs-light-page);
+    --docs-contrast-tone: #000;
+    --docs-syntax-adjustment: 18%;
+    --docs-surface: color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 3%);
+    --docs-inset: color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 6%);
+    --docs-hover: color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 9%);
+    --docs-border: color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 17%);
+    --docs-muted-text: color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 65%);
+}
+
+body[data-md-color-scheme="slate"] {
+    --docs-bar: var(--docs-dark-bar);
+    --docs-bar-text: var(--docs-dark-bar-text);
+    --docs-page: var(--docs-dark-page);
+    --docs-contrast-tone: #fff;
+    --docs-syntax-adjustment: 22%;
+}
+
+body[data-md-color-scheme] :is(.md-header, .md-tabs) {
+    background-color: var(--docs-bar);
+    color: var(--docs-bar-text);
+}
+
+body[data-md-color-scheme] .md-footer {
+    background-color: var(--docs-inset);
+    border-top-color: var(--docs-border);
+}
+
+.md-footer .md-footer__direction {
+    color: var(--docs-muted-text);
+    opacity: 1;
+}
+
+.md-footer .md-footer__link:is(:hover, :focus) {
+    opacity: 1;
+}
+
+.md-footer__link:is(:hover, :focus) .md-ellipsis {
+    text-decoration: underline;
+}
+
+body[data-md-color-scheme] .md-main {
+    /* Capture Zensical's mode-specific syntax colors before overriding them in the article. */
+    --docs-code-number: color-mix(in srgb, var(--md-code-hl-number-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+    --docs-code-special: color-mix(in srgb, var(--md-code-hl-special-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+    --docs-code-function: color-mix(in srgb, var(--md-code-hl-function-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+    --docs-code-constant: color-mix(in srgb, var(--md-code-hl-constant-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+    --docs-code-keyword: color-mix(in srgb, var(--md-code-hl-keyword-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+    --docs-code-string: color-mix(in srgb, var(--md-code-hl-string-color), var(--docs-contrast-tone) var(--docs-syntax-adjustment));
+
+    background-color: var(--docs-page);
+}
+
+.md-main .md-sidebar--secondary {
+    --md-default-bg-color: var(--docs-page);
+}
+
+body[data-md-color-scheme="default"] .md-main .md-typeset a {
+    --md-accent-fg-color: #8b341d;
+    --md-accent-fg-color--transparent: color-mix(in srgb, var(--md-accent-fg-color) 10%, transparent);
+}
+
+.md-main .md-typeset {
+    --md-code-bg-color: var(--docs-inset);
+    --md-code-bg-color--light: var(--docs-hover);
+    --md-code-bg-color--lighter: color-mix(in srgb, var(--docs-hover) 80%, transparent);
+    --md-code-hl-color: var(--docs-muted-text);
+    --md-code-hl-color--light: var(--docs-hover);
+    --md-code-hl-number-color: var(--docs-code-number);
+    --md-code-hl-special-color: var(--docs-code-special);
+    --md-code-hl-function-color: var(--docs-code-function);
+    --md-code-hl-constant-color: var(--docs-code-constant);
+    --md-code-hl-keyword-color: var(--docs-code-keyword);
+    --md-code-hl-string-color: var(--docs-code-string);
+    --md-code-hl-operator-color: var(--docs-muted-text);
+    --md-code-hl-punctuation-color: var(--docs-muted-text);
+    --md-code-hl-comment-color: var(--docs-muted-text);
+    --md-code-hl-generic-color: var(--docs-muted-text);
+    --md-code-hl-variable-color: var(--docs-muted-text);
+    --md-typeset-table-color: var(--docs-border);
+    --md-typeset-table-color--light: var(--docs-hover);
+}
+
+.md-main .md-typeset .highlight [data-linenos]::before,
+.md-main .md-typeset .highlighttable .linenodiv pre {
+    color: var(--docs-muted-text);
+}
+
+.md-main .md-typeset table:not([class]) {
+    --md-default-bg-color: var(--docs-surface);
+}
+
+.md-main .md-typeset table:not([class]) thead {
+    background-color: var(--docs-inset);
+}
+
+.md-main .md-typeset .tabbed-labels {
+    background-color: var(--docs-surface);
+    box-shadow: 0 -.05rem var(--docs-border) inset;
+}
+
+.md-main .md-typeset .tabbed-labels > label {
+    color: var(--docs-muted-text);
+}
+
+.md-main .md-typeset .tabbed-labels > label:hover {
+    background-color: var(--docs-hover);
+    color: var(--md-default-fg-color);
+}
+
+.md-main .md-typeset .tabbed-button {
+    --md-default-bg-color--light: var(--docs-inset);
+}
+
+.md-main .md-typeset :is(.admonition, details:not(.mkdocstrings-source)) {
+    background-color: var(--docs-surface);
+    box-shadow: 0 0 0 .05rem var(--docs-border) inset;
+}
+
+.md-tabs__item:not(.md-tabs__item--active) .md-tabs__link:not(:hover, :focus) {
+    opacity: .85;
+}
+
+.docs-theme-picker {
+    --docs-theme-picker-trigger-padding: .55rem 1.3rem;
+    --docs-theme-picker-touch-size: 0px;
+
+    display: inline-flex;
+    flex: none;
+    position: relative;
+}
+
+.docs-theme-picker::after {
+    block-size: .32rem;
+    border: solid currentColor;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    inline-size: .32rem;
+    inset-block-start: 50%;
+    inset-inline-end: .58rem;
+    pointer-events: none;
+    position: absolute;
+    transform: translateY(-85%) rotate(45deg);
+}
+
+.docs-theme-picker select {
+    appearance: none;
+    background-color: color-mix(in srgb, var(--docs-bar), var(--docs-bar-text) 8%);
+    block-size: max(1.6rem, var(--docs-theme-picker-touch-size));
+    border: 0;
+    border-radius: .4rem;
+    color: inherit;
+    cursor: pointer;
+    font-size: .7rem;
+    inline-size: clamp(5.25rem, 34vw, 6.4rem);
+    line-height: 1.2;
+    padding-block: 0;
+    padding-inline: var(--docs-theme-picker-trigger-padding);
+    text-align: start;
+    text-overflow: ellipsis;
+    transition: background-color .25s;
+}
+
+.docs-theme-picker select:is(:hover, :open) {
+    background-color: color-mix(in srgb, var(--docs-bar), var(--docs-bar-text) 14%);
+}
+
+.docs-theme-picker select:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.docs-theme-picker :is(option, optgroup) {
+    background-color: var(--docs-page);
+    color: var(--md-default-fg-color);
+}
+
+@supports (appearance: base-select) and selector(::picker(select)) {
+    .docs-theme-picker select,
+    .docs-theme-picker select::picker(select) {
+        appearance: base-select;
+    }
+
+    .docs-theme-picker select {
+        align-items: stretch;
+        display: flex;
+        padding: 0;
+    }
+
+    .docs-theme-picker select > button {
+        align-items: center;
+        display: flex;
+        flex: 1;
+        font: inherit;
+        min-inline-size: 0;
+        padding-block: 0;
+        padding-inline: var(--docs-theme-picker-trigger-padding);
+    }
+
+    .docs-theme-picker selectedcontent {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .docs-theme-picker select::picker-icon {
+        display: none;
+    }
+
+    .docs-theme-picker select::picker(select) {
+        background-color: var(--docs-page);
+        border: .05rem solid var(--docs-border);
+        border-radius: .4rem;
+        box-shadow: var(--md-shadow-z2);
+        color: var(--md-default-fg-color);
+        margin-block: .2rem;
+        max-block-size: min(20rem, 60vh);
+        min-inline-size: 8.5rem;
+        padding: .25rem;
+    }
+
+    .docs-theme-picker select :is(option, legend) {
+        box-sizing: border-box;
+        inline-size: 100%;
+        line-height: 1.25;
+        padding-block: .2rem;
+        padding-inline: .6rem;
+        text-align: start;
+    }
+
+    .docs-theme-picker optgroup {
+        border-block-start: .05rem solid color-mix(in srgb, var(--docs-page), var(--docs-contrast-tone) 30%);
+        margin: .45rem 0 0;
+        padding: 0;
+    }
+
+    .docs-theme-picker optgroup > legend {
+        color: var(--md-default-fg-color);
+        display: block;
+        font-size: .7rem;
+        font-weight: 700;
+        margin: 0;
+        padding-block: .25rem;
+    }
+
+    .docs-theme-picker option {
+        align-items: center;
+        border-radius: .25rem;
+        display: flex;
+        gap: .35rem;
+        min-block-size: max(1.8rem, var(--docs-theme-picker-touch-size));
+    }
+
+    .docs-theme-picker option::checkmark {
+        margin-inline-start: auto;
+        order: 1;
+    }
+
+    .docs-theme-picker option:checked {
+        background-color: var(--docs-inset);
+    }
+
+    .docs-theme-picker option:is(:hover, :focus-visible) {
+        background-color: var(--docs-hover);
+    }
+}
+
+@media (pointer: coarse) {
+    .docs-theme-picker {
+        --docs-theme-picker-touch-size: 2.2rem;
+    }
+}
