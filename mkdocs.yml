@@ -212,6 +212,15 @@ theme:
       primary: yellow
       accent: orange
 
+    # Keep the existing light and dark indices for saved preferences.
+    - media: "(prefers-color-scheme)"
+      scheme: default
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+      primary: brown
+      accent: deep orange
+
   icon:
     repo: fontawesome/brands/github
 
@@ -246,7 +255,7 @@ theme:
     code: Roboto Mono
     # Other useful fonts that we may use:
     # Lexend Deca, Recursive, Inter, Fira Sans, IBM Plex Sans,
-    # Google Sans Code (Used for titles and headers), Funnel Sans, Comme
+    # Google Sans Code, Funnel Sans, Comme
 
 plugins:
   - git-revision-date-localized:
@@ -343,6 +352,7 @@ copyright: >
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/themes.css
   - https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap
   - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css
 

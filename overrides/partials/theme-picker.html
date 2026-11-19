@@ -1,0 +1,92 @@
+{% set theme_groups = [
+  ["Blues", [
+    ["mist-blue", "Mist blue"],
+    ["glacier", "Glacier"],
+    ["ocean", "Ocean"],
+    ["cobalt", "Cobalt"]
+  ]],
+  ["Greens and teal", [
+    ["soft-teal", "Soft teal"],
+    ["sage", "Sage"],
+    ["olive", "Olive"]
+  ]],
+  ["Neutrals", [
+    ["slate", "Slate"],
+    ["porcelain", "Porcelain"],
+    ["fog-gray", "Fog gray"],
+    ["graphite", "Graphite"]
+  ]],
+  ["Warm tones", [
+    ["sandstone", "Sandstone"],
+    ["terracotta", "Terracotta"]
+  ]],
+  ["Purples and pinks", [
+    ["plum", "Plum"],
+    ["dusty-rose", "Dusty rose"]
+  ]]
+] %}
+
+<template id="docs-theme-picker-template">
+  <span class="docs-theme-picker" title="Color theme">
+    <select id="docs-theme-picker" aria-label="Color theme">
+      <button type="button"><selectedcontent></selectedcontent></button>
+      <option value="muted-gold" selected>Muted gold</option>
+      {% for heading, options in theme_groups %}
+        <optgroup label="{{ heading | e }}">
+          <legend>{{ heading | e }}</legend>
+          {% for value, name in options %}
+            <option value="{{ value | e }}">{{ name | e }}</option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+  </span>
+</template>
+
+<script>
+  (() => {
+    const storageKey = 'hololinked.docs.theme';
+    const root = document.documentElement;
+    const template = document.getElementById('docs-theme-picker-template');
+    const themeOptions = template.content.querySelector('select');
+    let savedTheme;
+
+    try {
+      savedTheme = localStorage.getItem(storageKey);
+    } catch {
+      // The picker can still change the theme when storage is unavailable.
+    }
+
+    root.dataset.docsTheme = [...themeOptions.options].some(option => option.value === savedTheme)
+      ? savedTheme
+      : themeOptions.value;
+
+    function mountThemePicker() {
+      const appearance = document.querySelector('.md-header [data-md-component="palette"]');
+      if (!appearance || document.getElementById('docs-theme-picker')) return;
+
+      const picker = template.content.cloneNode(true);
+      const select = picker.querySelector('select');
+      select.value = root.dataset.docsTheme;
+      select.addEventListener('change', () => {
+        root.dataset.docsTheme = select.value;
+        try {
+          localStorage.setItem(storageKey, select.value);
+        } catch {
+          // The current page still uses the selected theme.
+        }
+
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+          themeColor.content = getComputedStyle(appearance.closest('.md-header')).backgroundColor;
+        }
+      });
+      appearance.before(picker);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      mountThemePicker();
+      window.document$?.subscribe(mountThemePicker);
+    }, { once: true });
+  })();
+</script>
