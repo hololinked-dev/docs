@@ -17,8 +17,8 @@ If you are a web developer or an industry professional looking for a web standar
 <a href="https://github.com/hololinked-dev/docs">
     <img src="https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Docs" alt="Documentation Status">
 </a>
-<a href="https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml">
-    <img src="https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml/badge.svg" alt="CI Pipeline Status">
+<a href="https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline-native-repo.yml">
+    <img src="https://img.shields.io/github/actions/workflow/status/hololinked-dev/hololinked/ci-pipeline-native-repo.yml?branch=main&label=CI%20Pipeline" alt="CI Pipeline Status">
 </a>
 <img src="https://img.shields.io/badge/linter-ruff-blue?logo=ruff&logoColor=white" alt="Ruff Linter">
 <a href="https://pypi.org/project/hololinked/">

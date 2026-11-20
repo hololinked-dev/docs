@@ -2,7 +2,7 @@
 
 ## bandit
 
-You can always access the latest security scan results from the Bandit SAST tool in the CI pipeline job of the [main branch](https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml?query=branch%3Amain).
+You can always access the latest security scan results from the Bandit SAST tool in the CI pipeline job of the [main branch](https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline-native-repo.yml?query=branch%3Amain).
 
 The following are the currently reported issues and the justifications of ignoring them:
 
@@ -16,5 +16,5 @@ The following are the currently reported issues and the justifications of ignori
 
 ## gitleaks
 
-A gitleaks scan is also performed, found in the same CI pipeline job of the [main branch](https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline.yml?query=branch%3Amain).
+A gitleaks scan is also performed, found in the same CI pipeline job of the [main branch](https://github.com/hololinked-dev/hololinked/actions/workflows/ci-pipeline-native-repo.yml?query=branch%3Amain).
 This scan must pass before any code is merged into the main branch.
