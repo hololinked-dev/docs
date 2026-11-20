@@ -29,8 +29,9 @@ jobs:
           submodules: false
 
       # Don't recurse as hololinked references this docs repo back as a submodule,
+      # --checkout is needed as the submodule is set to update = none in .gitmodules
       - name: Check out the repo submodule
-        run: git submodule update --init --depth 1 repo/hololinked
+        run: git submodule update --init --checkout --depth 1 repo/hololinked
 
       - name: Install cosign
         if: github.event_name != 'pull_request'
