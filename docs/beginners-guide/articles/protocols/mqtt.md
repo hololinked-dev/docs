@@ -2,7 +2,7 @@
 
 [API Reference](../../../api-reference/protocols/mqtt/index.md)
 
-MQTT does not support request reply pattern in the current implementation of this package,
+MQTT does not support the request-reply pattern in the current implementation of this package,
 although the original v5 specification of the protocol might allow it. Consider using a second protocol like HTTP if your device can support it, for the time being. Contributions are welcome. 
 
 ## SSL context
@@ -27,9 +27,9 @@ mqtt_publisher = MQTTPublisher(
 Oscilloscope(id='oscilloscope').run(servers=[mqtt_publisher])
 ```
 
-Note that since MQTT has broker-based architecture and all publishers are clients to the broker,
-the SSL context here is created with purpose `ssl.Purpose.SERVER_AUTH`. The certificate (say `ca.crt` above) must be pre-generated while deploying the MQTT broker.
+Note that since MQTT has a broker-based architecture and all publishers are clients to the broker,
+the SSL context here is created with the purpose `ssl.Purpose.SERVER_AUTH`. The certificate (say `ca.crt` above) must be pre-generated while deploying the MQTT broker.
 
-## Overiding Topic Name and QoS
+## Overriding Topic Name and QoS
 
-Not supported yet, see issue [here](https://github.com/hololinked-dev/hololinked/issues/134)
+Not supported yet; see the issue [here](https://github.com/hololinked-dev/hololinked/issues/134)

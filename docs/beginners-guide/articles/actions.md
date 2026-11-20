@@ -13,14 +13,14 @@ Only methods decorated with `action()` are exposed to clients.
 
 ## Payload Validation
 
-If arguments are loosely typed, the action will be invoked with given payload without any validation. One may validate them manually inside the method. However, one can also specify the expected argument schema using either `JSON Schema` or `pydantic` models:
+If arguments are loosely typed, the action will be invoked with the given payload without any validation. One may validate them manually inside the method. However, one can also specify the expected argument schema using either `JSON Schema` or `pydantic` models:
 
 <a id="actions-argument-schema"></a>
 === "JSON Schema"
 
     === "Single Argument"
 
-        Specify the expected type of the argument (with or without name)
+        Specify the expected type of the argument (with or without a name):
 
         ```py title="Input Schema" linenums="1" hl_lines="8"
         --8<-- "docs/beginners-guide/code/thing_example_2.py:195:198"
@@ -47,7 +47,7 @@ If arguments are loosely typed, the action will be invoked with given payload wi
     === "Multiple Arguments"
 
         Specify the argument names under the `properties` field with `type` as `object`.
-        Names not found in the `properties` field can be subsumed under python spread operator `**kwargs` if necessary (dont set `additionalProperties` to `False` in that case).
+        Names not found in the `properties` field can be subsumed under the Python unpacking operator `**kwargs` if necessary (don't set `additionalProperties` to `False` in that case).
 
         ```py title="Input Schema with Multiple Arguments" linenums="1" hl_lines="32"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:57:85"
@@ -98,7 +98,7 @@ If arguments are loosely typed, the action will be invoked with given payload wi
 
     === "Return Type"
 
-        Specify return type under `output_schema` field:
+        Specify the return type under the `output_schema` field:
 
         ```py title="With Return Type" linenums="1" hl_lines="38 39"
         --8<-- "docs/beginners-guide/code/thing_example_3.py:22:55"
@@ -289,7 +289,7 @@ If arguments are loosely typed, the action will be invoked with given payload wi
 
     === "Return Type"
 
-        type annotate the return type:
+        Type annotate the return type:
 
         ```py
         from typing import Annotated
@@ -368,7 +368,7 @@ If arguments are loosely typed, the action will be invoked with given payload wi
 --8<-- "docs/beginners-guide/code/thing_example_2.py:558:559"
 ``` -->
 
-It is always possible to custom validate the arguments after invoking the action:
+It is always possible to perform custom validation of the arguments after invoking the action:
 
 ```py title="Custom Validation" linenums="1"
 --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:3:3"
@@ -381,7 +381,7 @@ It is always possible to custom validate the arguments after invoking the action
 --8<-- "docs/beginners-guide/code/actions/parameterized_function.py:52:"
 ```
 
-`ParameterizedFunction`(s) are classes that implement the `__call__` method and whose arguments are type defined using the same objects as properties. However, this type definition using `Property` object do not make these properties of the `Thing`. The implementation follows convention used by `param` where the
+`ParameterizedFunction`(s) are classes that implement the `__call__` method and whose arguments are type defined using the same objects as properties. However, this type definition using a `Property` object does not make these properties of the `Thing`. The implementation follows the convention used by `param` where the
 properties are termed as "parameters" (also hence the word "ParameterizedFunction").
 
 The `__call__` method signature accepts its own self as the first argument,
@@ -420,7 +420,7 @@ class ServoMotor(Thing):
         ...
 ```
 
-The return value is fetched and returned to the client. One could also start long running actions without fetching a return value,
+The return value is fetched and returned to the client. One could also start long running actions without fetching a return value
 (although it would be better in many cases to manually thread out a long running action):
 
 ```py title="Threaded Actions" linenums="3"
@@ -469,7 +469,7 @@ class DCPowerSupply(Thing):
     # The suitability of this example in a realistic use case is untested
 ```
 
-For long running actions that do not return, call them with `oneway` flag on the client, otherwise expect a `TimeoutError`:
+For long running actions that do not return, call them with the `oneway` flag on the client, otherwise expect a `TimeoutError`:
 
 ```py
 client.invoke_action("monitor_over_voltage", period=10, oneway=True)
@@ -481,6 +481,6 @@ client.invoke_action("monitor_over_voltage", period=10, oneway=True)
 | ----------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | input       | ✓         | schema of the input payload (validation carried out)                                                                            |
 | output      | ✓         | schema of the output payload (validation not carried out)                                                                       |
-| safe        | ✓         | whether the action is safe to execute, only treated as a metadata                                                               |
+| safe        | ✓         | whether the action is safe to execute, only treated as metadata                                                               |
 | idempotent  | ✓         | whether the action is idempotent, `True` when the action is executable in all states of a state machine, otherwise `False`      |
 | synchronous | ✓         | whether the action is synchronous, `False` for threaded actions and async actions which are scheduled in the running event loop |

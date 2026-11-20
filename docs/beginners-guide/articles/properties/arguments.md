@@ -4,10 +4,10 @@
 
 ### `allow_None`, `constant` & `readonly`
 
-- if `allow_None` is `True`, property supports `None` apart from its own type
+- if `allow_None` is `True`, the property supports `None` apart from its own type
 - `readonly` (being `True`) makes the property read-only or execute only the getter method
 - `constant` (being `True`), again makes the property read-only but can be set once if `allow_None` is `True`.
-  This is useful to set the property once at `__init__()` but remain constant after that.
+  This is useful to set the property once at `__init__()` while keeping it constant after that.
 
 ```py title="allow None, constant and readonly" linenums="1" hl_lines="11 19 27 28 36"
 --8<-- "docs/beginners-guide/code/properties/common_args_1.py:1:39"
@@ -48,12 +48,12 @@ in a GUI with a readable name (for example).
 
 ### `default`, `fget`, `fset` & `fdel`
 
-To provide a getter-setter (& deleter) method is optional.
+Providing a getter-setter (& deleter) method is optional.
 
-If none given, when the property is set/written, the value is stored inside the instance's `__dict__` under the name `<given property name>_param_value`
-(for example, `serial_number_param_value` for `serial_number`). In layman's terms, `__dict__` is the internal map where the attributes of the object are stored by python.
+If none is given, when the property is set/written, the value is stored inside the instance's `__dict__` under the name `<given property name>_param_value`
+(for example, `serial_number_param_value` for `serial_number`). In layman's terms, `__dict__` is the internal map where the attributes of the object are stored by Python.
 
-When a value assignment was never called on the property, `default` is returned when reading the value. If a setter/deleter is given, getter is mandatory. In this case, `default` is also ignored & the getter is always executed.
+When a value assignment was never called on the property, `default` is returned when reading the value. If a setter/deleter is given, a getter is mandatory. In this case, `default` is also ignored & the getter is always executed.
 
 === "with decorator"
 
@@ -76,8 +76,8 @@ If default is desirable, one has to return it manually in the getter method by a
 ### `class_member`
 
 If `class_member` is True, the value is set in the class' `__dict__` (i.e. becomes a class attribute)
-instead of instance's `__dict__` (instance's attribute).
-Custom getter-setter-deleter are not compatible with this option currently. `class_member` takes precedence over fget-fset-fdel,
+instead of the instance's `__dict__` (instance's attribute).
+Custom getter-setter-deleter methods are not compatible with this option currently. `class_member` takes precedence over fget-fset-fdel,
 which in turn has precedence over `default`.
 
 ```py title="class member" linenums="1" hl_lines="26"
@@ -92,7 +92,7 @@ which in turn has precedence over `default`.
 
 ### `remote`
 
-setting `remote` to False makes the property inaccessible to a client but accessible to the object locally. This is still useful to type-restrict python attributes to provide an interface to other developers using your class, for example, when someone else inherits your `Thing`. For example, the `Thing`'s `logger` is implemented in this fashion:
+Setting `remote` to False makes the property inaccessible to a client but accessible to the object locally. This is still useful to type-restrict Python attributes to provide an interface to other developers using your class, for example, when someone else inherits your `Thing`. For example, the `Thing`'s `logger` is implemented in this fashion:
 
 ```py title="local properties" linenums="1" hl_lines="11"
 import logging
@@ -114,7 +114,7 @@ class Thing(metaclass=ThingMeta):
 
 ### `state`
 
-When `state` is specifed, the property is writeable only when the `Thing`'s `StateMachine` is in that specified state (or
+When `state` is specified, the property is writeable only when the `Thing`'s `StateMachine` is in that specified state (or
 in the list of allowed states):
 
 ```py title="state machine state" linenums="1" hl_lines="28"
@@ -145,11 +145,11 @@ quantity.
 
 Properties can be stored in a file or a database and loaded from them when the `Thing` is stopped and restarted. This is useful especially to preserve the settings of the hardware when the server undergoes a restart, either through system restart, server crash or any other reason.
 
-- `db_init` only loads a property from database. When the property value is changed, its not written back to the database.
+- `db_init` only loads a property from the database. When the property value is changed, it's not written back to the database.
   For this option, the value has to be pre-created in the database in some other fashion.
 
 - `db_commit` only writes the value into the database when an assignment/write operation is called.
 
-- `db_persist` stores and loads the property from the database. property value is assigned after `__init__()` method, therefore its recommended to ensure that the device connection is established at `__init__()` itself. Otherwise, errors should be expected.
+- `db_persist` stores and loads the property from the database. The property value is assigned after the `__init__()` method; therefore, it's recommended to ensure that the device connection is established at `__init__()` itself. Otherwise, errors should be expected.
 
-Supported databases are MySQL, Postgres, SQLite & Mongo currently. Look at database how-to for supply database configuration.
+Supported databases are MySQL, Postgres, SQLite & Mongo currently. Look at the database how-to for supplying database configuration.

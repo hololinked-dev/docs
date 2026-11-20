@@ -1,6 +1,6 @@
 # Properties In-Depth
 
-Properties expose python attributes to clients & support custom get-set(-delete) operations. Further, change events can be subscribed/observed to be automatically informed of a change in the value of a property.
+Properties expose Python attributes to clients & support custom get-set(-delete) operations. Further, clients can subscribe to change events to be automatically informed of a change in the value of a property.
 `hololinked` uses `param` under the hood to implement properties, which in turn uses the
 descriptor protocol.
 
@@ -8,14 +8,14 @@ descriptor protocol.
 
     Python's own `property` is not supported for remote access due to limitations in using foreign attributes
     within the `property` object. Said limitation causes redundancy with the existing implementation of
-    `Property` class, nevertheless, the term `Property`
-    (with capital 'P') is used to comply with the terminology of Web of Things.
+    the `Property` class; nevertheless, the term `Property`
+    (with a capital 'P') is used to comply with the terminology of Web of Things.
 
 ### Untyped/Custom Typed Property
 
 [API Reference](../../../api-reference/property/index.md)
 
-To make a property take any python value, use the base class `Property`:
+To make a property take any Python value, use the base class `Property`:
 
 ```py title="Untyped Property" linenums="1" hl_lines="4"
 --8<-- "docs/beginners-guide/code/properties/untyped.py:5:12"
@@ -29,7 +29,7 @@ One can also pass the property value to the `Thing` parent's `__init__` to auto-
 --8<-- "docs/beginners-guide/code/properties/untyped.py:56:64"
 ```
 
-As previously stated, by default, a data container is auto allocated at the instance level. One can supply a custom getter-setter if necessary,
+As previously stated, by default, a data container is automatically allocated at the instance level. One can supply a custom getter-setter if necessary,
 especially when applying the property directly onto the hardware.
 The descriptor object (instance of `Property`) that holds the property metadata and performs the get-set operations can be
 accessed by the instance under `self.properties.descriptors["<property name>"]`:
@@ -39,7 +39,7 @@ accessed by the instance under `self.properties.descriptors["<property name>"]`:
 --8<-- "docs/beginners-guide/code/properties/untyped.py:14:48"
 ```
 
-The value of the property must be serializable to be read by the clients. Read the [serializer section](../serialization.md) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not accessible on the network nevertheless the descriptor behaviour can still be leveraged.
+The value of the property must be serializable to be read by the clients. Read the [serializer section](../serialization.md) for further details & customization. To make a property only locally accessible, set `remote=False`, i.e. such a property will not be accessible on the network; nevertheless, the descriptor behaviour can still be leveraged.
 
 ### Predefined Typed Properties
 
@@ -50,16 +50,16 @@ defined by `param`:
 
 | Property Class                      | Type                          | Options                                                               |
 | ----------------------------------- | ----------------------------- | --------------------------------------------------------------------- |
-| `String`                            | `str`                         | comply to regex                                                       |
+| `String`                            | `str`                         | comply with regex                                                       |
 | `Number`                            | `float`, `int`                | min & max bounds, inclusive bounds, crop to bounds, multiples         |
 | `Integer`                           | `int`                         | same as `Number`                                                      |
 | `Boolean`                           | `bool`                        | tristate if `allow_None=True`                                         |
-| `Iterable`                          | general python iterables      | length/bounds, item_type, dtype (allowed type of the iterable itself) |
+| `Iterable`                          | general Python iterables      | length/bounds, item_type, dtype (allowed type of the iterable itself) |
 | `Tuple`                             | `tuple`                       | same as iterable                                                      |
 | `List`                              | `list`                        | same as iterable                                                      |
 | `Selector`                          | one of many objects           | allowed list of objects                                               |
 | `TupleSelector`                     | one or more of many objects   | allowed list of objects                                               |
-| `ClassSelector`                     | class, subclass or instance   | comply to instance only or class/subclass only                        |
+| `ClassSelector`                     | class, subclass or instance   | constrain to instance only or class/subclass only                        |
 | `Path`, `Filename`, `Foldername`    | path, filename & folder names |                                                                       |
 | `Date`                              | `datetime`                    | format                                                                |
 | `TypedList`                         | typed list                    | typed appends, extends                                                |
@@ -73,7 +73,7 @@ An example:
 ```
 
 For typed properties, before the setter is invoked, the value is internally validated.
-The return value of getter method is never validated and is left to the developer's or the client's caution.
+The return value of the getter method is never validated and is left to the developer's or the client's caution.
 
 ## Schema Constrained Property
 

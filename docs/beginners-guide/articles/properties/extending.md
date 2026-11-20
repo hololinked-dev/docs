@@ -1,6 +1,6 @@
 # Extending
 
-Properties can also be extended to define custom types, validation and coercion based on specific requirements. As a contrived example, one may define a JPEG image attribute which may accept a numpy array as input, have a compression level setting, transpose and flip the image if necessary.
+Properties can also be extended to define custom types, validation and coercion based on specific requirements. As a contrived example, one may define a JPEG image attribute which may accept a NumPy array as input, have a compression level setting, transpose and flip the image if necessary.
 
 To create the property, inherit from the `Property` object and define the `__init__`:
 
@@ -9,7 +9,7 @@ To create the property, inherit from the `Property` object and define the `__ini
 --8<-- "docs/beginners-guide/code/properties/extending.py:4:27"
 ```
 
-It is possible to use the `__set__()` to carry out type validation & coercion. This method is automatically invoked by python:
+It is possible to use the `__set__()` to carry out type validation & coercion. This method is automatically invoked by Python:
 
 ```py title='Validation with __set__()' linenums="1" hl_lines="9-10"
 --8<-- "docs/beginners-guide/code/properties/extending.py:1:7"
@@ -23,9 +23,9 @@ Essentially:
 - manipulate your data if necessary
 - pass it to the parent.
 
-It is necessary to use the `instance_descriptor` decorator as shown above to allow `class_member` option to function correctly. If the `Property` will not be a `class_member`, this decorator can be skipped.
+It is necessary to use the `instance_descriptor` decorator as shown above to allow the `class_member` option to function correctly. If the `Property` will not be a `class_member`, this decorator can be skipped.
 
-Further, the parent class [`Property` takes care](https://github.com/VigneshVSV/hololinked/blob/main/hololinked/core/property.py) of allocating an instance variable, checking `constant`, `readonly`, pushing change events etc. Therefore, to avoid redundancy, its recommended to implement a `validate_and_adapt()` method instead of `__set__`:
+Further, the parent class [`Property` takes care](https://github.com/VigneshVSV/hololinked/blob/main/hololinked/core/property.py) of allocating an instance variable, checking `constant`, `readonly`, pushing change events etc. Therefore, to avoid redundancy, it's recommended to implement a `validate_and_adapt()` method instead of `__set__`:
 
 ```py title='Validation and Adaption' linenums="1"
 --8<-- "docs/beginners-guide/code/properties/extending.py:6:8"
@@ -40,9 +40,9 @@ To use the `JPEG` property in a `Thing` class, follow the normal procedure of pr
 --8<-- "docs/beginners-guide/code/properties/extending.py:81:101"
 ```
 
-In this particular example, since we dont want the `JPEG` to be set externally by a client, we create a local `Property` which carries out the image manipulation and an externally visible `readonly` Property that can supply the processed image to the client.
+In this particular example, since we don't want the `JPEG` to be set externally by a client, we create a local `Property` which carries out the image manipulation and an externally visible `readonly` Property that can supply the processed image to the client.
 
-The difference between using a custom setter/`fset` method and overloading the `Property` is that, one can accept certain options specific to the `Property` in the `__init__` of the
+The difference between using a custom setter/`fset` method and overloading the `Property` is that one can accept certain options specific to the `Property` in the `__init__` of the
 `Property`:
 
 ```py title="Reusing Custom Property" linenums="1"

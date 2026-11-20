@@ -1,10 +1,10 @@
 [API Reference](../../api-reference/state-machine/state-machine.md)
 
-The world of physical things is often constrained by certain physical conditions. One may need to constrain operations that are allowed when a `Thing` is said to be in a certain state. For example, a measurement device cannot modify a specific setting if a measurement is ongoing, as this could ruin the measurement. This could be considered as the device being in `MEASURING` state. Similarly, a device recovering from a fault condition (or `FAULT` state) requires a specific set of operations. To implement these contraints, a finite state machine may be used to prevent property writes or actions. Events are not supported. 
+The world of physical things is often constrained by certain physical conditions. One may need to constrain operations that are allowed when a `Thing` is said to be in a certain state. For example, a measurement device cannot modify a specific setting if a measurement is ongoing, as this could ruin the measurement. This could be considered as the device being in the `MEASURING` state. Similarly, a device recovering from a fault condition (or `FAULT` state) requires a specific set of operations. To implement these constraints, a finite state machine may be used to prevent property writes or actions. Events are not supported.
 
 ## Definition
 
-A `StateMachine` is a class-level attribute which accepts a list of states and the allowed properties and actions in these states. One can custom define the set of state names:
+A `StateMachine` is a class-level attribute which accepts a list of states and the allowed properties and actions in these states. One can define a custom set of state names:
 
 ```py title="Definition" linenums="1" 
 --8<-- "docs/beginners-guide/code/fsm/def.py:1:1"
@@ -20,7 +20,7 @@ Specify the machine conditions as keyword arguments to the `state_machine` with 
 --8<-- "docs/beginners-guide/code/fsm/def.py:12:38"
 ```
 
-Set the `StateMachine` state in properties or actions to indicate state changes using the `set_state()` method or the assignment operator on `state_machine.current_state`. Actions or python methods are the most common place to set the state:
+Set the `StateMachine` state in properties or actions to indicate state changes using the `set_state()` method or the assignment operator on `state_machine.current_state`. Actions or Python methods are the most common places to set the state:
 
 ```py title="set_state()" linenums="1" hl_lines="6 12"
 --8<-- "docs/beginners-guide/code/fsm/def.py:13:15"
@@ -36,7 +36,7 @@ One can also specify the allowed state of a property or action directly on the c
 
 ## State Change Events
 
-State machines also push state change event when the state changes. The `state` is also an observable property per definition in the base `Thing` class:
+State machines also push state change events when the state changes. The `state` is also an observable property by definition in the base `Thing` class:
 
 ```py title="Definition" linenums="1" hl_lines="7"
 --8<-- "docs/beginners-guide/code/fsm/def.py:13:16"
@@ -61,7 +61,7 @@ client.observe_property(name="state", callbacks=state_change_cb)
 ## State Change Callbacks
 
 One can also supply callbacks which are executed when entering and exiting certain states, irrespective of where or 
-when the state change occured. The state name and the list of callbacks are supplied as a dictionary to the `on_enter` 
+when the state change occurred. The state name and the list of callbacks are supplied as a dictionary to the `on_enter`
 and `on_exit` arguments. These callbacks are executed after the state change is effected, and are mostly useful when 
 there are state changes at multiple places which need to trigger the same side-effects.
 

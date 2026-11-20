@@ -17,7 +17,7 @@ One would require a [Thing Description](https://www.w3.org/TR/wot-thing-descript
     [Spectrometer](https://examples.hololinked.dev/simulations/spectrometer/resources/wot-td) | 
     [Oscilloscope](https://examples.hololinked.dev/simulations/oscilloscope/resources/wot-td) <br/>
 
-The purpose of this JSON metadata is to provide both a human and machine readable description of the `Thing` and its capabilities, so that clients can automatically discover and interact with it without prior knowledge. In `hololinked`, this JSON document is automatically generated and served by the server protocols. There is lesser requirement for manually creating said `ThingDescription`, unless one wants to highly customize it.
+The purpose of this JSON metadata is to provide both a human and machine readable description of the `Thing` and its capabilities, so that clients can automatically discover and interact with it without prior knowledge. In `hololinked`, this JSON document is automatically generated and served by the server protocols. There is less need to manually create said `ThingDescription`, unless one wants to highly customize it.
 
 To instantiate an `ObjectProxy`, use the `ClientFactory` for one protocol at a time:
 
@@ -79,7 +79,7 @@ To instantiate an `ObjectProxy`, use the `ClientFactory` for one protocol at a t
     ```
 
     The `Thing Description` is published to the MQTT Broker under the topic `<thing_id>/thing-description` by the server, 
-    and the `ClientFactory` subsribes to the `Thing Description` and constructs the `ObjectProxy`.
+    and the `ClientFactory` subscribes to the `Thing Description` and constructs the `ObjectProxy`.
 
     MQTT currently supports only events and properties that publish change events.
 
@@ -99,13 +99,13 @@ To read and write multiple properties:
 
 ### invoke actions
 
-One can also access actions with dot operator and supply positional and keyword arguments:
+One can also access actions with the dot operator and supply positional and keyword arguments:
 
 ```py title="invoke actions with dot operator" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:31:40"
 ```
 
-One can also use `invoke_action` to invoke an action by name
+One can also use `invoke_action` to invoke an action by name:
 
 ```py title="invoke_action()" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:44:55"
@@ -113,7 +113,7 @@ One can also use `invoke_action` to invoke an action by name
 
 ### oneway scheduling
 
-`oneway` scheduling do not fetch return value and exceptions that might occur while executing a property or an action. The server schedules the operation and returns an empty response to the client, allowing it to process further logic. It is possible to set a property, set multiple or all properties or invoke an action in oneway. Other operations are not supported.
+`oneway` scheduling does not fetch return values or exceptions that might occur while executing a property or an action. The server schedules the operation and returns an empty response to the client, allowing it to process further logic. It is possible to set a property, set multiple or all properties or invoke an action in oneway. Other operations are not supported.
 
 ```py title="oneway=True" linenums="1"
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:79:103"
@@ -121,7 +121,7 @@ One can also use `invoke_action` to invoke an action by name
 
 Simply provide the keyword argument `oneway=True` to the operation method.
 
-`oneway` must be always specified as a keyword argument. Due to this reason, one cannot have an action argument or a property on the server named `oneway` as it is a reserved keyword argument to such methods on the client. At least they become inaccessible on the `ObjectProxy`.
+`oneway` must always be specified as a keyword argument. Due to this reason, one cannot have an action argument or a property on the server named `oneway` as it is a reserved keyword argument to such methods on the client. At least they become inaccessible on the `ObjectProxy`.
 
 ### no-block scheduling
 
@@ -131,9 +131,9 @@ Simply provide the keyword argument `oneway=True` to the operation method.
 --8<-- "docs/beginners-guide/code/object_proxy/sync.py:107:139"
 ```
 
-When using `read_reply()`, `noblock` calls raise exception on the client if the server raised its own exception or fetch the return value .
+When using `read_reply()`, `noblock` calls raise an exception on the client if the server raised its own exception or fetch the return value.
 
-<!-- We supported this before, but not now, TODO renable -->
+<!-- We supported this before, but not now, TODO re-enable -->
 <!-- Timeout exceptions are raised when there is no reply within timeout specified.
 
 .. literalinclude:: code/object_proxy/sync.py
@@ -154,7 +154,7 @@ Simply prefix `async_` to the method name, like `async_read_property`, `async_wr
 --8<-- "docs/beginners-guide/code/object_proxy/async.py:15:44"
 ```
 
-There is no support for dot operator based access for asyncio. One may also note that `async` operations  
+There is no support for dot operator based access for asyncio. One may also note that `async` operations
 do not change the nature of the execution on the server side.
 `asyncio` on `ObjectProxy` is purely a client-side non-blocking network call, so that one can
 simultaneously perform other async operations while the client is waiting for said network operation to complete.
@@ -162,11 +162,11 @@ simultaneously perform other async operations while the client is waiting for sa
 !!! Note
 
     `oneway` and `noblock` are not supported for async calls due to the asynchronous nature of the
-    operation themselves.
+    operations themselves.
 
 ### subscribe and unsubscribe events
 
-To subscribe to an event, use `subscribe_event` method and pass a callback function that accepts a single argument, the event data:
+To subscribe to an event, use the `subscribe_event` method and pass a callback function that accepts a single argument, the event data:
 
 ```py title="subscribe_event()" linenums="1"
 from hololinked.client.abstractions import SSE
@@ -180,7 +180,7 @@ def update_plot(event: SSE):
 spectrometer.subscribe_event("intensity_measurement_event", callbacks=update_plot)
 ```
 
-It is possible to also use bound methods as callbacks. To unsubscribe from an event, use `unsubscribe_event` method:
+It is possible to also use bound methods as callbacks. To unsubscribe from an event, use the `unsubscribe_event` method:
 
 ```py title="unsubscribe_event()" linenums="1"
 spectrometer.unsubscribe_event("intensity_measurement_event")
@@ -190,7 +190,7 @@ One can also supply multiple callbacks to be executed in series or concurrently,
 
 ### observe and unobserve properties
 
-Observing properties work similar to event subcriptions, provided the property was specified as [`observable`](properties/arguments.md#observable) on the server side.
+Observing properties works similarly to event subscriptions, provided the property was specified as [`observable`](properties/arguments.md#observable) on the server side.
 
 To observe a property:
 
@@ -221,7 +221,7 @@ Normally, there cannot be user defined attributes on the `ObjectProxy` as the at
 --8<-- "docs/beginners-guide/code/object_proxy/customizations.py:3:7"
 ```
 
-The requirement for this behaviour is due to python's duck typing. If one intends to set a property named `foo`, and instead types it as `fooo` (misspelt), it is better to raise an error instead of silently setting a new attribute `fooo` on the client. 
+The requirement for this behaviour is due to Python's duck typing. If one intends to set a property named `foo`, and instead types it as `fooo` (misspelt), it is better to raise an error instead of silently setting a new attribute `fooo` on the client.
 
 One can overcome this by setting `allow_foreign_attributes` to `True`:
 
@@ -242,12 +242,12 @@ When the `invokation_timeout` expires, the operation is guaranteed to be never e
 --8<-- "docs/beginners-guide/code/object_proxy/customizations.py:29:36"
 ```
 
-> Currently only a global customization of these values are supported. In future, one may be able to specify timeouts per operation.
+> Currently only a global customization of these values is supported. In future, one may be able to specify timeouts per operation.
 
 <!-- #### change handshake timeout
 
-Before sending the first message to the server, a handshake is always done explicitly to not loose messages on the socket.
-This is an artificat of ZMQ (which also does its own handshake). `handshake_timeout` controls how long to look for the server,
+Before sending the first message to the server, a handshake is always done explicitly to not lose messages on the socket.
+This is an artifact of ZMQ (which also does its own handshake). `handshake_timeout` controls how long to look for the server,
 in case the server takes a while to boot.
 
 ```py title="timeout" linenums="1"
@@ -256,7 +256,7 @@ in case the server takes a while to boot.
 
 Default value is 1 minute. A `ConnectionError` is raised if the server cannot be contacted.
 
-One can also delay contacting the server by setting `load_thing` to False. But one has to manually performing the `handshake` later
+One can also delay contacting the server by setting `load_thing` to False. But one has to manually perform the `handshake` later
 before loading the server resources:
 
 ```py title="timeout" linenums="1"
