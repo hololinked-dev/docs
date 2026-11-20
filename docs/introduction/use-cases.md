@@ -30,17 +30,17 @@
     </td>
     <td rowspan="3"><a href="https://github.com/zeromq/pyzmq">pyzmq</a></td>
     <td rowspan="2">
-      planned, likely may take upto end of 2026, please use HTTP if needed. Its not slow. 
+      Planned; may take until the end of 2026. Please use HTTP if needed. It's not slow.
     </td>
   </tr>
   <tr>
     <td>ZMQ IPC</td>
-    <td>Desktop Applications, Python Dashboards without exposing device API directly on network  (streamlit, dash, panel etc.)</td>
+    <td>Desktop Applications, Python Dashboards without exposing the device API directly on the network (Streamlit, Dash, Panel etc.)</td>
   </tr>
   <tr>
     <td>ZMQ INPROC</td>
     <td>
-      High Speed Desktop Applications (again, not exposed on network), currently you will need some CPP magic or disable GIL to leverage it fully
+      High Speed Desktop Applications (again, not exposed on the network), currently you will need some CPP magic or disable the GIL to leverage it fully
     </td>
     <td>
       No security, meant for in-process communication only
@@ -49,7 +49,7 @@
   <tr>
     <td>MQTT</td>
     <td>
-      Reliable pub-sub & incorporating into existing systems that use MQTT for lightweight messaging
+      Reliable pub-sub & integration into existing systems that use MQTT for lightweight messaging
     </td>
     <td rowspan="2">
       Properties that emit change events, <br /> plain Events
@@ -63,15 +63,15 @@
     </td>
   </tr>
   <tr>
-    <td>MQTT with websockets</td>
+    <td>MQTT with WebSockets</td>
     <td>
-      planned for April/May 2026 release.
+      Planned for the April/May 2026 release.
     </td>
   </tr>
   <tr>
     <td>
       CoAP <br/>
-      CoAP Websockets <br/>
+      CoAP WebSockets <br/>
       CoAP UDP
     </td>
     <td>

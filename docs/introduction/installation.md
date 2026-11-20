@@ -13,7 +13,7 @@ pip install aiomqtt
 conda install -c conda-forge hololinked
 ```
 
-One may also clone it from github & install directly (in develop mode):
+One may also clone it from GitHub & install directly (in development mode):
 
 ```sh
 git clone https://github.com/hololinked-dev/hololinked.git

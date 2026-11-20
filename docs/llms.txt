@@ -1,6 +1,6 @@
 # hololinked - Pythonic Object-Oriented Supervisory Control & Data Acquisition / Internet of Things
 
-> Documentation for hololinked, a beginner-friendly pythonic tool for instrumentation control and data acquisition over network (IoT & SCADA)
+> Documentation for hololinked, a beginner-friendly Pythonic tool for instrumentation control and data acquisition over a network (IoT & SCADA)
 
 ## Project Information
 
@@ -16,7 +16,7 @@
 
 ## Description
 
-hololinked is a beginner-friendly pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
+hololinked is a beginner-friendly Pythonic tool suited for instrumentation control and data acquisition over a network (IoT & SCADA).
 
 As a novice, one may have a requirement to control and capture data from hardware,
 for example in an electronics or science lab, and may want to show the data in a dashboard, provide a PyQt GUI, or run
@@ -28,15 +28,15 @@ hololinked can be a decent choice. By conforming to W3C Web of Things, one can e
 bidirectional message flow to interact with devices, irrespective of the underlying protocol.
 Currently HTTP, MQTT & ZMQ are supported.
 
-This implementation is based on RPC, built ground-up in python keeping both the 
-latest web technologies and python principles in mind.
+This implementation is based on RPC, built from the ground up in Python, keeping both the
+latest web technologies and Python principles in mind.
 
 ### Key Features
 
 - **Web Standards Compatible**: Conforms to W3C Web of Things specifications for consistent APIs
-- **Multiple Protocol Support**: HTTP, MQTT, and ZMQ protocols supported, new ones can be added
+- **Multiple Protocol Support**: HTTP, MQTT, and ZMQ protocols supported; new ones can be added
 - **Hexagonal Architecture**: Suitable for technological changes and adding and removing features around the application
-- **Pythonic Design**: Object-oriented approach with properties, actions, and events, build ground-up with 
+- **Pythonic Design**: Object-oriented approach with properties, actions, and events, built from the ground up with
 modern web technologies and Python principles
 
 ### Core Concepts
@@ -63,9 +63,9 @@ Each device (Thing) is modeled with:
 
 Comprehensive tutorials for getting started with hololinked:
 
-- **Expose Python Objects**: Overview of how to create network-accessible Things by subclassing from `Thing` class and instantiating properties, actions and events
-- **Using Clients**: Working with ObjectProxy for consumer side applications, using scripting API directly with W3C WoT defined operations like read_property, write_property, subscribe_event, invoke_action etc., also using oneway, async etc.
-- **Properties**: More about using properties, creating typed attributes with validation (String, Number, List, custom schemas, pydantic)
+- **Expose Python Objects**: Overview of how to create network-accessible Things by subclassing from the `Thing` class and instantiating properties, actions and events
+- **Using Clients**: Working with ObjectProxy for consumer-side applications, using the scripting API directly with W3C WoT defined operations like read_property, write_property, subscribe_event, invoke_action etc., also using oneway, async etc.
+- **Properties**: More about using properties, creating typed attributes with validation (String, Number, List, custom schemas, Pydantic)
 - **Actions**: More about using actions, decorating methods for remote invocation with payload validation
 - **Events**: More about using events, data streaming, payload specifications
 - **State Machine**: state machine based behavior control for Things
@@ -75,7 +75,7 @@ Comprehensive tutorials for getting started with hololinked:
 **URL**: https://docs.hololinked.dev/beginners-guide/articles/servers/
 
 **Key Examples**:
-- See the examples repository, there is lot of code for servers and clients both in gitlab and github
+- See the examples repository, there is a lot of code for servers and clients on both GitLab and GitHub
 
 ### 3. API Reference
 
@@ -91,11 +91,11 @@ Complete API documentation for all modules and classes:
 **Server Infrastructure**:
 - **RPC Server**: ZMQ-based RPC implementation
 - **HTTP Server**: HTTP 1.1 server
-- **MQTT Server**: MQTT broker client publishing events to MQTT broker
+- **MQTT Server**: MQTT broker client publishing events to an MQTT broker
 - **ZMQ Protocol**: IPC & TCP
 
 **Client Libraries**:
-- **ObjectProxy**: Main client object providing scripting API
+- **ObjectProxy**: Main client object providing a scripting API
 - **ClientFactory**: Client instantiation helper according to protocol
 - **Security**: Client security schemes
 
@@ -109,7 +109,7 @@ Complete API documentation for all modules and classes:
 
 In-depth design documentation for contributors and advanced users:
 
-- **Descriptors**: Python descriptor protocol usage in hololinked, how & why properties, actions and events are defined as python descriptors
+- **Descriptors**: Python descriptor protocol usage in hololinked, how & why properties, actions and events are defined as Python descriptors
 - **Property Descriptors**: Implementation details of property descriptors
 - **Action Descriptors**: Implementation details of action descriptors
 - **Event Descriptors**: Implementation details of event descriptors
@@ -117,7 +117,7 @@ In-depth design documentation for contributors and advanced users:
 - **Metaclasses**: Metaclass for Thing and use cases for it
 - **State Machine Design**: FSM implementation details
 - **Serialization Architecture**: Serialization information
-- **ZMQ RPC Layer**: Low-level RPC implementation over ZMQ serving as entry point for invoking operations on Thing for all protocols
+- **ZMQ RPC Layer**: Low-level RPC implementation over ZMQ serving as an entry point for invoking operations on a Thing for all protocols
 - **Hexagonal Architecture**: Why clean architecture principles, with illustrations and benefits listed
 
 **URL**: https://docs.hololinked.dev/design/descriptors/
@@ -127,12 +127,12 @@ In-depth design documentation for contributors and advanced users:
 - Laboratory instrumentation control (oscilloscopes, cameras, power supplies, spectrometers)
 - Industrial automation and SCADA systems
 - IoT device networks
-- Scientific Data Acquisition in large scale experiments like synchronoton, R&D lasers, particle physics experiments
+- Scientific Data Acquisition in large-scale experiments like synchrotrons, R&D lasers, particle physics experiments
 - Desktop applications for measurement equipment
 
 ## Possible Target Groups of People 
 
-The following list of people might find it useful
+The following groups of people might find it useful:
 
 - Software Developers
 - Web Developers 
@@ -177,7 +177,7 @@ device.run()
 
 - **Discord**: Join the community at https://discord.com/invite/kEz87zqQXh
 - **GitHub Issues**: Report bugs and request features - https://github.com/hololinked-dev/hololinked/issues
-- **Contributing**: All contributions welcome - code, documentation, examples, join discord to contribute
+- **Contributing**: All contributions are welcome - code, documentation, examples; join Discord to contribute
 - **Feedback Form**: https://forms.gle/FB4XwkUDt1wV4GGPA
 - **Sponsorship**: Support the project at https://github.com/sponsors/VigneshVSV
 
@@ -186,7 +186,7 @@ device.run()
 - **Examples Repository**: https://github.com/hololinked-dev/examples
 - **Control Panel**: https://github.com/hololinked-dev/thing-control-panel
 - **Website**: https://github.com/hololinked-dev/website
-- **DAQ System Infrastructre**: https://github.com/hololinked-dev/daq-system-infrastructure
+- **DAQ System Infrastructure**: https://github.com/hololinked-dev/daq-system-infrastructure
 
 ## License
 
