@@ -1,9 +1,9 @@
 # Descriptor Registries for Interaction Affordances
 
-Descriptor Registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection with the `Thing`'s capabilities.
+Descriptor Registries keep track of the available interaction affordances for a given class or instance, allowing for dynamic introspection of the `Thing`'s capabilities.
 The purpose can be summarized as:
 
-- add and remove affordances in runtime
+- add and remove affordances at runtime
 - find by name, check existence, iterate and introspect affordances
 - implement group operations on affordances (`readmultipleproperties`, `writemultipleproperties`, `readallproperties`, `writeallproperties`)
 
@@ -15,7 +15,7 @@ The purpose can be summarized as:
 
 ### Find by Name/Check Existence
 
-Lets say a serial device supports an optional list of supported commands. The presence or absence of this property could indicate whether such a list is available or not.
+Let's say a serial device supports an optional list of supported commands. The presence or absence of this property could indicate whether such a list is available or not.
 
 ```python linenums="1"
 class SerialUtility(Thing):
@@ -49,7 +49,7 @@ This is a contrived example.
 
 ### Iterate and Introspect Affordances
 
-Lets say you have overloaded a getter of a composite property that returns a group of properties' values:
+Let's say you have overloaded a getter of a composite property that returns a group of properties' values:
 
 ```python linenums="1"
 class Spectrometer(Thing):
@@ -119,7 +119,7 @@ class Spectrometer(Thing):
         ...
 ```
 
-Of course, such administrative tasks needs to be wrapped in a security definition to prevent unauthorized execution.
+Of course, such administrative tasks need to be wrapped in a security definition to prevent unauthorized execution.
 
 ### Implement Group Operations
 

@@ -5,7 +5,7 @@ The main purpose of the [`EventLoop`](../api-reference/eventloop/) is to:
 - add scheduling control for the interaction affordances
 - decouple protocol handlers from the actual execution of the interaction affordances
 - unify execution across multiple protocols
-- maintain standardized behaviour irrespective of the protocol, for example, pushing an event must cause both a HTTP and a MQTT client to receive the same event
+- maintain standardized behaviour irrespective of the protocol, for example, pushing an event must cause both an HTTP and an MQTT client to receive the same event
 
 Three types of scheduling are supported:
 

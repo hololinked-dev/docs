@@ -1,13 +1,13 @@
 # OOP For Thing
 
-It is intuitive to think or abstract a physical device as a class (as-)in object-oriented programming. A good amount of code base exists in open source within scientific community that uses OOP to model physical devices, such as:
+It is intuitive to abstract a physical device as a class in object-oriented programming. A good amount of code exists in open source within the scientific community that uses OOP to model physical devices, such as:
 
 - [pylablib](https://github.com/AlexShkarin/pyLabLib)
 - [CALA public](https://gitlab.lrz.de/cala-public)
 
 Interactions with a device can be segregated into properties, actions and events and operations on these interactions (for example, `readproperty`, `invokeaction`, `subscribeevent`). See W3C WoT for an elaborate theory - [Homepage](https://www.w3.org/WoT/). Such interactions can be described in a JSON format in a [WoT Thing Description](https://www.w3.org/TR/wot-thing-description/).
 
-Within python's class API, properties can be easily implemented with the `@property` decorator/`property` object and actions can be implemented as methods. Say a DC power supply has a voltage property that reads and writes voltage value and an action to turn the power supply ON or OFF:
+Within Python's class API, properties can be easily implemented with the `@property` decorator/`property` object and actions can be implemented as methods. Say a DC power supply has a voltage property that reads and writes the voltage value and an action to turn the power supply ON or OFF:
 
 ```py linenums="1"
 class DCPowerSupply(Thing):
@@ -42,13 +42,13 @@ This simplistic approach will be used as a starting point to create the object A
 
 > properties, actions and events are collectively called interaction affordances in WoT terminology.
 
-A superset of the above code with signifcantly added functionality can be implmented using the descriptor protocol in python. Descriptor protocols are the machinery behind:
+A superset of the above code with significantly more functionality can be implemented using the descriptor protocol in Python. The descriptor protocol is the machinery behind:
 
 - `@property` decorators, validated object attributes ([`param`](https://param.holoviz.org/), [`traitlets`](https://traitlets.readthedocs.io/en/stable/), [`attrs`](https://www.attrs.org/en/stable/) etc.)
-- python bound methods, `@classmethod`, `@staticmethod`
-- ORMs for database packages like `SQLAlchemy`, `Django ORM` where SQL statements are auto generated
+- Python bound methods, `@classmethod`, `@staticmethod`
+- ORMs for database packages like `SQLAlchemy`, `Django ORM` where SQL statements are automatically generated
 
-Accessing an interaction affordace should give the following behaviour:
+Accessing an interaction affordance should give the following behaviour:
 
 | Affordance | Class Level Access      | Instance Level Access | Descriptor Object Purpose                                                 |
 | ---------- | ----------------------- | --------------------- | ------------------------------------------------------------------------- |
@@ -91,10 +91,10 @@ class DCPowerSupply(Thing):
 
 This behaviour of descriptors allows using the same interaction affordance object in different contexts, for example with a `Property` such as:
 
-- Accessing a property at the class level to get metadata like default value, schema, observability etc.
+- Accessing a property at the class level to get metadata like the default value, schema, observability etc.
 - Access at the instance level to get the current value.
-- `Thing` class can autogenerate Thing models using the affordance objects, whereas protocols can add forms to autogenerate Thing Descriptions.
-- `ThingModel`s can generate Thing objects by mapping it to descriptors easily for an API first approach.
+- The `Thing` class can autogenerate Thing Models using the affordance objects, whereas protocols can add forms to autogenerate Thing Descriptions.
+- `ThingModel`s can generate Thing objects by mapping them to descriptors easily for an API-first approach.
 
 === "Property"
 

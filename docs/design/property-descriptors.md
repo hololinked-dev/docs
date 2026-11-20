@@ -4,7 +4,7 @@ This document summarizes the API possibilities of property descriptors that one 
 
 ## Typed Properties
 
-Apart from a base `Property` descriptor, one could support typed properties corresponding to well known data types. The intention would be two fold:
+Apart from a base `Property` descriptor, one could support typed properties corresponding to well known data types. The intention would be twofold:
 
 - expressive definitions of properties, suitable for beginners
 - support highly specific parameters with a descriptive `__init__` method that would be picked up by IDEs
@@ -57,11 +57,11 @@ For example:
                     doc="custom property that defines numpy parameters in __init__") # type: numpy.ndarray
     ```
 
-See list of predefined types [here](../beginners-guide/articles/properties/index.md#predefined-typed-properties).
+See the list of predefined types [here](../beginners-guide/articles/properties/index.md#predefined-typed-properties).
 
 ## Schema Constrained Properties
 
-Further, for advanced users, one could support JSON schema and pydantic models to define complex data structures. An example could be as follows:
+Further, for advanced users, one could support JSON schema and Pydantic models to define complex data structures. An example could be as follows:
 
 === "JSON Schema"
 
@@ -263,10 +263,10 @@ flowchart TD
 
 By setting the `observable` argument to `True`, the property automatically pushes change events to clients.
 
-- for readonly properties, a change event is pushed when the read value differes from the previous read value.
-- for writable properties, a change event is pushed when the value is set successfully and differs from the the previous set or read value (this may need to be optimized as it could lead to duplicate notifications).
+- for readonly properties, a change event is pushed when the read value differs from the previous read value.
+- for writable properties, a change event is pushed when the value is set successfully and differs from the previous set or read value (this may need to be optimized as it could lead to duplicate notifications).
 
-Apart from that, `param`'s watchers are technically supported (but **disabled for time being**). A local observer can be implmented as follows:
+Apart from that, `param`'s watchers are technically supported (but **disabled for the time being**). A local observer can be implemented as follows:
 
 ```python
 import param # hololinked's Property descriptor machinery is based on param

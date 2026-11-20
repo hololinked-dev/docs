@@ -1,12 +1,12 @@
 # State Machine
 
 A finite state machine is a simplistic and intuitive constraint on the execution of properties and actions. Usage of a state machine must be optional
-depending on the complexity of the use case as it can lead to unintended side effects or dead locks if the device enters a wrong state. 
+depending on the complexity of the use case as it can lead to unintended side effects or deadlocks if the device enters the wrong state.
 
 API possibilities include:
 
-- specify the list of allowed states, initial state and the writable properties and invokable actions for each state
-- read state as a property and push state change events
+- specify the list of allowed states, the initial state and the writable properties and invokable actions for each state
+- read the state as a property and push state change events
 - introspection of actions or properties executable in a given state
 - specify transition callbacks when the state changes
 

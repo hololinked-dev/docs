@@ -7,7 +7,7 @@ This document summarizes the API possibilities of action descriptors that one ma
 By default, when there is no input schema defined, the payload is not validated. This means one can pass any payload without validation.
 This is useful for quick prototyping, or when the action does not require strict input validation, or if the user is a beginner.
 
-The most expressive way to define payload validation to use type annotations in the action method signature:
+The most expressive way to define payload validation is to use type annotations in the action method signature:
 
 ```python linenums="1"
 class Picoscope(Thing):
@@ -70,9 +70,9 @@ Picoscope.run_block.to_affordance()
 }
 ```
 
-This type of validation is made possible by constructing a pydantic model from the type annotations.
+This type of validation is made possible by constructing a Pydantic model from the type annotations.
 
-For more complex payload validation, one can use JSON schema or pydantic models (directly). Examples are already included
+For more complex payload validation, one can use JSON schema or Pydantic models (directly). Examples are already included
 in the [handbook](../beginners-guide/articles/actions.md#payload-validation).
 
 The output payload is not validated.
@@ -82,11 +82,11 @@ The output payload is not validated.
 Execution control of operations (like `invokeaction`) can be offered in three different ways:
 
 - synchronous - queued one after another, default behaviour of **both** properties and actions
-    - `Thing` object is not manipulated simultaneously by multiple operations in multiple threads by a remote client, its a fundamental assumption based on the OOP paradigm
-    - maximizes thread safety increasing suitability of runtime for hardware engineers
+    - `Thing` object is not manipulated simultaneously by multiple operations in multiple threads by a remote client; it's a fundamental assumption based on the OOP paradigm
+    - maximizes thread safety, increasing the suitability of the runtime for hardware engineers
     - prevents incompatible physical actions in the world from running at the same time on the same device
 - threaded actions
-    - not queued, runs immediately when action is called
+    - not queued, run immediately when an action is called
     - allows multiple actions to run simultaneously
     - suitable for long running actions
 - async

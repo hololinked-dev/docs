@@ -1,20 +1,20 @@
 # Metaclasses
 
-The `Metaclass` allow customization of `Thing` subclass creation. One possible application could include enforcing certain behaviors across multiple `Thing` classes for grouping class definition for same hardware types.
+The `Metaclass` allows customization of `Thing` subclass creation. One possible application could include enforcing certain behaviors across multiple `Thing` classes for grouping class definitions for the same hardware types.
 
-Default metaclass implements:
+The default metaclass implements:
 
-- creation of descriptor registries at class level (so that registries can also be used without instances)
+- creation of descriptor registries at the class level (so that registries can also be used without instances)
 - `__post_init__` method to allow for code that should run post initialization of the class
 
-Subclassing metaclasses can implement:
+Subclassing metaclasses allows one to:
 
-- mandate existence of certain properties, actions, or events according to the hardware type; also constrain the type of the properties, payload schema of actions, or events
-- default code to run when a `Thing` class is created
+- mandate the existence of certain properties, actions, or events according to the hardware type; also constrain the type of the properties, payload schema of actions, or events
+- run default code when a `Thing` class is created
 
 ## Enforce Existence of Properties, Actions, and Events according to Hardware Type
 
-For example, lets say you have 3 different cameras, all of which need to have an image property of a specific custom implemented `Image` type and
+For example, let's say you have 3 different cameras, all of which need to have an image property of a specific custom implemented `Image` type and
 an image capture event. In the metaclass, one can assert this:
 
 ```python
@@ -65,7 +65,7 @@ class IDSCamera(Thing, metaclass=CameraMeta):
 
 ## `__post_init__` Method
 
-There is no specific need to explicitly call a `__post_init__` method as it is auto-invoked by the [`ThingMeta`](../api-reference/thing/thing-meta.md). A possible application of `__post_init__` could be to run default code after connecting to the hardware:
+There is no specific need to explicitly call a `__post_init__` method as it is auto-invoked by the [`ThingMeta`](../api-reference/thing/thing-meta.md) metaclass. A possible application of `__post_init__` could be to run default code after connecting to the hardware:
 
 ```python
 
@@ -83,7 +83,7 @@ class Camera(Thing):
         self.setup_image_processing()
 ```
 
-This is especially useful when there is a configuration management system in place, where properties are stored and loaded from a file or a database, and then applied onto the connected device when the server or `Thing` reboots. This can persist the a device's settings that are modelled as properties.
+This is especially useful when there is a configuration management system in place, where properties are stored and loaded from a file or a database, and then applied onto the connected device when the server or `Thing` reboots. This can persist a device's settings that are modelled as properties.
 
 ```mermaid
 flowchart TD
