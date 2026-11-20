@@ -1,6 +1,14 @@
 # hololinked docs
 
-Documentation in material mkdocs for [hololinked](https://github.com/hololinked-dev/hololinked).
+Documentation in zensical for [hololinked](https://github.com/hololinked-dev/hololinked).
+
+The build installs hololinked from the `repo/hololinked` submodule. It is not checked out by default, not even with `--recurse-submodules`, because hololinked refers back to this repository as a submodule. Check it out explicitly:
+
+```bash
+git clone https://github.com/hololinked-dev/docs.git
+cd docs
+git submodule update --init --checkout repo/hololinked
+```
 
 To build the documentation, while setting up a local development environment with `uv` (`pip install uv`), run:
 
@@ -8,13 +16,13 @@ To build the documentation, while setting up a local development environment wit
 uv venv
 source .venv/bin/activate # or venv\Scripts\activate on Windows
 uv sync --no-install-project
-mkdocs build
+zensical build
 ```
 
 or
 
 ```bash
-mkdocs serve
+zensical serve
 ```
 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/hololinked-dev/docs/ci.yaml?label=Build%20And%20Publish%20Website)

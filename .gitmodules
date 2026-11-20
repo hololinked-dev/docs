@@ -1,3 +1,4 @@
 [submodule "hololinked"]
 	path = repo/hololinked
 	url = https://github.com/hololinked-dev/hololinked.git
+	update = none
