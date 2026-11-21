@@ -8,7 +8,7 @@ nav:
   - Home:
       - Introduction: index.md
       - Installation: introduction/installation.md
-      - Protocols: introduction/use-cases.md
+      - Protocols: introduction/protocols.md
       - Resources: introduction/resources.md
       - Contributing: introduction/contributing.md
       - License: introduction/license.md
