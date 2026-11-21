@@ -4,7 +4,7 @@
 
 ## SSL context
 
-One can enable SSL for HTTP server by providing an SSL context while creating the server:
+One can enable SSL for an HTTP server by providing an SSL context while creating the server:
 
 ```python linenums="1" title="Use SSL"
 import ssl, os
@@ -39,7 +39,7 @@ The default URL path or HTTP routes are created as follows:
 | Thing Model       | `/<thing-id>/resources/wot-tm` | to get the Thing Model       | - acts as property -      | `GET`                                                          |
 | Thing Description | `/<thing-id>/resources/wot-td` | to get the Thing Description | `ThingDescriptionHandler` | `GET`                                                          |
 
-All python names underscores are converted to hyphens in the URL paths for every resource (property, action or event), and the Thing ID is a global prefix.
+All underscores in Python names are converted to hyphens in the URL paths for every resource (property, action or event), and the Thing ID is a global prefix.
 
 One can register custom routes and HTTP methods as follows:
 
@@ -61,15 +61,15 @@ Oscilloscope(id='oscilloscope').run(servers=[server])
 
 ## Path Parameters
 
-There are predefined URL path parameters with specific connotation:
+There are predefined URL path parameters with specific connotations:
 
 | Parameter | Format Example | Description |
 |-----------|----------------|-------------|
-| oneway invokation | `https://localhost:8080/<thing-id>/<action-name>?oneway=true` | invokes an action in a fire & forget fashion |
-| noblock invokation | `https://localhost:8080/<thing-id>/<action-name>?noblock=true` | schedules an action and returns a message ID that can be used to retrieve the reply |
+| oneway invocation | `https://localhost:8080/<thing-id>/<action-name>?oneway=true` | invokes an action in a fire & forget fashion |
+| noblock invocation | `https://localhost:8080/<thing-id>/<action-name>?noblock=true` | schedules an action and returns a message ID that can be used to retrieve the reply |
 | fetch execution logs | `https://localhost:8080/<thing-id>/<action-name>?fetchExecutionLogs=true` | fetches the logs that were accumulated during the execution of an operation |
-| invokation timeout | `https://localhost:8080/<thing-id>/<action-name>?invokationTimeout=7` | Creates a custom invokation timeout of a specific operation |
-| execution timeout | `https://localhost:8080/<thing-id>/<action-name>?executionTimeout=7` | Creates a custom execution timeout of a specific operation |
+| invocation timeout | `https://localhost:8080/<thing-id>/<action-name>?invokationTimeout=7` | Creates a custom invocation timeout for a specific operation |
+| execution timeout | `https://localhost:8080/<thing-id>/<action-name>?executionTimeout=7` | Creates a custom execution timeout for a specific operation |
 | ignore errors for metadata generation |  `https://localhost:8080/<thing-id>/resources/wot-tm?ignore_errors=true` | ignore errors during Web of Things Thing Description or Thing Model generation to generate at least a partial working model | 
 
 All path parameters can be combined. 
@@ -82,12 +82,12 @@ There are specific headers that are respected by the server:
 
 | Headers | Format Example | Description |
 |---------|----------------|-------------|
-| X-Message-ID |  | Message ID to read reply for no block operation |
+| X-Message-ID |  | Message ID to read the reply for a non-blocking operation |
 | X-API-Key, Authorization | | Used by security schemes |
 
 ## Allow CORS
 
-On the web browser, one may want to access the HTTP server from a different domain name, especially during development with `localhost` or in private networks. In such cases, one needs to enable CORS headers:
+In the web browser, one may want to access the HTTP server from a different domain name, especially during development with `localhost` or in private networks. In such cases, one needs to enable CORS headers:
 
 ```python linenums="1" title="Enable CORS" hl_lines="8"
 http_server = HTTPServer(port=9000, config=dict(cors=True))
@@ -103,10 +103,10 @@ Oscilloscope(
 
 CORS headers are set only for authenticated clients.
 
-> Note that for localhost, each port is considered a different domain. A web application and a server running on different ports on same machine will not be recognised to be in the same domain.
+> Note that for localhost, each port is considered a different domain. A web application and a server running on different ports on the same machine will not be recognised as being in the same domain.
 
 !!! warning
-    CORS does not prevent execution of an operation on the server. It only prevents web browsers from reading the response of an HTTP request and is not a security mechanism in itself that can protect a HTTP server. Use [security schemes](../../security) to protect your server instead.
+    CORS does not prevent execution of an operation on the server. It only prevents web browsers from reading the response of an HTTP request and is not a security mechanism in itself that can protect an HTTP server. Use [security schemes](../../security) to protect your server instead.
 
 ## Remotely Stop
 

@@ -5,12 +5,12 @@ Serialization customization is available on a per-interaction-affordance basis. 
 - without having to write serialization handlers in protocol request handler logic
 - to stick to JSON serialization by default
 - to allow non-JSON serialization only for the specific interaction affordances that require it
-- register and use arbitrary serialization protocols
+- to register and use arbitrary serialization protocols
 
-Every serializer must define a
+Every serializer must define:
 
-- `dumps`
-- `loads`
-- `content_type` property
+- a `dumps` method
+- a `loads` method
+- a `content_type` property
 
 The `content_type` is set as the `contentType` field in the Thing Description.

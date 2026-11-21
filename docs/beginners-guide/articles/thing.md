@@ -1,4 +1,4 @@
-# Configuing Thing Class
+# Configuring the Thing Class
 
 ### Logger
 
@@ -25,7 +25,7 @@ thing.run_with_http_server(port=9000)
 
 #### Remote Access to Logger
 
-To be updated after integration with opentelemetry & EFK stack. See [issues](https://github.com/hololinked-dev/hololinked/issues?q=is%3Aissue%20state%3Aopen%20milestone%3A%22logging%2C%20metrics%20and%20traces%22).
+To be updated after integration with OpenTelemetry & the EFK stack. See [issues](https://github.com/hololinked-dev/hololinked/issues?q=is%3Aissue%20state%3Aopen%20milestone%3A%22logging%2C%20metrics%20and%20traces%22).
 
 <!--
 
@@ -53,7 +53,7 @@ Endpoint | Description
 
 ### Meta
 
-To be updated with use cases of modifying Thing metaclass, in the meanwhile there is decent documentation in
+To be updated with use cases of modifying the Thing metaclass; in the meantime, there is decent documentation in
 the developer notes: [Thing MetaClass](../../design/metaclasses.md#metaclasses).
 
 ### Post Init
@@ -61,7 +61,7 @@ the developer notes: [Thing MetaClass](../../design/metaclasses.md#metaclasses).
 To be updated, please refer to the developer notes in the meantime: [Thing Post Init](../../design/metaclasses.md#__post_init__-method).
 
 <!-- `Thing` classes define a `__post_init__` method which is invoked after loading properties from a database.
-All initialization logic which depend on database loaded properties can placed in this method:
+All initialization logic which depends on database loaded properties can be placed in this method:
 
 ```py title="Post Init" linenums="1"
 

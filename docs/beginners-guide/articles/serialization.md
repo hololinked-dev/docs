@@ -30,7 +30,7 @@ Serializers.register_for_object(
 OceanOpticsSpectrometer(id="spectro1").run_with_http_server()
 ```
 
-i.e., other properties, actions or events will still use the default (JSON) serialization. By referring the property, action or event at the class level, the data format change will be reflected for all instances. To overload the content type per `Thing` instance, specify the `thing_id` as well:
+i.e., other properties, actions or events will still use the default (JSON) serialization. By referring to the property, action or event at the class level, the data format change will be reflected for all instances. To overload the content type per `Thing` instance, specify the `thing_id` as well:
 
 ```py linenums="1" title="Overload per Thing instance" hl_lines="13 15"
 from hololinked.serializers import Serializers
@@ -83,7 +83,7 @@ The order of priority is as follows (from highest to lowest):
 1. Per-Thing-instance overloads for specific properties, actions or events.
 2. Per-Thing-instance overloads for the entire Thing instance.
 3. Per-Thing-class overloads for specific properties, actions or events.
-4. Fallback to the default serializer. It is possible to change the default serializer, see API reference.
+4. Fallback to the default serializer. It is possible to change the default serializer; see the API reference.
 
 The singleton behaviour of `Serializers` ensures that all registrations are available across all protocol servers within the same process.
 
@@ -91,14 +91,14 @@ The singleton behaviour of `Serializers` ensures that all registrations are avai
 
 The following serializers are supported out of the box:
 
-- `Serializers.json`: Default JSON serializer using `msgspec` library
-- `Serializers.msgpack`: MessagePack serializer using `msgspec` library
+- `Serializers.json`: Default JSON serializer using the `msgspec` library
+- `Serializers.msgpack`: MessagePack serializer using the `msgspec` library
 - `Serializers.pickle`: Python's built-in pickle serializer (not recommended for untrusted clients or servers)
 - `Serializers.text`: Plain text serializer for string data
 
 ### Custom Serializers
 
-One can create custom serializers by subclassing the `BaseSerializer` and implementing `dumps`, `loads`, and `content_type` methods.
+One can create custom serializers by subclassing `BaseSerializer` and implementing `dumps`, `loads`, and `content_type` methods.
 Then, register the custom serializer for a specific property, action or event using the `Serializers` singleton as shown above.
 
 ```python linenums="1" title="Custom Serializer" hl_lines="8 10-11 17-18 24-25 29"

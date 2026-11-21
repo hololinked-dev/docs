@@ -1,10 +1,10 @@
 # Authentication Schemes
 
-Sophisticated security schemes are currently available only for HTTP. MQTT supports username-password and TLS client certificate authentication. More protocols will be supported in the future. This documentation currently discusses only HTTP security schemes, please check MQTT API reference and MQTT broker provider documentation for MQTT authentication. 
+Sophisticated security schemes are currently available only for HTTP. MQTT supports username-password and TLS client certificate authentication. More protocols will be supported in the future. This documentation currently discusses only HTTP security schemes; please check the MQTT API reference and MQTT broker provider documentation for MQTT authentication.
 
 ### Basic Security Scheme
 
-HTTP Basic authentication with username and password is supported with bcrypt and argon2 hashing schemes. Import the specific flavour and provide the instantiated scheme to the HTTP server:
+HTTP Basic authentication with a username and password is supported with bcrypt and argon2 hashing schemes. Import the specific flavour and provide the instantiated scheme to the HTTP server:
 
 === "Server"
 
@@ -57,9 +57,9 @@ HTTP Basic authentication with username and password is supported with bcrypt an
 
 ### API Key Security Scheme
 
-Use API keys when there is a requirement to keep track of different clients and expire their access after a definite period. API keys are not tied to any user databases or a fine grained authorization system currently, unlike those used in a platform like github or gitlab. They perform only authentication and are locally stored in your machine in your home folder. 
+Use API keys when there is a requirement to keep track of different clients and expire their access after a definite period. API keys are not tied to any user databases or a fine grained authorization system currently, unlike those used in a platform like GitHub or GitLab. They perform only authentication and are locally stored on your machine in your home folder.
 
-Before your application uses an API key security, one needs to create it, mostly outside the scope of the server code.
+Before your application uses an API key security scheme, one needs to create it, mostly outside the scope of the server code.
 
 ```py title="API Key Creation" linenums="1"
 from hololinked.server.security import APIKeySecurity
@@ -91,7 +91,7 @@ thing.run_with_http_server(
 
 === "Authenticating with 3rd Party Clients"
 
-    To use the API key in a HTTP request, pass it in the `x-api-key` header:
+    To use the API key in an HTTP request, pass it in the `x-api-key` header:
 
     ```py title="Usage" linenums="1"
     import requests
@@ -117,9 +117,9 @@ thing.run_with_http_server(
 
 ### OIDC Security Scheme
 
-For frontend web applications that can support an authorization flow where a user in involved, one can use OIDC or OAuth2 flows to authenticate with the server. In this case, the HTTP server provided by `hololinked` is only a resource server and not an authorization server. The authorization server must be separately taken care by an authentication provider, like Keycloak or Google.
+For frontend web applications that can support an authorization flow where a user is involved, one can use OIDC or OAuth2 flows to authenticate with the server. In this case, the HTTP server provided by `hololinked` is only a resource server and not an authorization server. The authorization server must be separately taken care of by an authentication provider, like Keycloak or Google.
 
-Insantiate the `OIDCSecurityScheme` and supply your authorization server configuration:
+Instantiate the `OIDCSecurityScheme` and supply your authorization server configuration:
 
 ```python title="OIDC Security Scheme" linenums="1" hl_lines="1-4 8"
 oidc_security = OIDCSecurityScheme(
@@ -135,6 +135,6 @@ thing.run_with_http_server(
 
 The security scheme is called OIDC security scheme as it only validates logged in user sessions, the roles/scopes of the token issued and optionally, the audience. It might be erroneous to call it an OAuth flow as the token is not used to fetch information from a third party application about the user. 
 
-Implement the login flow on the client and supply the JWT bearer token in the Authorization header. There are no full fledged OIDC token mediation implemented within `hololinked` as the user must be involved in some form or other. 
+Implement the login flow on the client and supply the JWT bearer token in the Authorization header. There is no full fledged OIDC token mediation implemented within `hololinked` as the user must be involved in some form or another.
 
 

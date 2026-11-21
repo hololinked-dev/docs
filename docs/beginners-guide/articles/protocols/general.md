@@ -4,11 +4,11 @@ There are multiple ways to start serving one's `Thing` instance based on the app
 
 - One needs to run one `Thing` instance in one or multiple protocols
 - One needs to run multiple `Thing` instances in one protocol
-- One needs to run multiple `Thing`s instances in multiple protocols
+- One needs to run multiple `Thing` instances in multiple protocols
 
 ## Run Single Thing in Multiple Protocols
 
-To configure a protocol server in a detailed fashion, instantiate them explicitly. 
+To configure protocol servers in a detailed fashion, instantiate them explicitly.
 To start serving, one can pass them as an argument to the `run()` method of the `Thing`:
 
 ```python linenums="1" title="Multiple Protocol Servers"
@@ -46,7 +46,7 @@ Oscilloscope(id='oscilloscope').run_with_http_server(port=9000, ssl_context=ssl_
 ## Run Multiple Things in One Protocol
 
 All protocols support an `add_thing()` method that accepts a `Thing` instance
-and a `run()` and `stop()` method that control their boot up & shutdown: 
+and `run()` and `stop()` methods that control their startup & shutdown:
 
 ```python linenums="1" title="add Things to protocol server"
 from hololinked.server import HTTPServer

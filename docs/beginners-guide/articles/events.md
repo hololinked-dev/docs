@@ -2,7 +2,7 @@
 
 [API Reference](../../api-reference/events/index.md)
 
-Events are pushed to the client through a publish-subscribe mechanism through all the protocols. Call `push()` method on the event to publish data to clients:
+Events are pushed to the client through a publish-subscribe mechanism through all the protocols. Call the `push()` method on the event to publish data to clients:
 
 ```py title="Definition" linenums="1" hl_lines="21-23"
 --8<-- "docs/beginners-guide/code/events/definition.py:3:25"
@@ -16,7 +16,7 @@ One can subscribe to the event using the attribute name:
 
 === "threaded"
 
-    In the default synchronous mode, the `subscribe_event` method spawns a thread that listens to the event in backgound:
+    In the default synchronous mode, the `subscribe_event` method spawns a thread that listens to the event in the background:
 
     ```py title="Subscription" linenums="1" hl_lines="9"
     from hololinked.client import ClientFactory
@@ -32,7 +32,7 @@ One can subscribe to the event using the attribute name:
 
 === "async"
 
-    In the asynchronous mode, the `subscribe_event` method creates an event listening task in the running async loop. This requires the client to be running in an async loop, otherwise no events will be received although the server will be publishing it:
+    In the asynchronous mode, the `subscribe_event` method creates an event listening task in the running async loop. This requires the client to be running in an async loop, otherwise no events will be received although the server will be publishing them:
 
     ```py title="Subscription" linenums="1" hl_lines="9"
     from hololinked.client import ClientFactory
@@ -52,7 +52,7 @@ One can subscribe to the event using the attribute name:
 
 ---
 
-The callback function(s) must accept a single argument - an instance of `SSE` object. The payload can be accessed as using the `data` attribute:
+The callback function(s) must accept a single argument - an instance of the `SSE` object. The payload can be accessed using the `data` attribute:
 
 ```py title="Event Data" linenums="1" hl_lines="9"
 def event_cb(event):
@@ -103,7 +103,7 @@ Each subscription creates a new event stream. One can also supply multiple callb
 
 === "async"
 
-    The event listening task creates newer tasks in the running event loop:
+    The event listening task creates new tasks in the running event loop:
 
     ```py title="Thread Callbacks" linenums="1" hl_lines="12-13"
     async def event_cb1(event):
@@ -136,7 +136,7 @@ All subscriptions to the same event are removed.
 
 ## Payload Schema
 
-Schema for the payload may be supplied using pydantic or JSON schema:
+A schema for the payload may be supplied using pydantic or JSON schema:
 
 ```py title="Payload Schema" linenums="1" hl_lines="13"
 class GentecMaestroEnergyMeter(Thing):

@@ -5,9 +5,9 @@ description: hololinked introduces SCADA & IoT systems to beginners
 
 # hololinked - Pythonic Object-Oriented Supervisory Control & Data Acquisition / Internet of Things
 
-`hololinked` is a beginner-friendly, extensible pythonic tool suited for instrumentation control and data acquisition over network (IoT & SCADA).
+`hololinked` is a beginner-friendly, extensible Pythonic tool suited for instrumentation control and data acquisition over a network (IoT & SCADA).
 
-As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and you want to show the data in a dashboard, provide a PyQt GUI or run automated scripts, `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
+As a novice, you have a requirement to control and capture data from your hardware, say in your electronics or science lab, and show the data in a dashboard, provide a PyQt GUI or run automated scripts. `hololinked` can help. Even for isolated desktop applications or a small setup without networking, one can still separate the concerns of the tools that interact with the hardware & the hardware itself.
 
 If you are a web developer or an industry professional looking for a web standards compatible, interoperable (high-speed) IoT runtime, `hololinked` can be a decent choice. By conforming to [W3C Web of Things](https://www.w3.org/WoT/), one can expect a consistent API and flexible bidirectional message flow to interact with your devices, irrespective of the underlying protocol. Currently HTTP, MQTT & ZMQ are supported.
 
@@ -93,8 +93,8 @@ Additionally, **state machines** can constrain property and action execution:
 ## Benefits you get when you use hololinked
 
 - technology independent and technology extensible architecture -> handles technology changes. 
-- its not a solution that uses "different set of technologies to solve the same problem". It solves a problem irrespective of the underlying technologies. AI included. You chose the tech stack or extend it with your stack (PRs welcome for new tech adapters and new features).  
-- simple to understand and simplifies contradicting viewpoints
+- it's not a solution that uses "a different set of technologies to solve the same problem". It solves a problem irrespective of the underlying technologies. AI included. You choose the tech stack or extend it with your stack (PRs welcome for new tech adapters and new features).
+- simple to understand and simplifies contradictory viewpoints
 - scalable, performant, interoperable and can be used in different domains (IoT, microservices, networked control systems, web, RPCs etc.)
 - metadata rich - use AI agents, API tools, whatever.
 - security built in
@@ -105,7 +105,7 @@ Additionally, **state machines** can constrain property and action execution:
     Please see:
 
     - [Handbook](beginners-guide/articles/servers) section for concepts
-    - Code example and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations
+    - Code examples and the [Examples Repository](https://github.com/hololinked-dev/examples) section for hardware-specific implementations
     - Online (live) examples listed on the [project website](https://hololinked.dev)
 
     Office hours are available on request for any formal or informal discussions, help with implementation or just to say hi:
@@ -113,4 +113,4 @@ Additionally, **state machines** can constrain property and action execution:
     - Every Wednesday 4-6PM CET/CEST
     - Every Friday 9-10AM CET/CEST, 4-5PM CET/CEST
 
-    Please email to <a href="mailto:info@hololinked.dev">info@hololinked.dev</a>. You can also ask questions in the [discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).
+    Please email <a href="mailto:info@hololinked.dev">info@hololinked.dev</a>. You can also ask questions in the [Discord group](https://discord.com/invite/kEz87zqQXh) (currently no participants).
