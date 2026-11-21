@@ -54,7 +54,7 @@ Each device (Thing) is modeled with:
 - Resources and community links
 - Contributing guidelines
 - License information
-- Protocol use cases
+- Protocols
 - Security scanning overview
 
 **URL**: https://docs.hololinked.dev

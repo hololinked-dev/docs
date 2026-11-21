@@ -64,9 +64,7 @@
   </tr>
   <tr>
     <td>MQTT with WebSockets</td>
-    <td>
-      Planned for the April/May 2026 release.
-    </td>
+    <td></td>
   </tr>
   <tr>
     <td>
@@ -75,7 +73,7 @@
       CoAP UDP
     </td>
     <td>
-      Planned, April 2026.
+      Planned, Jan 2027.
     </td>
     <td>
       Will be updated 
